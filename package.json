@@ -1,0 +1,15 @@
+{
+  "name": "power-rank-project-client",
+  "version": "1.0.0",
+  "description": "centralizing power rankings",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "power",
+    "rank"
+  ],
+  "author": "Michael Weber",
+  "license": "ISC"
+}
