@@ -12,7 +12,8 @@ module.exports = merge(common, {
 			filename: 'index.html'
 		}),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify('production')
+			'process.env.NODE_ENV': JSON.stringify('production'),
+			'process.env.API_URL': JSON.stringify(`${env.API_URL}`)
 		})
 	],
 	mode: 'production'

@@ -1,6 +1,12 @@
 import React from 'react';
 import { hot } from 'react-hot-loader'
 
-const App = () => <div>dab</div>
+import Login from './Login';
+
+const App = () => (
+	<div>
+		<Login />
+	</div>
+)
 
 export default hot(module)(App);
