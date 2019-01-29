@@ -4,11 +4,11 @@ const common = require('./webpack.common.js');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = merge(common, {
+module.exports = (env) => merge(common, {
 	plugins: [
-		new CleanWebpackPlugin(['dist'], {exclude: 'favicon.ico'}),
+		new CleanWebpackPlugin(['dist/build'], {exclude: 'favicon.ico'}),
 		new HtmlWebpackPlugin({
-			template: __dirname + '/src/index.html',
+			template: __dirname + '/dist/static/index.html',
 			filename: 'index.html'
 		}),
 		new webpack.DefinePlugin({

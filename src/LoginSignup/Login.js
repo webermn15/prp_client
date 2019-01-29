@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
+import { formatPropAsKey } from '../utils';
 
-const formatPropAsKey = (key, value) => {
-	return {[key]: value}
-}
-
-export default class Login extends Component {
-	constructor() {
-		super()
+class Login extends Component {
+	constructor(props) {
+		super(props)
 
 		this.state = {
 			username: '',
@@ -21,16 +18,13 @@ export default class Login extends Component {
 	handleSubmit = async () => {
 		console.log(process.env.API_URL);
 		try {
-			const response = await fetch(`${process.env.API_URL}`+'/api', {
+			const response = await fetch(`${process.env.API_URL}`+'/api/login', {
 				method: 'POST',
 				body: JSON.stringify(this.state),
 				headers: {
 					'Content-Type': 'application/json'
 				}
 			});
-			if (!response.ok) {
-				throw new Error('yeet')
-			}
 			const body = await response.json();
 			console.log(body);
 		} catch (error) {
@@ -39,7 +33,7 @@ export default class Login extends Component {
 	}
 
 	render() {
-		console.log(this.state);
+		console.log(this.props);
 		return(
 			<div style={{display: "flex", flexDirection: "column", padding: "20px", width: "200px"}}>
 				<input placeholder="Username" type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)}/>
@@ -53,3 +47,5 @@ export default class Login extends Component {
 		)
 	}
 }
+
+export default Login;

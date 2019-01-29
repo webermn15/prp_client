@@ -11,11 +11,12 @@ module.exports = (env) => merge(common, {
 		})
 	],
 	devServer: {
-		contentBase: path.resolve(__dirname, 'dist'),
+		contentBase: path.resolve(__dirname, 'dist/static'),
 		hot: true,
+    historyApiFallback: true,
 		proxy: {
 			'/api': 'http://localhost:3000',
-			'secure': false
+			secure: false
 		}
 	},
 	mode: 'development'
