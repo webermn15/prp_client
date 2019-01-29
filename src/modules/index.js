@@ -6,7 +6,13 @@ import userInfo from './userInfo';
 {
 	userInfo: {
 		id: null,
-		username: ''
+		username: '',
+		accessToken: null,
+		idToken: null,
+		expiresAt: null,
+		authenticating: false,
+		authenticated: false,
+		error: null
 	}
 }
 

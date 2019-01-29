@@ -1,10 +1,62 @@
-const SET_USER = 'SET_USER';
+import fetch from 'cross-fetch';
+
+// declare action literals
+const LOGIN_ATTEMPT = 'LOGIN_ATTEMPT';
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+const LOGIN_FAIL = 'LOGIN_FAIL';
+
 
 // action creators
-export const setUser = (payload) => {
+const login = async (credentials) => {
+	const response = await fetch(`${process.env.API_URL}`+'/api/login', {
+		method: 'POST',
+		body: JSON.stringify(credentials),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	});
+
+	return response.json();
+}
+
+export const loginRequest = credentials => {
+	return async dispatch => {
+		dispatch(loginAttempt())
+		try {
+			const response = await login(credentials);
+
+			if (!response.ok) {
+				dispatch(loginFail(response));
+			}
+			else {
+				dispatch(loginSuccess(response));
+			}
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
+}
+
+const loginAttempt = () => {
 	return {
-		type: SET_USER,
-		...payload
+		type: LOGIN_ATTEMPT
+	}
+}
+
+const loginSuccess = ({user}) => {
+	const { id, username } = user;
+	return {
+		type: LOGIN_SUCCESS,
+		id,
+		username
+	}
+}
+
+const loginFail = ({err}) => {
+	return {
+		type: LOGIN_FAIL,
+		err
 	}
 }
 
@@ -12,17 +64,36 @@ export const setUser = (payload) => {
 // initial state for this slice, exported reducer
 const initUserState = {
 	id: null,
-	username: ''
+	username: '',
+	accessToken: null,
+	idToken: null,
+	expiresAt: null,
+	authenticating: false,
+	authenticated: false,
+	error: null
 }
 
 const userInfo = (state = initUserState, action) => {
 	switch (action.type) {
-		case SET_USER:
+		case LOGIN_ATTEMPT:
+			return Object.assign({}, state, {
+				...state,
+				authenticating: true
+			})
+		case LOGIN_SUCCESS:
 			return Object.assign({}, state, {
 				...state,
 				id: action.id,
-				username: action.username
+				username: action.username,
+				authenticating: false,
+				authenticated: true
 			});
+		case LOGIN_FAIL:
+			return Object.assign({}, state, {
+				...state,
+				authenticating: false,
+				error: action.err
+			})
 		default:
 			return state;
 	}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { formatPropAsKey } from '../utils';
 
 class Login extends Component {
@@ -15,25 +16,13 @@ class Login extends Component {
 		this.setState(formatPropAsKey(e.target.name, e.target.value));
 	}
 
-	handleSubmit = async () => {
-		console.log(process.env.API_URL);
-		try {
-			const response = await fetch(`${process.env.API_URL}`+'/api/login', {
-				method: 'POST',
-				body: JSON.stringify(this.state),
-				headers: {
-					'Content-Type': 'application/json'
-				}
-			});
-			const body = await response.json();
-			console.log(body);
-		} catch (error) {
-			console.log(error);
-		}
+	handleSubmit = () => {
+		const { onLoginRequest } = this.props;
+		onLoginRequest(this.state);
 	}
 
 	render() {
-		console.log(this.props);
+		console.log(process.env.API_URL);
 		return(
 			<div style={{display: "flex", flexDirection: "column", padding: "20px", width: "200px"}}>
 				<input placeholder="Username" type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)}/>
@@ -49,3 +38,7 @@ class Login extends Component {
 }
 
 export default Login;
+
+Login.propTypes = {
+	onLoginRequest: PropTypes.func.isRequired
+}
