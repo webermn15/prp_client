@@ -12,8 +12,6 @@ import userInfo from './userInfo';
 
 */
 
-
-
 const rootReducer = combineReducers({
 	userInfo
 });

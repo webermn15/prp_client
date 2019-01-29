@@ -1,6 +1,6 @@
 const SET_USER = 'SET_USER';
 
-
+// action creators
 export const setUser = (payload) => {
 	return {
 		type: SET_USER,
@@ -9,6 +9,7 @@ export const setUser = (payload) => {
 }
 
 
+// initial state for this slice, exported reducer
 const initUserState = {
 	id: null,
 	username: ''
