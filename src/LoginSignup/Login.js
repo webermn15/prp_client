@@ -22,7 +22,6 @@ class Login extends Component {
 	}
 
 	render() {
-		console.log(process.env.API_URL);
 		return(
 			<div style={{display: "flex", flexDirection: "column", padding: "20px", width: "200px"}}>
 				<input placeholder="Username" type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)}/>

@@ -7,6 +7,27 @@ const LOGIN_FAIL = 'LOGIN_FAIL';
 
 
 // action creators
+export const loginRequest = credentials => {
+	return async dispatch => {
+		dispatch(loginAttempt())
+		try {
+			const response = await login(credentials);
+			
+			const body = await response.json()
+
+			if (!response.ok) {
+				dispatch(loginFail(body));
+			}
+			else {
+				dispatch(loginSuccess(body));
+			}
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
+}
+
 const login = async (credentials) => {
 	const response = await fetch(`${process.env.API_URL}`+'/api/login', {
 		method: 'POST',
@@ -16,26 +37,7 @@ const login = async (credentials) => {
 		}
 	});
 
-	return response.json();
-}
-
-export const loginRequest = credentials => {
-	return async dispatch => {
-		dispatch(loginAttempt())
-		try {
-			const response = await login(credentials);
-
-			if (!response.ok) {
-				dispatch(loginFail(response));
-			}
-			else {
-				dispatch(loginSuccess(response));
-			}
-		}
-		catch (e) {
-			console.log(e);
-		}
-	}
+	return response;
 }
 
 const loginAttempt = () => {
