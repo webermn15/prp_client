@@ -4,6 +4,8 @@ import fetch from 'cross-fetch';
 const LOGIN_ATTEMPT = 'LOGIN_ATTEMPT';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAIL = 'LOGIN_FAIL';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
+const AUTH_FAIL = 'AUTH_FAIL';
 
 
 // action creators
@@ -62,11 +64,31 @@ const loginFail = ({err}) => {
 	}
 }
 
+export const authUserSuccess = credentials => {
+	console.log('authUserSuccess action creator: ', credentials);
+	const { accessToken, idToken, expiresIn, idTokenPayload } = credentials;
+	return {
+		type: AUTH_SUCCESS,
+		accessToken,
+		idToken,
+		expiresIn,
+		idTokenPayload
+	}
+}
+
+export const authUserFail = err => {
+	console.log('authUserFail action creator: ', err)
+	return {
+		type: AUTH_FAIL
+	}
+}
+
 
 // initial state for this slice, exported reducer
 const initUserState = {
 	id: null,
 	username: '',
+	picture: null,
 	accessToken: null,
 	idToken: null,
 	expiresAt: null,
@@ -95,6 +117,20 @@ const userInfo = (state = initUserState, action) => {
 				...state,
 				authenticating: false,
 				error: action.err
+			})
+		case AUTH_SUCCESS:
+			return Object.assign({}, state, {
+				...state,
+				accessToken: action.accessToken,
+				idToken: action.idToken,
+				expiresAt: action.expiresIn,
+				id: action.idTokenPayload.sub,
+				username: action.idTokenPayload.nickname,
+				picture: action.idTokenPayload.picture
+			})
+		case AUTH_FAIL:
+			return Object.assign({}, state, {
+				...state
 			})
 		default:
 			return state;

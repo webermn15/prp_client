@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { loginRequest } from '../modules/userInfo';
 import Login from './Login';
 
@@ -15,9 +16,9 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-const LoginContainer = connect(
+const LoginContainer = withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Login)
+)(Login))
 
 export default LoginContainer;

@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './modules';
 
-import App from './App';
+import AppContainer from './AppContainer';
 
 const middleware = applyMiddleware(thunk);
 const store = createStore(
@@ -21,7 +21,7 @@ const store = createStore(
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>	
-			<App />
+			<AppContainer />
 		</Router>
 	</Provider>, document.getElementById('app')
 );

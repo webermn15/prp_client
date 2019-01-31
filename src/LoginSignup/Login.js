@@ -17,19 +17,20 @@ class Login extends Component {
 	}
 
 	handleSubmit = () => {
-		const { onLoginRequest } = this.props;
-		onLoginRequest(this.state);
+		const { auth } = this.props;
+		// const { onLoginRequest } = this.props;
+		// onLoginRequest(this.state);
+		auth.login();
 	}
 
 	render() {
+		console.log('props in Login Component: ', this.props);
 		return(
 			<div style={{display: "flex", flexDirection: "column", padding: "20px", width: "200px"}}>
-				<input placeholder="Username" type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)}/>
-				<input placeholder="Password" type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)}/>
 				<button
 					onClick={() => this.handleSubmit()}
 				>
-					Submit
+					Login via Auth0
 				</button>
 			</div>
 		)
@@ -39,5 +40,5 @@ class Login extends Component {
 export default Login;
 
 Login.propTypes = {
-	onLoginRequest: PropTypes.func.isRequired
+	auth: PropTypes.object.isRequired
 }
