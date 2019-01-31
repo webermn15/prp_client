@@ -17,22 +17,38 @@ class Header extends Component {
 	}
 	render() {
 		console.log('header passed props: ', this.props);
+		const { authenticated } = this.props.userInfo;
 		return(
-			<div style={{display: "flex", flexDirection: "column", padding: "20px", width: "200px"}}>
+			<header style={{display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "20px", border: "1px solid black"}}>
 				<Link to="/">
 					go home dude
 				</Link>
-				<button
-					onClick={() => this.handleAuthorization()}
-				>
-					Login via Auth0
-				</button>
-				<button
-					onClick={() => this.handleLogout()}
-				>
-					Logout from this application
-				</button>
-			</div>
+				{
+					!authenticated && (
+						<button
+							onClick={() => this.handleAuthorization()}
+						>
+							Login via Auth0
+						</button>
+					)
+				}
+				{
+					authenticated && (
+						<div style={{display: "flex", flexDirection: "row"}}>
+							<button
+								onClick={() => this.handleLogout()}
+							>
+								Logout from this application
+							</button>
+							<div>username: {this.props.userInfo.username}</div>
+							<div style={{height: "40px", width: "40px"}}>
+								<img style={{maxWidth: "100%", borderRadius: "20px"}} src={this.props.userInfo.picture} />
+							</div>
+						</div>
+					)
+				}
+
+			</header>
 		)
 	}
 }
@@ -41,5 +57,7 @@ export default Header;
 
 Header.propTypes = {
 	auth: PropTypes.object.isRequired,
-	logoutUser: PropTypes.func.isRequired
+	logoutUser: PropTypes.func.isRequired,
+	userInfo: PropTypes.object.isRequired,
+	authenticated: PropTypes.bool
 }

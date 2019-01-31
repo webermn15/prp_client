@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import userInfo from './userInfo';
+import gamesInfo from './gamesInfo';
 
 /* * * STATE * * *
 
@@ -19,7 +20,8 @@ import userInfo from './userInfo';
 */
 
 const rootReducer = combineReducers({
-	userInfo
+	userInfo,
+	gamesInfo
 });
 
 export default rootReducer;
