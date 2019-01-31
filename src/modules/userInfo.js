@@ -1,72 +1,15 @@
-import fetch from 'cross-fetch';
+// import fetch from 'cross-fetch';
 
 // declare action literals
-const LOGIN_ATTEMPT = 'LOGIN_ATTEMPT';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_FAIL = 'LOGIN_FAIL';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const AUTH_FAIL = 'AUTH_FAIL';
+const LOGOUT_USER = 'LOGOUT_USER';
 
 
 // action creators
-export const loginRequest = credentials => {
-	return async dispatch => {
-		dispatch(loginAttempt())
-		try {
-			const response = await login(credentials);
-			
-			const body = await response.json()
-
-			if (!response.ok) {
-				dispatch(loginFail(body));
-			}
-			else {
-				dispatch(loginSuccess(body));
-			}
-		}
-		catch (e) {
-			console.log(e);
-		}
-	}
-}
-
-const login = async (credentials) => {
-	const response = await fetch(`${process.env.API_URL}`+'/api/login', {
-		method: 'POST',
-		body: JSON.stringify(credentials),
-		headers: {
-			'Content-Type': 'application/json'
-		}
-	});
-
-	return response;
-}
-
-const loginAttempt = () => {
-	return {
-		type: LOGIN_ATTEMPT
-	}
-}
-
-const loginSuccess = ({user}) => {
-	const { id, username } = user;
-	return {
-		type: LOGIN_SUCCESS,
-		id,
-		username
-	}
-}
-
-const loginFail = ({err}) => {
-	return {
-		type: LOGIN_FAIL,
-		err
-	}
-}
-
 export const authUserSuccess = credentials => {
-	console.log('authUserSuccess action creator: ', credentials);
 	const { accessToken, idToken, expiresIn, idTokenPayload } = credentials;
+	console.log('authUserSuccess action creator, credentials: ', credentials);
 	return {
 		type: AUTH_SUCCESS,
 		accessToken,
@@ -83,6 +26,12 @@ export const authUserFail = err => {
 	}
 }
 
+export const logoutUser = () => {
+	return {
+		type: LOGOUT_USER
+	}
+}
+
 
 // initial state for this slice, exported reducer
 const initUserState = {
@@ -92,32 +41,12 @@ const initUserState = {
 	accessToken: null,
 	idToken: null,
 	expiresAt: null,
-	authenticating: false,
 	authenticated: false,
 	error: null
 }
 
 const userInfo = (state = initUserState, action) => {
 	switch (action.type) {
-		case LOGIN_ATTEMPT:
-			return Object.assign({}, state, {
-				...state,
-				authenticating: true
-			})
-		case LOGIN_SUCCESS:
-			return Object.assign({}, state, {
-				...state,
-				id: action.id,
-				username: action.username,
-				authenticating: false,
-				authenticated: true
-			});
-		case LOGIN_FAIL:
-			return Object.assign({}, state, {
-				...state,
-				authenticating: false,
-				error: action.err
-			})
 		case AUTH_SUCCESS:
 			return Object.assign({}, state, {
 				...state,
@@ -126,11 +55,18 @@ const userInfo = (state = initUserState, action) => {
 				expiresAt: action.expiresIn,
 				id: action.idTokenPayload.sub,
 				username: action.idTokenPayload.nickname,
-				picture: action.idTokenPayload.picture
+				picture: action.idTokenPayload.picture,
+				authenticated: true
 			})
 		case AUTH_FAIL:
 			return Object.assign({}, state, {
-				...state
+				...state,
+				authenticated: false
+			})
+		case LOGOUT_USER:
+			return Object.assign({}, state, {
+				...state,
+				initUserState
 			})
 		default:
 			return state;

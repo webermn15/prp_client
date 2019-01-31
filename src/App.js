@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Auth from './auth';
 
-import { LoginContainer } from './LoginSignup';
+import { HeaderContainer } from './Header';
 import Home from './Home';
 
 const auth = new Auth();
-
-
 
 class App extends Component {
 	constructor(props) {
@@ -18,6 +16,7 @@ class App extends Component {
 	handleAuth = async () => {
 		if (/access_token|id_token/.test(location.hash)) {
 			const authResponse = await auth.handleAuth()
+			console.log('app handleAuth method, successful: ', authResponse);
 			this.props.onAuthSuccess(authResponse);
 		}
 		else if (/error/.test(location.hash)) {
@@ -30,13 +29,9 @@ class App extends Component {
 	render() {
 		return(
 			<div>
-				<Link to="/login">
-					Log in to the application via Auth0
-				</Link>
+				<HeaderContainer auth={auth} />
 				<Switch>
-					<Route path="/login" render={(props) => {
-						return <LoginContainer auth={auth} {...props} />
-					}} />
+					<Route exact path="/" render={() => <div>yeet dabdabdabdab</div>}/>
 					<Route path="/home" render={(props) => {
 						this.handleAuth()
 						return <Home {...props} />

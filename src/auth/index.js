@@ -19,6 +19,13 @@ class Auth {
 		this.auth0.authorize();
 	}
 
+	logout = () => {
+		this.auth0.logout({
+			clientID: clientId,
+			returnTo: 'http://localhost:8080/'
+		})
+	}
+
 	handleAuth = () => {
 		return new Promise((resolve, reject) => {
 			this.auth0.parseHash((err, authResult) => {
@@ -31,8 +38,6 @@ class Auth {
 			})
 		})
 	}
-
-
 }
 
 export default Auth;
