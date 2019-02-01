@@ -5,6 +5,7 @@ import Auth from './auth';
 
 import { HeaderContainer } from './Header';
 import { HomeContainer } from './Content';
+import { GameContainer } from './Content';
 import Callback from './Callback';
 
 const auth = new Auth();
@@ -35,7 +36,10 @@ class App extends Component {
 					<Switch>
 						<Route exact path="/" render={() => {
 							return <HomeContainer />
-						}}/>
+						}} />
+						<Route path="/game/:game" render={() => {
+							return <GameContainer />
+						}} />
 						<Route path="/callback" render={() => {
 							this.handleAuth()
 							return <Callback />

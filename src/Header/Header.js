@@ -16,7 +16,7 @@ class Header extends Component {
 		auth.logout();
 	}
 	render() {
-		console.log('header passed props: ', this.props);
+		// console.log('header passed props: ', this.props);
 		const { authenticated } = this.props.userInfo;
 		return(
 			<header style={{display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "20px", border: "1px solid black"}}>

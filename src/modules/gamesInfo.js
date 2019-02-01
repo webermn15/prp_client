@@ -7,14 +7,14 @@ const SET_GAMES = 'SET_GAMES';
 export const requestStoredGames = () => {
 	return async dispatch => {
 		try {
-			const response = await getGames()
+			const response = await getGames();
 
 			const body = await response.json()
 			if (!response.ok) {
-				console.log(response);
+				console.log('error in requestStoredGames action creator: ', response);
 			}
 			else {
-				dispatch(setGames(body))
+				dispatch(setGames(body));
 			}
 		}
 		catch (e) {
@@ -39,23 +39,18 @@ const setGames = data => {
 }
 
 // init state & reducer for this slice
-const insertItem = (array, action) => {
-	console.log('insertItem function: ', action.games)
-  let newArray = array.slice()
-  for (let i = 0; i < action.games.length; i++) {
-		newArray.push(action.games[i])
+const insertItem = (prevState, newItems) => {
+  let newArray = prevState.slice()
+  for (let i = 0; i < newItems.length; i++) {
+		newArray.push(newItems[i])
   }
   return newArray;
 }
 
-const initGamesInfo = {
-	games: []
-}
-
-const gamesInfo = (state = initGamesInfo, action) => {
+const gamesInfo = (state = [], action) => {
 	switch (action.type) {
 		case SET_GAMES:
-			return insertItem(state.games, action)
+			return insertItem(state, action.games)
 		default:
 			return state;
 	}

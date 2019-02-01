@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import userInfo from './userInfo';
 import gamesInfo from './gamesInfo';
+import gameData from './gameData';
 
 /* * * STATE * * *
 
@@ -21,7 +22,8 @@ import gamesInfo from './gamesInfo';
 
 const rootReducer = combineReducers({
 	userInfo,
-	gamesInfo
+	gamesInfo,
+	gameData
 });
 
 export default rootReducer;

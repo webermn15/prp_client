@@ -11,15 +11,15 @@ class Home extends Component {
 	}
 
 	render() {
-		console.log('props in home component: ', this.props);
+		console.log('props in home component: ', this.props.gamesInfo);
 		return(
 			<div>
 				<h1>Power Rank Project</h1>
 				<p>There is no centralized place to house power ranks. smashgg kinda, but its a poor implementation and rarely used. i wanna fix that.</p>
 				{
-					(this.props.gamesInfo.length > 1) && (
+					(this.props.gamesInfo.length > 0) && (
 						this.props.gamesInfo.map(game => {
-							return <div key={game}><Link to={`/${game}`}>{game}</Link><br/></div>
+							return <div key={game.id}><Link to={{pathname:`/game/${game.alias}`, state: {gameId: game.id}}}>{game.name}</Link><br/></div>
 						})
 					)
 				}
@@ -31,5 +31,6 @@ class Home extends Component {
 export default Home;
 
 Home.propTypes = {
-	onLoadGetGames: PropTypes.func.isRequired
+	onLoadGetGames: PropTypes.func.isRequired,
+	gamesInfo: PropTypes.array
 }
