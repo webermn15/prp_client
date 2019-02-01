@@ -40,19 +40,22 @@ const setGames = data => {
 
 // init state & reducer for this slice
 const insertItem = (array, action) => {
+	console.log('insertItem function: ', action.games)
   let newArray = array.slice()
-  newArray.splice(action.index, 0, action.item)
-  return newArray
+  for (let i = 0; i < action.games.length; i++) {
+		newArray.push(action.games[i])
+  }
+  return newArray;
 }
 
 const initGamesInfo = {
-	games: ['ultimate']
+	games: []
 }
 
 const gamesInfo = (state = initGamesInfo, action) => {
 	switch (action.type) {
 		case SET_GAMES:
-			return insertItem(state.games, state.games.length, action.games)
+			return insertItem(state.games, action)
 		default:
 			return state;
 	}
