@@ -12,6 +12,7 @@ export const requestGameRankings = query => {
 			const response = await getGameRankings(query);
 
 			const body = await response.json();
+			console.log('stringified api response in requestGameRankings action creator: ', body);
 			if (!response.ok) {
 				console.log('error in requestGameRankings action creator: ', response);
 			}

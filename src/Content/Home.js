@@ -11,7 +11,6 @@ class Home extends Component {
 	}
 
 	render() {
-		console.log('props in home component: ', this.props.gamesInfo);
 		return(
 			<div>
 				<h1>Power Rank Project</h1>
@@ -19,7 +18,14 @@ class Home extends Component {
 				{
 					(this.props.gamesInfo.length > 0) && (
 						this.props.gamesInfo.map(game => {
-							return <div key={game.id}><Link to={{pathname:`/game/${game.alias}`, state: {gameId: game.id}}}>{game.name}</Link><br/></div>
+							return <div key={game.id}>
+								<Link 
+									to={{pathname:`/game/${game.alias}`, state: {gameId: game.id}}}
+								>
+									{game.name}
+								</Link>
+								<br/>
+							</div>
 						})
 					)
 				}
