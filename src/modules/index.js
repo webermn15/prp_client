@@ -15,7 +15,19 @@ import gameData from './gameData';
 		authenticating: false,
 		authenticated: false,
 		error: null
-	}
+	},
+	gamePage: {
+		ssbm: {
+			recentUploads: []
+		}
+	},
+	gamesInfo: [
+		{
+			id: 0,
+			alias: '',
+			name: ''
+		}
+	]
 }
 
 */

@@ -6,6 +6,7 @@ import Auth from './auth';
 import { HeaderContainer } from './Header';
 import { HomeContainer } from './Content';
 import { GameContainer } from './Content';
+// import { RankingContainer } from './Content';
 import Callback from './Callback';
 
 const auth = new Auth();
@@ -13,6 +14,11 @@ const auth = new Auth();
 class App extends Component {
 	constructor(props) {
 		super(props)
+	}
+
+	componentDidMount() {
+		const { onLoadGetGames } = this.props;
+		onLoadGetGames();
 	}
 
 	handleAuth = async () => {
@@ -56,5 +62,6 @@ export default App;
 App.propTypes = {
 	onAuthSuccess: PropTypes.func.isRequired,
 	onAuthFail: PropTypes.func.isRequired,
+	onLoadGetGames: PropTypes.func.isRequired,
 	history: PropTypes.object.isRequired
 }

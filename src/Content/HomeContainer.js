@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { requestStoredGames } from '../modules/gamesInfo';
 import Home from './Home';
 
 const mapStateToProps = state => {
@@ -10,15 +9,8 @@ const mapStateToProps = state => {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		onLoadGetGames: () => dispatch(requestStoredGames())
-	}
-}
-
 const HomeContainer = withRouter(connect(
-	mapStateToProps,
-	mapDispatchToProps
+	mapStateToProps
 )(Home))
 
 export default HomeContainer;

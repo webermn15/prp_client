@@ -6,9 +6,6 @@ class Home extends Component {
 	constructor(props) {
 		super(props)
 	}
-	componentDidMount() {
-		this.props.onLoadGetGames();
-	}
 
 	render() {
 		return(
@@ -18,11 +15,11 @@ class Home extends Component {
 				{
 					(this.props.gamesInfo.length > 0) && (
 						this.props.gamesInfo.map(game => {
-							return <div key={game.id}>
+							return <div key={game.game_id}>
 								<Link 
-									to={{pathname:`/game/${game.alias}`, state: {gameId: game.id}}}
+									to={{pathname:`/game/${game.alias}`}}
 								>
-									{game.name}
+									{game.game_name}
 								</Link>
 								<br/>
 							</div>
@@ -37,6 +34,5 @@ class Home extends Component {
 export default Home;
 
 Home.propTypes = {
-	onLoadGetGames: PropTypes.func.isRequired,
 	gamesInfo: PropTypes.array
 }
