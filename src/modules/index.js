@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import userInfo from './userInfo';
 import gamesInfo from './gamesInfo';
 import gameData from './gameData';
+import regionData from './regionData';
 
 /* * * STATE * * *
 
@@ -18,7 +19,8 @@ import gameData from './gameData';
 	},
 	gamePage: {
 		ssbm: {
-			recentUploads: []
+			recentUploads: [],
+			lastUpdated: date object
 		}
 	},
 	gamesInfo: [
@@ -27,7 +29,16 @@ import gameData from './gameData';
 			alias: '',
 			name: ''
 		}
-	]
+	],
+	regionData: {
+		chicago: {
+			region_id: 1,
+			region_name: 'Chicago',
+			region_alias: 'chicago',
+			level: 'local',
+			region_image: null
+		}
+	}
 }
 
 */
@@ -35,7 +46,8 @@ import gameData from './gameData';
 const rootReducer = combineReducers({
 	userInfo,
 	gamesInfo,
-	gameData
+	gameData,
+	regionData
 });
 
 export default rootReducer;

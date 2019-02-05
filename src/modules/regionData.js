@@ -1,20 +1,20 @@
 import fetch from 'cross-fetch';
 
 // action declarations
-const SET_GAME_RANKS = 'SET_GAME_RANKS';
+const SET_REGION_DATA = 'SET_REGION_DATA';
 
 // action creators
-export const requestGameRankings = query => {
+export const requestRegionData = query => {
 	return async dispatch => {
 		try {
-			const response = await getGameRankings(query);
+			const response = await getRegionData(query);
 
 			const body = await response.json();
 			if (!response.ok) {
-				console.log('error in requestGameRankings action creator: ', response);
+				console.log('error in requestRegionData action creator: ', response);
 			}
 			else {
-				dispatch(setGameRankings(body, query.gameAlias));
+				dispatch(setRegionData(body, query.regionAlias));
 			}
 		}
 		catch (e) {
@@ -23,8 +23,8 @@ export const requestGameRankings = query => {
 	}
 }
 
-const getGameRankings = async query => {
-	const response = await fetch(`${process.env.API_URL}/api/rankings/recent`, {
+const getRegionData = async query => {
+	const response = await fetch(`${process.env.API_URL}/api/rankings/region`, {
 		method: 'POST',
 		body: JSON.stringify(query),
 		headers: {
@@ -34,18 +34,18 @@ const getGameRankings = async query => {
 	return response;
 }
 
-const setGameRankings = (data, alias) => {
+const setRegionData = (data, alias) => {
 	return {
-		type: SET_GAME_RANKS,
+		type: SET_REGION_DATA,
 		data,
 		alias
 	}
 }
 
 // init state & reducer for this slice
-const gameData = (state = {}, action) => {
+const regionData = (state = {}, action) => {
 	switch (action.type) {
-		case SET_GAME_RANKS:
+		case SET_REGION_DATA:
 			return Object.assign({}, state, {
 				...state,
 				[action.alias]: action.data
@@ -55,4 +55,4 @@ const gameData = (state = {}, action) => {
 	}
 }
 
-export default gameData;
+export default regionData;

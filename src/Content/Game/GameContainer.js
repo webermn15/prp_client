@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { requestGameRankings } from '../modules/gameData';
+import { requestGameRankings } from '../../modules/gameData';
 import Game from './Game';
 
 const mapStateToProps = state => {

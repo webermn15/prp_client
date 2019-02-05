@@ -17,7 +17,7 @@ class Home extends Component {
 						this.props.gamesInfo.map(game => {
 							return <div key={game.game_id}>
 								<Link 
-									to={{pathname:`/game/${game.alias}`}}
+									to={{pathname:`/${game.game_alias}`}}
 								>
 									{game.game_name}
 								</Link>

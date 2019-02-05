@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 import Auth from './auth';
 
 import { HeaderContainer } from './Header';
-import { HomeContainer } from './Content';
-import { GameContainer } from './Content';
-// import { RankingContainer } from './Content';
+import { HomeContainer, GameContainer, Players } from './Content';
 import Callback from './Callback';
 
 const auth = new Auth();
@@ -43,12 +41,15 @@ class App extends Component {
 						<Route exact path="/" render={() => {
 							return <HomeContainer />
 						}} />
-						<Route path="/game/:game" render={() => {
-							return <GameContainer />
-						}} />
 						<Route path="/callback" render={() => {
 							this.handleAuth()
 							return <Callback />
+						}} />
+						<Route path="/players" render={props => {
+							return <Players {...props} />
+						}} />
+						<Route path="/:game" render={props => {
+							return <GameContainer {...props} />
 						}} />
 					</Switch>
 				</main>
