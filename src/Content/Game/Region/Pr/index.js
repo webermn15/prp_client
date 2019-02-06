@@ -1,5 +1,5 @@
-import Pr from './Pr';
+import PrContainer from './PrContainer';
 
 export {
-	Pr
+	PrContainer
 }

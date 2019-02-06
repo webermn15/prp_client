@@ -45,7 +45,7 @@ class App extends Component {
 							this.handleAuth()
 							return <Callback />
 						}} />
-						<Route path="/players" render={props => {
+						<Route path="/player/:id" render={props => {
 							return <Players {...props} />
 						}} />
 						<Route path="/:game" render={props => {

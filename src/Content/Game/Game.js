@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import GameRoot from './GameRoot';
@@ -22,10 +22,12 @@ class Game extends Component {
 		const gameAlias = match.params.game;
 		return(
 			<div>
-				<h1>{gameAlias.toUpperCase()} Power Rankings</h1>
+				<Link to={`${match.url}`}>
+					<h1>{gameAlias.toUpperCase()} Power Rankings</h1>
+				</Link>
 				<h6>Last updated: {gameData[gameAlias] && gameData[gameAlias].lastUpdated}</h6>
 				<Switch>
-					<Route path={`${match.url}/:region`} render={(props) => <RegionContainer {...props} />} />
+					<Route path={`${match.url}/:region`} render={(props) => <RegionContainer {...props} gameAlias={gameAlias} />} />
 					<Route path={`${match.url}`} render={(props) => <GameRoot {...props} url={match.url} gameAlias={gameAlias} gameData={gameData} />} />
 				</Switch>
 			</div>
