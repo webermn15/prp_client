@@ -1,9 +1,9 @@
 import HomeContainer from './HomeContainer';
 import { GameContainer } from './Game';
-import { Players } from './Players';
+import { PlayerContainer } from './Players';
 
 export {
 	HomeContainer,
 	GameContainer,
-	Players
+	PlayerContainer
 }

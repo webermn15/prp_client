@@ -4,6 +4,7 @@ import gamesInfo from './gamesInfo';
 import gameData from './gameData';
 import regionData from './regionData';
 import rankings from './rankings';
+import players from './players';
 
 /* * * STATE * * *
 
@@ -49,7 +50,8 @@ const rootReducer = combineReducers({
 	gamesInfo,
 	gameData,
 	regionData,
-	rankings
+	rankings,
+	players
 });
 
 export default rootReducer;

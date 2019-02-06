@@ -1,5 +1,5 @@
-import Players from './Players';
+import PlayerContainer from './PlayerContainer';
 
 export {
-	Players
+	PlayerContainer
 }
