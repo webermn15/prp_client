@@ -25,7 +25,7 @@ class Players extends Component {
 					{players[playerId] && players[playerId].rankings.map(ranking => {
 						return(
 							<li key={ranking.ranking_id}>
-								<Link to={`${ranking.ranking_game}/${ranking.region_alias}/${ranking.ranking_id}`}>
+								<Link to={`/${ranking.ranking_game}/${ranking.region_alias}/${ranking.ranking_id}`}>
 									<h3>{`${ranking.region_name} | ${ranking.ranking_title}`}</h3>
 								</Link>
 							</li>
