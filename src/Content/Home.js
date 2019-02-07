@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { NavLink } from '../style';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
@@ -16,11 +17,11 @@ class Home extends Component {
 					(this.props.gamesInfo.length > 0) && (
 						this.props.gamesInfo.map(game => {
 							return <div key={game.game_id}>
-								<Link 
+								<NavLink 
 									to={{pathname:`/${game.game_alias}`}}
 								>
 									{game.game_name}
-								</Link>
+								</NavLink>
 								<br/>
 							</div>
 						})

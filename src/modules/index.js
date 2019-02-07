@@ -40,6 +40,16 @@ import players from './players';
 			level: 'local',
 			region_image: null
 		}
+	},
+	rankings: {
+		// gotta reformat this
+	},
+	players: {
+		[player_id]: {
+			player_tag: 'name',
+			sponsor_prefix: 'prefix',
+			rankings: []
+		}
 	}
 }
 

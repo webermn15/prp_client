@@ -1,12 +1,14 @@
+import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'babel-polyfill';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './modules';
+import { ThemeProvider } from 'styled-components';
 
+import { GlobalStyle, theme } from './style';
 import AppContainer from './AppContainer';
 
 const middleware = applyMiddleware(thunk);
@@ -19,9 +21,12 @@ const store = createStore(
 );
 
 ReactDOM.render(
-	<Provider store={store}>
-		<Router>	
-			<AppContainer />
-		</Router>
-	</Provider>, document.getElementById('app')
+	<Router>
+		<ThemeProvider theme={theme}>
+			<Provider store={store}>
+				<GlobalStyle />
+				<AppContainer />
+			</Provider>
+		</ThemeProvider>
+	</Router>, document.getElementById('app')
 );
