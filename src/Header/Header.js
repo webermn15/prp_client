@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { NavLink } from '../style';
+import { NavLink, Button } from '../style';
 
 const StyledHeader = styled.header`
 	flex-shrink: 0;
@@ -37,25 +37,24 @@ class Header extends Component {
 				</NavLink>
 				{
 					!authenticated && (
-						<button
+						<Button
 							onClick={() => this.handleAuthorization()}
 						>
 							Login via Auth0
-						</button>
+						</Button>
 					)
 				}
 				{
 					authenticated && (
 						<div style={{display: "flex", flexDirection: "row"}}>
-							<button
-								onClick={() => this.handleLogout()}
-							>
-								Logout from this application
-							</button>
-							<div>username: {this.props.userInfo.username}</div>
 							<div style={{height: "40px", width: "40px"}}>
 								<img style={{maxWidth: "100%", borderRadius: "20px"}} src={this.props.userInfo.picture} />
 							</div>
+							<Button
+								onClick={() => this.handleLogout()}
+							>
+								Logout
+							</Button>
 						</div>
 					)
 				}

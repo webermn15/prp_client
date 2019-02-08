@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 // import shared components to be exported
 import NavLink from './NavLink';
+import Button from './Button';
 import HeaderText from './HeaderText';
 import SubHeaderText from './SubHeaderText';
 import ContentMain from './ContentMain';
@@ -13,9 +14,10 @@ import ListItem from './ListItem';
 const theme = {
 	palette: {
 		primary: ['#142543', '#4e6692', '#98a3b7', '#f0f2f5'],
-		accent: ['#de5253', '#efa9a9'],
+		accent: ['#de5253', '#c04749', '#efa9a9'],
 		background_base: '#eef1f6',
 		offwhite: '#f7f7f7',
+		offblack: '#2f2f2f',
 		grayscale: [
 			'#212121',
 			'#414141',
@@ -44,7 +46,7 @@ const GlobalStyle = createGlobalStyle`
 		display: flex;
 		flex-direction: column;
 		font-family: ${theme.fonts.primary};
-		color: #2f2f2f;
+		color: ${theme.palette.offblack};
 		background-color: ${theme.palette.background_base};
 	}
 	body > #app {
@@ -62,6 +64,7 @@ export {
 	theme,
 	GlobalStyle,
 	NavLink,
+	Button,
 	HeaderText,
 	ContentMain,
 	Aside,
