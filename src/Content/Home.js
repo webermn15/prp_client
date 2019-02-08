@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
-import { NavLink } from '../style';
 import PropTypes from 'prop-types';
+import { NavLink, HeaderText, ContentMain } from '../style';
 
 class Home extends Component {
 	constructor(props) {
@@ -10,8 +9,8 @@ class Home extends Component {
 
 	render() {
 		return(
-			<div>
-				<h1>Power Rank Project</h1>
+			<ContentMain>
+				<HeaderText>Power Rank Project</HeaderText>
 				<p>There is no centralized place to house power ranks. smashgg kinda, but its a poor implementation and rarely used. i wanna fix that.</p>
 				{
 					(this.props.gamesInfo.length > 0) && (
@@ -27,7 +26,7 @@ class Home extends Component {
 						})
 					)
 				}
-			</div>
+			</ContentMain>
 		)
 	}
 }

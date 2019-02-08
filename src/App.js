@@ -2,12 +2,30 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Auth from './auth';
+import styled from 'styled-components';
 
 import { HeaderContainer } from './Header';
 import { HomeContainer, GameContainer, PlayerContainer } from './Content';
 import Callback from './Callback';
 
 const auth = new Auth();
+
+
+// styled components
+const AppRoot = styled.div`
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+`
+
+const Main = styled.main`
+	flex-grow: 1;
+	margin 0 auto;
+	width: 1024px;
+	overflow: auto;
+	background-color: ${({theme}) => theme.palette.offwhite};
+	border-radius: 0.6rem;
+`
 
 class App extends Component {
 	constructor(props) {
@@ -34,9 +52,9 @@ class App extends Component {
 
 	render() {
 		return(
-			<div>
+			<AppRoot>
 				<HeaderContainer auth={auth} />
-				<main style={{width: "1024px", margin: "0 auto", border: "1px solid blue"}}>
+				<Main>
 					<Switch>
 						<Route exact path="/" render={() => {
 							return <HomeContainer />
@@ -52,8 +70,8 @@ class App extends Component {
 							return <GameContainer {...props} />
 						}} />
 					</Switch>
-				</main>
-			</div>
+				</Main>
+			</AppRoot>
 		)
 	}
 }

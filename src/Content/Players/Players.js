@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { ContentMain, NavLink, HeaderText, SubHeaderText, UnorderedList, ListItem } from '../../style';
 
 class Players extends Component {
 	constructor(props) {
@@ -18,21 +18,21 @@ class Players extends Component {
 		const { match, players } = this.props;
 		const playerId = match.params.id;
 		return(
-			<div>
-				<h2>{players[playerId] && players[playerId].player_tag}</h2>
-				<h4>Rankings appeared on:</h4>
-				<ul>
+			<ContentMain>
+				<HeaderText>{players[playerId] && players[playerId].player_tag}</HeaderText>
+				<SubHeaderText>Rankings appeared on:</SubHeaderText>
+				<UnorderedList>
 					{players[playerId] && players[playerId].rankings.map(ranking => {
 						return(
-							<li key={ranking.ranking_id}>
-								<Link to={`/${ranking.ranking_game}/${ranking.region_alias}/${ranking.ranking_id}`}>
-									<h3>{`${ranking.region_name} | ${ranking.ranking_title}`}</h3>
-								</Link>
-							</li>
+							<ListItem key={ranking.ranking_id}>
+								<NavLink to={`/${ranking.ranking_game}/${ranking.region_alias}/${ranking.ranking_id}`}>
+									<span>{`${ranking.region_name} | ${ranking.ranking_title}`}</span>
+								</NavLink>
+							</ListItem>
 						)
 					})}
-				</ul>
-			</div>
+				</UnorderedList>
+			</ContentMain>
 		)
 	}
 }

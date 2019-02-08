@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { NavLink, SubHeaderText, UnorderedList, ListItem } from '../../../../style';
 
 class Pr extends Component {
 	constructor(props) {
@@ -16,18 +16,19 @@ class Pr extends Component {
 		const { rankings, regionAlias } = this.props;
 		return(
 			<div>
-				<ul>
-					{rankings[regionAlias] && rankings[regionAlias].map(rank => {
+				<SubHeaderText>{rankings[regionAlias] && rankings[regionAlias].title}</SubHeaderText>
+				<UnorderedList>
+					{rankings[regionAlias] && rankings[regionAlias].ranks.map(rank => {
 						return(
-							<li style={{display: 'flex'}} key={rank.rank}>
-								<div style={{paddingRight: '20px'}}>{rank.rank}</div>
-								<Link to={`/player/${rank.player}`}>
+							<ListItem style={{display: 'flex'}} key={rank.rank}>
+								<div style={{paddingRight: '20px', width: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}><div style={{margin: '0 auto'}}>{rank.rank}</div></div>
+								<NavLink to={`/player/${rank.player}`}>
 									<div>{`${rank.sponsor_prefix == true ? rank.sponsor_prefix + '|' : ''} ${rank.player_tag}`}</div>
-								</Link>
-							</li>
+								</NavLink>
+							</ListItem>
 						)
 					})}
-				</ul>
+				</UnorderedList>
 			</div>
 		)
 	}

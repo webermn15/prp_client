@@ -36,10 +36,9 @@ const getNewRankingData = async query => {
 }
 
 const setNewRanking = (data, region) => {
-	const { ranks } = data;
 	return {
 		type: SET_NEW_RANKINGS,
-		ranks,
+		data,
 		region
 	}
 }
@@ -50,7 +49,7 @@ const rankings = (state = {}, action) => {
 		case SET_NEW_RANKINGS:
 			return Object.assign({}, state, {
 				...state,
-				[action.region]: action.ranks
+				[action.region]: action.data
 			})
 		default:
 			return state;

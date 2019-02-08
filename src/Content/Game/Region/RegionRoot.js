@@ -1,21 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { NavLink, UnorderedList, ListItem, SubHeaderText } from '../../../style';
+import { RankingTitle, RankingDetail } from '../GameRoot';
 
 const RegionRoot = ({ regionAlias, regionData, url }) => {
 	return(
 		<div>
-			<h4>Recent Rankings:</h4>
-			<ul>
+			<SubHeaderText>Recent Rankings:</SubHeaderText>
+			<UnorderedList>
 				{regionData[regionAlias] && regionData[regionAlias].recentRankings.map(ranking => {
 					return(
-						<li style={{border: '1px solid orange'}} key={ranking.ranking_id}>
-							<Link to={`${url}/${ranking.ranking_id}`}><h3>{ranking.ranking_title}</h3></Link>
-							<p>{ranking.ranking_detail}</p>
-						</li>
+						<ListItem key={ranking.ranking_id}>
+							<NavLink to={`${url}/${ranking.ranking_id}`}><RankingTitle>{ranking.ranking_title}</RankingTitle></NavLink>
+							<RankingDetail>{ranking.ranking_detail}</RankingDetail>
+						</ListItem>
 					)
 				})}
-			</ul>
+			</UnorderedList>
 		</div>
 	)
 }

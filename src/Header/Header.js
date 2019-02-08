@@ -1,28 +1,40 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { NavLink } from '../style';
+
+const StyledHeader = styled.header`
+	flex-shrink: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 20px;
+	background-color: ${({theme}) => theme.palette.background_base};
+`
 
 class Header extends Component {
 	constructor(props) {
 		super(props)
 	}
+
 	handleAuthorization = () => {
 		const { auth, logoutUser } = this.props;
 		auth.login();
 		logoutUser();
 	}
+
 	handleLogout = () => {
 		const { auth } = this.props;
 		auth.logout();
 	}
+
 	render() {
-		// console.log('header passed props: ', this.props);
 		const { authenticated } = this.props.userInfo;
 		return(
-			<header style={{display: "flex", flexDirection: "row", justifyContent: "space-between", padding: "20px", border: "1px solid black"}}>
-				<Link to="/">
-					go home dude
-				</Link>
+			<StyledHeader>
+				<NavLink style={{fontSize: '1rem'}} to="/">
+					Home
+				</NavLink>
 				{
 					!authenticated && (
 						<button
@@ -48,7 +60,7 @@ class Header extends Component {
 					)
 				}
 
-			</header>
+			</StyledHeader>
 		)
 	}
 }
