@@ -36,6 +36,7 @@ const getNewRankingData = async query => {
 }
 
 const setNewRanking = (data, region) => {
+	console.log('data returned in setNewRanking action creator: ', data);
 	return {
 		type: SET_NEW_RANKINGS,
 		data,

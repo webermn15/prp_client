@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, SubHeaderText, UnorderedList, ListItem } from '../../../../style';
+import { NavLink, SubHeaderText } from '../../../../style';
 
 class Pr extends Component {
 	constructor(props) {
@@ -17,18 +17,32 @@ class Pr extends Component {
 		return(
 			<div>
 				<SubHeaderText>{rankings[regionAlias] && rankings[regionAlias].title}</SubHeaderText>
-				<UnorderedList>
-					{rankings[regionAlias] && rankings[regionAlias].ranks.map(rank => {
-						return(
-							<ListItem style={{display: 'flex'}} key={rank.rank}>
-								<div style={{paddingRight: '20px', width: '1rem', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}><div style={{margin: '0 auto'}}>{rank.rank}</div></div>
-								<NavLink to={`/player/${rank.player}`}>
-									<div>{`${rank.sponsor_prefix == true ? rank.sponsor_prefix + '|' : ''} ${rank.player_tag}`}</div>
-								</NavLink>
-							</ListItem>
-						)
-					})}
-				</UnorderedList>
+				<table>
+					<tbody>
+						{rankings[regionAlias] && rankings[regionAlias].ranks.map(rank => {
+							return(
+								<tr key={rank.rank}>
+									<td style={{padding: '0 2rem', textAlign: 'center'}}>
+										{rank.rank}
+									</td>
+									<td>
+										<NavLink to={`/player/${rank.player}`}>
+											<div>{`${rank.sponsor_prefix == true ? rank.sponsor_prefix + '|' : ''} ${rank.player_tag}`}</div>
+										</NavLink>
+									</td>
+									<td style={{padding: '0 2rem', textAlign: 'center'}}>
+										{!!rank.previous_rank === true ? (rank.previous_rank - rank.rank) : '---'}
+									</td>
+									<td style={{fontSize: '0.8rem'}}>
+										{rank.characters.map(char => {
+											return `${char.name} `
+										})}
+									</td>
+								</tr>
+							)
+						})}
+					</tbody>
+				</table>
 			</div>
 		)
 	}

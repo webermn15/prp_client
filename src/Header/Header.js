@@ -46,7 +46,7 @@ class Header extends Component {
 				}
 				{
 					authenticated && (
-						<div style={{display: "flex", flexDirection: "row"}}>
+						<div style={{display: "flex", flexDirection: "row", justifyContent: "space-around", width: "12rem"}}>
 							<div style={{height: "40px", width: "40px"}}>
 								<img style={{maxWidth: "100%", borderRadius: "20px"}} src={this.props.userInfo.picture} />
 							</div>
