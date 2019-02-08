@@ -9,7 +9,7 @@ class Home extends Component {
 
 	render() {
 		return(
-			<ContentMain>
+			<ContentMain style={{textAlign: 'center'}}>
 				<HeaderText>Power Rank Project</HeaderText>
 				<p>There is no centralized place to house power ranks. smashgg kinda, but its a poor implementation and rarely used. i wanna fix that.</p>
 				{

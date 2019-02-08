@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NavLink = styled(Link)`
 	font-family: ${({theme}) => theme.fonts.table};
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	text-decoration: none;
 	color: ${({theme}) => theme.palette.primary[1]};
 	transition: 0.2s color ease-in-out;
