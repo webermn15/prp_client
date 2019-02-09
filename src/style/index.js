@@ -9,6 +9,7 @@ import ContentMain from './ContentMain';
 import Aside from './Aside';
 import UnorderedList from './UnorderedList';
 import ListItem from './ListItem';
+import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
 
 // define theme variables
 const theme = {
@@ -66,9 +67,13 @@ export {
 	NavLink,
 	Button,
 	HeaderText,
+	SubHeaderText,
 	ContentMain,
 	Aside,
 	UnorderedList,
 	ListItem,
-	SubHeaderText
+	TableRow,
+	TableCell,
+	TableCellFirst,
+	TableCellLast
 }
