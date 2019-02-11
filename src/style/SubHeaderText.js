@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-const SubHeaderText = styled.h3`
+const SubHeaderText = styled.h2`
 	margin: 0.4rem;
-	font-weight: 400;
 `
 
 export default SubHeaderText;

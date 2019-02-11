@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, SubHeaderText, TableRow, TableCell, TableCellFirst, TableCellLast } from '../../../../style';
+import { SectionMain, NavLink, SubSubHeaderText, TableRow, TableCell, TableCellLast } from '../../../../style';
 import styled from 'styled-components';
 import { icons } from '../../../../utils';
 
@@ -21,20 +21,27 @@ class Pr extends Component {
 	}
 	render() {
 		const { rankings, regionAlias } = this.props;
-		console.log('rankings returned in pr component: ', rankings);
 		return(
-			<div>
-				<SubHeaderText>{rankings[regionAlias] && rankings[regionAlias].title}</SubHeaderText>
-				<table style={{borderCollapse: 'collapse'}}>
+			<SectionMain>
+				<SubSubHeaderText style={{textAlign: 'center'}}>{rankings[regionAlias] && rankings[regionAlias].title}</SubSubHeaderText>
+				<table style={{borderCollapse: 'collapse', margin: '0 auto'}}>
+					<thead>
+						<tr>
+							<th>Rank</th>
+							<th style={{textAlign: 'left', paddingLeft: '1.6rem'}}>Tag</th>
+							<th>Move</th>
+							<th>Characters</th>
+						</tr>
+					</thead>
 					<tbody>
 						{rankings[regionAlias] && rankings[regionAlias].ranks.map(rank => {
 							return(
 								<TableRow key={rank.rank}>
-									<TableCellFirst>
+									<TableCell>
 										{rank.rank}
-									</TableCellFirst>
+									</TableCell>
 									<TableCell style={{textAlign: 'left'}}>
-										<NavLink to={`/player/${rank.player}`}>
+										<NavLink to={`/players/${rank.player}`}>
 											<span>{`${rank.sponsor_prefix == true ? rank.sponsor_prefix + '|' : ''} ${rank.player_tag}`}</span>
 										</NavLink>
 									</TableCell>
@@ -55,7 +62,7 @@ class Pr extends Component {
 						})}
 					</tbody>
 				</table>
-			</div>
+			</SectionMain>
 		)
 	}
 }

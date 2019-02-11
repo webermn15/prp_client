@@ -5,11 +5,11 @@ import Auth from './auth';
 import styled from 'styled-components';
 
 import { HeaderContainer } from './Header';
-import { HomeContainer, GameContainer, PlayerContainer } from './Content';
+import { AsideContainer } from './Aside';
+import { HomeContainer, GameContainer, PlayerContainer, Contribute } from './Content';
 import Callback from './Callback';
 
 const auth = new Auth();
-
 
 // styled components
 const AppRoot = styled.div`
@@ -20,6 +20,8 @@ const AppRoot = styled.div`
 
 const Main = styled.main`
 	flex-grow: 1;
+	display: flex;
+	flex-direction: row;
 	margin 0 auto;
 	width: 1024px;
 	overflow: auto;
@@ -55,6 +57,7 @@ class App extends Component {
 			<AppRoot>
 				<HeaderContainer auth={auth} />
 				<Main>
+					<AsideContainer/>
 					<Switch>
 						<Route exact path="/" render={() => {
 							return <HomeContainer />
@@ -63,7 +66,10 @@ class App extends Component {
 							this.handleAuth()
 							return <Callback />
 						}} />
-						<Route path="/player/:id" render={props => {
+						<Route path="/contribute" render={props => {
+							return <Contribute {...props} />
+						}} />
+						<Route path="/players/:id" render={props => {
 							return <PlayerContainer {...props} />
 						}} />
 						<Route path="/:game" render={props => {

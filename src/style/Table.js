@@ -21,8 +21,7 @@ const TableCellFirst = styled(TableCell)`
 `
 
 const TableCellLast = styled(TableCell)`
-	padding: 0.5rem 1.6rem;
-	border-right: 1px solid ${({theme}) => theme.palette.primary[2]};
+	padding: 0.5rem 2rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;

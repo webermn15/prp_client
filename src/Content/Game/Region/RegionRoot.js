@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink, UnorderedList, ListItem, SubHeaderText } from '../../../style';
+import { NavLink, UnorderedList, ListItem, SubSubHeaderText } from '../../../style';
 import { RankingTitle, RankingDetail } from '../GameRoot';
 
 const RegionRoot = ({ regionAlias, regionData, url }) => {
 	return(
 		<div>
-			<SubHeaderText>Recent Rankings:</SubHeaderText>
+			<SubSubHeaderText>Recent Rankings:</SubSubHeaderText>
 			<UnorderedList>
 				{regionData[regionAlias] && regionData[regionAlias].recentRankings.map(ranking => {
 					return(

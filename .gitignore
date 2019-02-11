@@ -1,3 +1,4 @@
 node_modules
 src/auth/auth0config.js
 .DS_Store
+dist/build

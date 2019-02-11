@@ -2,14 +2,22 @@ import { createGlobalStyle } from 'styled-components';
 
 // import shared components to be exported
 import NavLink from './NavLink';
+import StyledActiveNavLink from './StyledActiveNavLink';
+import BreadCrumbs from './BreadCrumbs';
+import Aside from './Aside';
+import AsideNavAnchor from './AsideNavAnchor';
 import Button from './Button';
 import HeaderText from './HeaderText';
 import SubHeaderText from './SubHeaderText';
+import SubSubHeaderText from './SubSubHeaderText';
 import ContentMain from './ContentMain';
-import Aside from './Aside';
+import SectionMain from './SectionMain';
 import UnorderedList from './UnorderedList';
 import ListItem from './ListItem';
 import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
+import ExpandCollapseButton from './ExpandCollapseButton';
+import ExpandCollapseContent from './ExpandCollapseContent';
+import StyledSvgLogo from './StyledSvgLogo';
 
 // define theme variables
 const theme = {
@@ -65,15 +73,23 @@ export {
 	theme,
 	GlobalStyle,
 	NavLink,
+	BreadCrumbs,
+	StyledActiveNavLink,
 	Button,
 	HeaderText,
 	SubHeaderText,
+	SubSubHeaderText,
 	ContentMain,
+	SectionMain,
 	Aside,
+	AsideNavAnchor,
 	UnorderedList,
 	ListItem,
 	TableRow,
 	TableCell,
 	TableCellFirst,
-	TableCellLast
+	TableCellLast,
+	ExpandCollapseButton,
+	ExpandCollapseContent,
+	StyledSvgLogo
 }
