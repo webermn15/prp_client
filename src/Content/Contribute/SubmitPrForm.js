@@ -10,11 +10,16 @@ export const InputDropWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	background-color: ${({theme}) => theme.palette.primary[0]};
+	color: ${({theme}) => theme.palette.offwhite};
+	padding: 0.5rem;
+	border-radius: 0.3rem;
 `
 
 export const InputDropInput = styled.input`
-	background-color: ${({theme}) => theme.palette.primary[3]};
+	background-color: ${({theme}) => theme.palette.offwhite};
 	color: ${({theme}) => theme.palette.primary[1]};
+	border: 1px solid ${({theme}) => theme.palette.primary[2]};
 	height: 1.5rem;
 	font-size: 1rem;
 `

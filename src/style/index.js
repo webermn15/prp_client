@@ -24,6 +24,7 @@ const theme = {
 	palette: {
 		primary: ['#142543', '#4e6692', '#98a3b7', '#f0f2f5'],
 		accent: ['#de5253', '#c04749', '#efa9a9'],
+		focused: '#fbc251',
 		background_base: '#eef1f6',
 		offwhite: '#f7f7f7',
 		offblack: '#2f2f2f',
@@ -66,6 +67,10 @@ const GlobalStyle = createGlobalStyle`
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+	*:focus {
+		outline: 2px solid ${theme.palette.focused};
+		outline-offset: 1px;
 	}
 `
 

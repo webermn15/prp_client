@@ -25,7 +25,7 @@ const StyledSvgLogo = styled(SvgLogo)`
 
 	}
 	${NavLink}:hover &,
-	${NavLink}:active & {
+	${NavLink}:focus & {
 		fill: ${({theme}) => theme.palette.accent[0]};
 		animation: 0.2s ${rotateHalf} ease-in;
 		animation-fill-mode: forwards;
