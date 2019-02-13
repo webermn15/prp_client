@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { FieldContainer, FieldTextWrapper, InputWrapper, InputDropInput, InputDropContainer, InputDropSelection } from './formstyles';
+import { Button } from '../../style';
 import { formatPropAsKey } from '../../utils';
-import { InputDropWrapper, InputDropInput, InputDropContainer, InputDropSelection } from './formstyles';
 
 class InputDropdown extends Component {
 	constructor(props) {
@@ -34,6 +35,7 @@ class InputDropdown extends Component {
 		}
 		else if (!this.inputRef.current.isSameNode(e.target) && !this.dropdownRef.current.contains(e.target) && !this.state.selectedRegionId) {
 			this.setState({filter: '', items: [], focused: false});
+			console.log('handleClicks in dropdown component is being fired...');
 		}
 	}
 
@@ -77,45 +79,49 @@ class InputDropdown extends Component {
 
 	render() {
 		const { filter, items, focused } = this.state;
-		console.log(this.state);
 		return(
-			<InputDropWrapper>
-				<label htmlFor="region">Select region:</label>
-				<InputDropInput 
-					autoComplete="off"
-					name="filter" 
-					id="region" 
-					type="text" 
-					placeholder="Search regions..."
-					value={this.state.filter}
-					ref={this.inputRef}
-					onChange={e => this.handleChange(e)}
-					onFocus={() => this.setState({focused: true})}
-					onKeyDown={e => this.handleKeyDown(e)}
-				/>
-				<InputDropContainer 
-					style={{display: focused ? 'block' : 'none'}}
-					ref={this.dropdownRef}
-				>
-					{filter.length > 0 && items.length === 0 ?
-						(
-							<InputDropSelection style={{cursor: 'default'}}>No results found!</InputDropSelection>
-						)
-					: 
-						items.map((region, i) => {
-							return(
-								<InputDropSelection 
-									key={region.region_id}
-									className={this.state.dropSelection === i ? 'selected' : null}
-									onMouseOver={() => this.handleCursorBrowse(i)}
-								>
-									{region.region_name}
-								</InputDropSelection>
+			<FieldContainer>
+				<InputWrapper>
+					<label htmlFor="region">Select region:</label>
+					<InputDropInput 
+						autoComplete="off"
+						name="filter" 
+						id="region" 
+						type="text" 
+						placeholder="Search regions..."
+						value={this.state.filter}
+						ref={this.inputRef}
+						onChange={e => this.handleChange(e)}
+						onFocus={() => this.setState({focused: true})}
+						onKeyDown={e => this.handleKeyDown(e)}
+					/>
+					<InputDropContainer 
+						style={{display: focused ? 'block' : 'none'}}
+						ref={this.dropdownRef}
+					>
+						{filter.length > 0 && items.length === 0 ?
+							(
+								<InputDropSelection style={{cursor: 'default'}}>No results found!</InputDropSelection>
 							)
-						}
-					)}
-				</InputDropContainer>
-			</InputDropWrapper>
+						: 
+							items.map((region, i) => {
+								return(
+									<InputDropSelection 
+										key={region.region_id}
+										className={this.state.dropSelection === i ? 'selected' : null}
+										onMouseOver={() => this.handleCursorBrowse(i)}
+									>
+										{region.region_name}
+									</InputDropSelection>
+								)
+							}
+						)}
+					</InputDropContainer>
+				</InputWrapper>
+				<FieldTextWrapper>
+					Region not listed? <Button>Create a new one</Button>
+				</FieldTextWrapper>
+			</FieldContainer>
 		)
 	}
 }

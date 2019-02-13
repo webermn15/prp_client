@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { InputDropWrapper } from './formstyles'
+import { Button } from '../../style';
+import { FormContainer, FieldContainer, InputWrapper, FieldTextWrapper } from './formstyles'
 import { formatPropAsKey } from '../../utils';
 
 import InputDropdown from './InputDropdown';
-import DateField from './DateField';
+// import DateField from './DateField';
 
 const regions = [
 	{
@@ -53,26 +54,32 @@ class SubmitPrForm extends Component {
 	render() {
 		const { gamesInfo } = this.props;
 		return(
-			<form style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around', flexWrap: 'wrap'}} onSubmit={e => this.submitForm(e)}>
-				<InputDropWrapper>
-					<label htmlFor="game">Select game:</label>
-					<select name="game" onChange={e => this.handleChange(e)}>
+			<FormContainer>
+				<FieldContainer>
+					<InputWrapper>
+						<label htmlFor="game">Select game:</label>
+						<select name="game" onChange={e => this.handleChange(e)}>
 
-						<option value={''}>Select game</option>
-						{gamesInfo && gamesInfo.map(game => {
-							return(
-								<option key={game.game_id} value={game.game_id}>{game.game_name}</option>
-							)})
-						}
-					</select>
-				</InputDropWrapper>
+							<option value={''}>Select game</option>
+							{gamesInfo && gamesInfo.map(game => {
+								return(
+									<option key={game.game_id} value={game.game_id}>{game.game_name}</option>
+								)})
+							}
+						</select>
+					</InputWrapper>
+					<FieldTextWrapper>
+						Game not listed? Join the Discord and request it! Always looking to add new titles.
+					</FieldTextWrapper>
+				</FieldContainer>
 				<InputDropdown regions={regions} />
-				<InputDropWrapper>
-					<label htmlFor="date">Select date:</label>
-					<DateField />
-				</InputDropWrapper>
-				<button>Submit</button>
-			</form>
+				<Button 
+					style={{margin: '1rem 0'}}
+					onClick={e => this.submitForm(e)}
+				>
+					Submit
+				</Button>
+			</FormContainer>
 		)
 	}
 }

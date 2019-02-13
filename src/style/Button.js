@@ -22,7 +22,7 @@ const Button = styled.button`
 
 	&:active {
 		background-color: ${({theme}) => theme.palette.accent[2]};
-		transform: scale(0.98);
+		transform: scale(0.99);
 	}
 `
 
