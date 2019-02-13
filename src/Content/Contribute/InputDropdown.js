@@ -1,49 +1,7 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { formatPropAsKey } from '../../utils';
-import { InputDropWrapper, InputDropInput } from './SubmitPrForm';
-
-const InputDropContainer = styled.ul`
-	font-size: 0.9rem;
-`
-
-const InputDropSelection = styled.li`
-	background-color: ${({theme}) => theme.palette.offwhite};
-	color: ${({theme}) => theme.palette.primary[1]};
-	height: 1.3rem;
-	padding: 0.2rem;
-	border: 1px solid ${({theme}) => theme.palette.primary[2]};
-	border-top: none;
-	cursor: pointer;
-
-	&.selected {
-		background-color: ${({theme}) => theme.palette.focused};
-		color: ${({theme}) => theme.palette.offblack};
-	}
-`
-
-const regions = [
-	{
-		region_id: 1,
-		region_name: 'Chicago',
-		region_alias: 'chicago'
-	},
-	{
-		region_id: 2,
-		region_name: 'Southern California',
-		region_alias: 'socal'
-	},
-	{
-		region_id: 3,
-		region_name: 'New England',
-		region_alias: 'new-england'
-	},
-	{
-		region_id: 4,
-		region_name: 'South Florida',
-		region_alias: 'sfl'
-	}
-]
+import { InputDropWrapper, InputDropInput, InputDropContainer, InputDropSelection } from './formstyles';
 
 class InputDropdown extends Component {
 	constructor(props) {
@@ -52,74 +10,74 @@ class InputDropdown extends Component {
 		this.state = {
 			filter: '',
 			items: [],
+			hoveredRegionId: null,
 			selectedRegionId: null,
 			focused: false,
-			arrowCursor: 0
+			dropSelection: 0
 		}
 		this.dropdownRef = React.createRef();
+		this.inputRef = React.createRef();
 	}
 
 	componentDidMount() {
-		document.addEventListener('click', this.handleDropClicks);
+		document.addEventListener('click', this.handleClicks);
 	}
 
 	componentWillUnmount() {
-		document.removeEventListener('click', this.handleDropClicks);
+		document.removeEventListener('click', this.handleClicks);
 	}
 
-	handleDropClicks = e => {
-		if (this.state.focused && this.dropdownRef.current.contains(e.target)) {
-			this.setState({focused: false});
+	handleClicks = e => {
+		if (this.dropdownRef.current.contains(e.target)) {
+			const selectedRegion = this.state.items[this.state.dropSelection]
+			this.setState({filter: selectedRegion.region_name, items: [selectedRegion], selectedRegionId: selectedRegion.region_id, focused: false, dropSelection: 0})
+		}
+		else if (!this.inputRef.current.isSameNode(e.target) && !this.dropdownRef.current.contains(e.target) && !this.state.selectedRegionId) {
+			this.setState({filter: '', items: [], focused: false});
 		}
 	}
 
 	handleKeyDown = e => {
 		if (e.key === 'Enter') {
-			e.target.blur();
-		}
-		if (e.key === 'Escape') {
-			this.setState({selectedRegionId: null});
-			e.target.blur();
-		}
-		if (e.key === 'ArrowDown') {
-			const newInd = this.state.arrowCursor === this.state.items.length - 1 ? 0 : (this.state.arrowCursor + 1)
-			this.setState({selectedRegionId: this.state.items[newInd].region_id, arrowCursor: newInd})
+			if (this.state.items.length > 0) {
+				const selectedRegion = this.state.items[this.state.dropSelection]
+				this.setState({filter: selectedRegion.region_name, items: [selectedRegion], selectedRegionId: selectedRegion.region_id, focused: false, dropSelection: 0})
+			}
 			e.preventDefault();
 		}
-		else if (e.key === 'ArrowUp') {
-			const newInd = this.state.arrowCursor === 0 ? this.state.items.length - 1 : (this.state.arrowCursor - 1)
-			this.setState({selectedRegionId: this.state.items[newInd].region_id, arrowCursor: newInd})
+		if (e.key === 'Escape') {
+			this.setState({filter: '', items: [], focused: false});
+		}
+		if (e.key === 'ArrowDown' && this.state.items.length > 0) {
+			const newInd = this.state.dropSelection === this.state.items.length - 1 ? 0 : (this.state.dropSelection + 1);
+			this.setState({hoveredRegionId: this.state.items[newInd].region_id, dropSelection: newInd});
+			e.preventDefault();
+		}
+		else if (e.key === 'ArrowUp' && this.state.items.length > 0) {
+			const newInd = this.state.dropSelection === 0 ? this.state.items.length - 1 : (this.state.dropSelection - 1);
+			this.setState({hoveredRegionId: this.state.items[newInd].region_id, dropSelection: newInd});
 			e.preventDefault();
 		}
 	}
 
 	handleCursorBrowse = i => {
-		this.setState({arrowCursor: i, selectedRegionId: this.state.items[i].region_id});
-	}
-
-	handleBlur = () => {
-		if (this.state.selectedRegionId && this.state.items.length > 0) {
-			const selectedRegion = this.state.items[this.state.arrowCursor]
-			this.setState({filter: selectedRegion.region_name, items: [selectedRegion], focused: false, arrowCursor: 0})
-		}
-		else {
-			this.setState({filter: '', items: [], focused: false});
-		}
+		this.setState({dropSelection: i, hoveredRegionId: this.state.items[i].region_id});
 	}
 
 	handleChange = e => {
+		const { regions } = this.props;
 		let filtered = [];
 		if (e.target.value.length > 0) {
 			const regexp = new RegExp(`${e.target.value}`, 'gi');
 			filtered = regions.filter(region => region.region_name.match(regexp) || region.region_alias.match(regexp));
 		}
 		const inputUpdate = formatPropAsKey(e.target.name, e.target.value);
-		this.setState({...inputUpdate, items: filtered, arrowCursor: 0});
+		this.setState({...inputUpdate, items: filtered, dropSelection: 0, focused: true});
 	}
 
 	render() {
 		const { filter, items, focused } = this.state;
-		console.log('inputdrop state: ', this.state);
+		console.log(this.state);
 		return(
 			<InputDropWrapper>
 				<label htmlFor="region">Select region:</label>
@@ -130,9 +88,9 @@ class InputDropdown extends Component {
 					type="text" 
 					placeholder="Search regions..."
 					value={this.state.filter}
+					ref={this.inputRef}
 					onChange={e => this.handleChange(e)}
 					onFocus={() => this.setState({focused: true})}
-					onBlur={() => this.handleBlur()}
 					onKeyDown={e => this.handleKeyDown(e)}
 				/>
 				<InputDropContainer 
@@ -148,7 +106,7 @@ class InputDropdown extends Component {
 							return(
 								<InputDropSelection 
 									key={region.region_id}
-									className={this.state.arrowCursor === i ? 'selected' : null}
+									className={this.state.dropSelection === i ? 'selected' : null}
 									onMouseOver={() => this.handleCursorBrowse(i)}
 								>
 									{region.region_name}
@@ -163,3 +121,7 @@ class InputDropdown extends Component {
 }
 
 export default InputDropdown;
+
+InputDropdown.propTypes = {
+	regions: PropTypes.array
+}
