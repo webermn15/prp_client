@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DatePicker from 'react-datepicker';
 import { InputWrapper, FormLabel } from './formstyles';
@@ -17,32 +18,21 @@ const DateInput = styled(DatePicker)`
   }
 `
 
-class DateField extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      date: new Date()
-    }
-  }
-
-  handleChange = (date) => {
-    this.setState({
-      date: date
-    });
-  }
-
-  render() {
-    return (
-      <InputWrapper>
-        <FormLabel name="date">Select Date:</FormLabel>
-        <DateInput
-          selected={this.state.date}
-          onChange={this.handleChange}
-        />
-      </InputWrapper>
-    );
-  }
+const DateField = ({date, handleChange}) => {
+  return (
+    <InputWrapper>
+      <FormLabel name="date">Select Date:</FormLabel>
+      <DateInput
+        selected={date}
+        onChange={handleChange}
+      />
+    </InputWrapper>
+  )
 }
 
 export default DateField;
+
+DateField.propTypes = {
+  date: PropTypes.object,
+  handleChange: PropTypes.func
+}

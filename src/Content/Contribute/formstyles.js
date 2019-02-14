@@ -13,8 +13,8 @@ export const ReactSelect = styled(Select)`
 		outline-offset: 1px;
 	}
 	& div.form-select__control--is-disabled {
-		border: 1px solid ${({theme}) => theme.palette.grayscale[3]};
-		background-color: ${({theme}) => theme.palette.grayscale[5]};
+		border: 1px solid ${({theme}) => theme.palette.grayscale[2]};
+		background-color: ${({theme}) => theme.palette.grayscale[4]};
 	}
 
 	& div.form-select__menu {
@@ -49,12 +49,9 @@ export const FieldContainer = styled.div`
 `
 
 export const InputWrapper = styled.div`
-	min-width: 16rem;
-	max-width: 16rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	flex-grow: 1;
 	font-size: 1rem;
 	margin-left: 1rem;
 

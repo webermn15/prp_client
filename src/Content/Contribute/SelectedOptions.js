@@ -57,14 +57,14 @@ const OptionAction = styled.button`
 	}
 `
 
-const SelectedOptions = ({labels }) => {
+const SelectedOptions = ({labels, handleClick}) => {
 	return(
 		<OptionsContainer>
 			{labels.map(({label, variable}, i) => {
 				return(
 					<OptionLabel key={i}>
 						<OptionName>{label}</OptionName>
-						<OptionAction onClick={() => console.log(`clicked ${label} button for variable ${variable}`)}><span>X</span></OptionAction>
+						<OptionAction onClick={() => handleClick(variable)}><span>X</span></OptionAction>
 					</OptionLabel>
 				)
 			})}
@@ -75,6 +75,6 @@ const SelectedOptions = ({labels }) => {
 export default SelectedOptions;
 
 SelectedOptions.propTypes = {
-	labels: PropTypes.array
-	// onClick: PropTypes.func
+	labels: PropTypes.array,
+	handleClick: PropTypes.func
 }

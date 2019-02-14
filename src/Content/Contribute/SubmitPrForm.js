@@ -7,6 +7,8 @@ import FormField from './FormField';
 import SelectedOptions from './SelectedOptions';
 import DateField from './DateField';
 import TextInput from './TextInput';
+import FileInput from './FileInput';
+import DetailMarkdown from './DetailMarkdown';
 
 const regions = [
 	{
@@ -39,8 +41,9 @@ class SubmitPrForm extends Component {
 			formProgress: 'first',
 			game: null,
 			region: null,
-			date: undefined,
+			date: new Date,
 			title: '',
+			detail: '',
 			ranks: [],
 			warning: null
 		}
@@ -54,24 +57,46 @@ class SubmitPrForm extends Component {
 		this.setState({region, warning: null});
 	}
 
-	handleTitleChange = e => {
-		this.setState({title: e.target.value});
+	handleDateChange = date => {
+		this.setState({date, warning: null});
 	}
 
-	submitForm = e => {
+	handleTitleChange = e => {
+		this.setState({title: e.target.value, warning: null});
+	}
+
+	handleDetailChange = detail => {
+		this.setState({detail});
+	}
+
+	handleClear = fieldName => {
+		this.setState({[fieldName]: null, formProgress: 'first'});
+	}
+
+	submitFirst = e => {
 		e.preventDefault();
 		const { game, region } = this.state;
 		if (!game || !region) {
-			this.setState({warning: 'You must select both game and region before proceeding.'});
+			this.setState({warning: 'You must select both game and region.'});
 		}
 		else {
 			this.setState({formProgress: 'second', warning: null})
 		}
-		console.log(this.state);
+	}
+
+	submitSecond = e => {
+		e.preventDefault();
+		const { date, title } = this.state;
+		if (!date || !title) {
+			this.setState({warning: 'Date and title are required.'})
+		}
+		else {
+			this.setState({formProgress: 'third', warning: null});
+		}
 	}
 
 	render() {
-		const { game, region, formProgress, warning } = this.state;
+		const { game, region, date, title, detail, formProgress, warning } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
 		let firstLabels;
@@ -103,20 +128,37 @@ class SubmitPrForm extends Component {
 								/>
 								<Button 
 									style={{margin: '1rem 0', float: 'right'}}
-									onClick={e => this.submitForm(e)}
+									onClick={e => this.submitFirst(e)}
 								>
-									Create Ranking
+									Create New Ranking
 								</Button>
 								{warning ? (<WarningText>{warning}</WarningText>) : null}
 							</div>
 						case 'second':
 							return <div>
-								<SelectedOptions labels={firstLabels}/>
-								<FieldContainer style={{justifyContent: 'flex-start', flexWrap: 'wrap'}}>
-									<DateField />
-									<TextInput name="title" placeholder="Enter ranking title..." handleChange={this.handleTitleChange} />
+								<SelectedOptions handleClick={this.handleClear} labels={firstLabels}/>
+								<FieldContainer style={{justifyContent: 'space-around', flexWrap: 'wrap'}}>
+									<DateField date={date} handleChange={this.handleDateChange}/>
+									<TextInput name="title" placeholder="Enter ranking title..." value={title} handleChange={this.handleTitleChange} />
+									<FileInput />
+								</FieldContainer>
+								<DetailMarkdown value={detail} handleChange={this.handleDetailChange} />
+								<Button
+									style={{margin: '1rem 0', float: 'right'}}
+									onClick={e => this.submitSecond(e)}
+								>
+									Preview and Add Ranks
+								</Button>
+								{warning ? (<WarningText>{warning}</WarningText>) : null}
+							</div>
+						case 'third':
+							return <div>
+								<FieldContainer>
+									dab, third component; dab.
 								</FieldContainer>
 							</div>
+						default:
+							null
 						}
 					}
 				)()}
