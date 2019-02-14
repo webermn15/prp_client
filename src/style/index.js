@@ -48,11 +48,13 @@ const theme = {
 
 // inject global styles to be imported to root
 const GlobalStyle = createGlobalStyle`
+	* {
+		box-sizing: border-box;
+	}
 	body, html {
 		padding: 0;
 		margin: 0;
 		height: 100%;
-		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		font-family: ${theme.fonts.primary};

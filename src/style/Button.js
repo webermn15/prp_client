@@ -18,6 +18,8 @@ const Button = styled.button`
 	&:focus,
 	&:hover {
 		background-color: ${({theme}) => theme.palette.accent[1]};
+		outline: none;
+		box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
 	}
 
 	&:active {

@@ -1,4 +1,26 @@
 import styled from 'styled-components';
+import Select from 'react-select';
+
+export const ReactSelect = styled(Select)`
+	color: ${({theme}) => theme.palette.offblack};
+
+	& div.form-select__control {
+		border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	}
+	& div.form-select__control--is-focused {
+		box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
+		outline: 2px solid ${({theme}) => theme.palette.focused};
+		outline-offset: 1px;
+	}
+	& div.form-select__control--is-disabled {
+		border: 1px solid ${({theme}) => theme.palette.grayscale[3]};
+		background-color: ${({theme}) => theme.palette.grayscale[5]};
+	}
+
+	& div.form-select__menu {
+		border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	}
+`
 
 export const FormContainer = styled.div`
 	display: flex;
@@ -8,6 +30,11 @@ export const FormContainer = styled.div`
 	margin: 0 1rem;
 	background-color: ${({theme}) => theme.palette.primary[0]};
 	border-radius: 0.3rem;
+`
+
+export const FormLabel = styled.label`
+	padding: 0 0.2rem 0.2rem 0.2rem;
+	font-size: 0.8rem;
 `
 
 export const FieldContainer = styled.div`
@@ -22,11 +49,30 @@ export const FieldContainer = styled.div`
 `
 
 export const InputWrapper = styled.div`
+	min-width: 16rem;
+	max-width: 16rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	flex-grow: 1;
+	font-size: 1rem;
 	margin-left: 1rem;
+
+	& select option {
+		font-size: 1rem;
+	}
+`
+
+export const StyledTextInput = styled.input`
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  border: 1px solid ${({theme}) => theme.palette.primary[0]};
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
+    outline: none;
+  }
 `
 
 export const FieldTextWrapper = styled.div`
@@ -37,30 +83,9 @@ export const FieldTextWrapper = styled.div`
 	margin: 0 1rem;
 `
 
-export const InputDropInput = styled.input`
-	background-color: ${({theme}) => theme.palette.offwhite};
-	color: ${({theme}) => theme.palette.primary[1]};
-	border: 1px solid ${({theme}) => theme.palette.primary[2]};
-	border-radius: 0.2rem;
-	height: 1.5rem;
-	font-size: 1rem;
-`
-
-export const InputDropContainer = styled.ul`
-	font-size: 0.9rem;
-`
-
-export const InputDropSelection = styled.li`
-	background-color: ${({theme}) => theme.palette.offwhite};
-	color: ${({theme}) => theme.palette.primary[1]};
-	height: 1.3rem;
-	padding: 0.2rem;
-	border: 1px solid ${({theme}) => theme.palette.primary[2]};
-	border-top: none;
-	cursor: pointer;
-
-	&.selected {
-		background-color: ${({theme}) => theme.palette.focused};
-		color: ${({theme}) => theme.palette.offblack};
-	}
+export const WarningText = styled.div`
+	text-align: center;
+	color: ${({theme}) => theme.palette.focused};
+	margin: 1rem 0;
+	padding: 0.5rem;
 `

@@ -4,6 +4,34 @@ import { FieldContainer, FieldTextWrapper, InputWrapper, InputDropInput, InputDr
 import { Button } from '../../style';
 import { formatPropAsKey } from '../../utils';
 
+export const InputDropInput = styled.input`
+	background-color: ${({theme}) => theme.palette.offwhite};
+	color: ${({theme}) => theme.palette.primary[1]};
+	border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	border-radius: 0.2rem;
+	height: 1.5rem;
+	font-size: 1rem;
+`
+
+export const InputDropContainer = styled.ul`
+	font-size: 0.9rem;
+`
+
+export const InputDropSelection = styled.li`
+	background-color: ${({theme}) => theme.palette.offwhite};
+	color: ${({theme}) => theme.palette.primary[1]};
+	height: 1.3rem;
+	padding: 0.2rem;
+	border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	border-top: none;
+	cursor: pointer;
+
+	&.selected {
+		background-color: ${({theme}) => theme.palette.focused};
+		color: ${({theme}) => theme.palette.offblack};
+	}
+`
+
 class InputDropdown extends Component {
 	constructor(props) {
 		super(props)

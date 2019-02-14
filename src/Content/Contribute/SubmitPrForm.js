@@ -1,31 +1,32 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '../../style';
-import { FormContainer, FieldContainer, InputWrapper, FieldTextWrapper } from './formstyles'
-import { formatPropAsKey } from '../../utils';
+import { FormContainer, FieldContainer, WarningText } from './formstyles'
 
-import InputDropdown from './InputDropdown';
-// import DateField from './DateField';
+import FormField from './FormField';
+import SelectedOptions from './SelectedOptions';
+import DateField from './DateField';
+import TextInput from './TextInput';
 
 const regions = [
 	{
-		region_id: 1,
-		region_name: 'Chicago',
+		value: 1,
+		label: 'Chicago',
 		region_alias: 'chicago'
 	},
 	{
-		region_id: 2,
-		region_name: 'Southern California',
+		value: 2,
+		label: 'Southern California',
 		region_alias: 'socal'
 	},
 	{
-		region_id: 3,
-		region_name: 'New England',
+		value: 3,
+		label: 'New England',
 		region_alias: 'new-england'
 	},
 	{
-		region_id: 4,
-		region_name: 'South Florida',
+		value: 4,
+		label: 'South Florida',
 		region_alias: 'sfl'
 	}
 ]
@@ -35,50 +36,90 @@ class SubmitPrForm extends Component {
 		super(props)
 
 		this.state = {
-			game: '',
-			region: '',
+			formProgress: 'first',
+			game: null,
+			region: null,
 			date: undefined,
-			ranks: []
+			title: '',
+			ranks: [],
+			warning: null
 		}
 	}
 
-	handleChange = e => {
-		this.setState(formatPropAsKey(e.target.name, e.target.value));
+	handleGameChange = game => {
+		this.setState({game, warning: null});
+	}
+
+	handleRegionChange = region => {
+		this.setState({region, warning: null});
+	}
+
+	handleTitleChange = e => {
+		this.setState({title: e.target.value});
 	}
 
 	submitForm = e => {
 		e.preventDefault();
+		const { game, region } = this.state;
+		if (!game || !region) {
+			this.setState({warning: 'You must select both game and region before proceeding.'});
+		}
+		else {
+			this.setState({formProgress: 'second', warning: null})
+		}
 		console.log(this.state);
 	}
 
 	render() {
+		const { game, region, formProgress, warning } = this.state;
 		const { gamesInfo } = this.props;
+		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
+		let firstLabels;
+		if (game && region) {
+			firstLabels = [{variable: 'game', label: game.label}, {variable: 'region', label: region.label}];
+		}
+		console.log(this.state);
 		return(
 			<FormContainer>
-				<FieldContainer>
-					<InputWrapper>
-						<label htmlFor="game">Select game:</label>
-						<select name="game" onChange={e => this.handleChange(e)}>
-
-							<option value={''}>Select game</option>
-							{gamesInfo && gamesInfo.map(game => {
-								return(
-									<option key={game.game_id} value={game.game_id}>{game.game_name}</option>
-								)})
-							}
-						</select>
-					</InputWrapper>
-					<FieldTextWrapper>
-						Game not listed? Join the Discord and request it! Always looking to add new titles.
-					</FieldTextWrapper>
-				</FieldContainer>
-				<InputDropdown regions={regions} />
-				<Button 
-					style={{margin: '1rem 0'}}
-					onClick={e => this.submitForm(e)}
-				>
-					Submit
-				</Button>
+				{(() => {
+					switch(formProgress) {
+						case 'first':
+							return <div>
+								<FormField
+									name="game"
+									value={game}
+									handleChange={this.handleGameChange}
+									options={gamesOptions}
+									isDisabled={false}
+									fieldText="Game not listed? Join the Discord and request it! Always looking to add new titles."
+								/>
+								<FormField
+									name="region"
+									value={region}
+									handleChange={this.handleRegionChange}
+									options={regions}
+									isDisabled={game ? false : true}
+									fieldText="Or add a new region if it is not listed."
+								/>
+								<Button 
+									style={{margin: '1rem 0', float: 'right'}}
+									onClick={e => this.submitForm(e)}
+								>
+									Create Ranking
+								</Button>
+								{warning ? (<WarningText>{warning}</WarningText>) : null}
+							</div>
+						case 'second':
+							return <div>
+								<SelectedOptions labels={firstLabels}/>
+								<FieldContainer style={{justifyContent: 'flex-start', flexWrap: 'wrap'}}>
+									<DateField />
+									<TextInput name="title" placeholder="Enter ranking title..." handleChange={this.handleTitleChange} />
+								</FieldContainer>
+							</div>
+						}
+					}
+				)()}
 			</FormContainer>
 		)
 	}
