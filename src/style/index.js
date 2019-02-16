@@ -1,12 +1,19 @@
 import { createGlobalStyle } from 'styled-components';
 
 // import shared components to be exported
+// links and navigation
 import NavLink from './NavLink';
 import StyledActiveNavLink from './StyledActiveNavLink';
 import BreadCrumbs from './BreadCrumbs';
+import Button from './Button';
+
+// sidebar content and navigation
 import Aside from './Aside';
 import AsideNavAnchor from './AsideNavAnchor';
-import Button from './Button';
+import ExpandCollapseButton from './ExpandCollapseButton';
+import ExpandCollapseContent from './ExpandCollapseContent';
+
+// element headers and containers
 import HeaderText from './HeaderText';
 import SubHeaderText from './SubHeaderText';
 import SubSubHeaderText from './SubSubHeaderText';
@@ -15,16 +22,20 @@ import SectionMain from './SectionMain';
 import UnorderedList from './UnorderedList';
 import ListItem from './ListItem';
 import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
-import ExpandCollapseButton from './ExpandCollapseButton';
-import ExpandCollapseContent from './ExpandCollapseContent';
+
+// miscellaneous- icons, modals, etc
 import StyledSvgLogo from './StyledSvgLogo';
+import { SvgButtonContainer, WarningIcon, ArrowUp, ArrowDown } from './SvgIcons';
+import { ModalOverlay, ModalContent } from './Modal';
 
 // define theme variables
 const theme = {
 	palette: {
-		primary: ['#142543', '#4e6692', '#98a3b7', '#f0f2f5'],
+		primary: ['#142543', '#4e6692', '#98a3b7', '#e6e8eb', '#f0f2f5'],
 		accent: ['#de5253', '#c04749', '#efa9a9'],
 		focused: '#fbc251',
+		positive: '#28a745',
+		negative: '#dc3545',
 		background_base: '#eef1f6',
 		offwhite: '#f7f7f7',
 		offblack: '#2f2f2f',
@@ -58,8 +69,10 @@ const GlobalStyle = createGlobalStyle`
 		display: flex;
 		flex-direction: column;
 		font-family: ${theme.fonts.primary};
-		color: ${theme.palette.offblack};
-		background-color: ${theme.palette.background_base};
+		color: ${theme.palette.primary[0]};
+		background-color: ${theme.palette.primary[3]};
+		font-smoothing: subpixel-antialiased;
+		text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 	}
 	body > #app {
 		flex-grow: 1;
@@ -98,5 +111,11 @@ export {
 	TableCellLast,
 	ExpandCollapseButton,
 	ExpandCollapseContent,
-	StyledSvgLogo
+	StyledSvgLogo,
+	ModalOverlay,
+	ModalContent,
+	SvgButtonContainer,
+	WarningIcon,
+	ArrowUp,
+	ArrowDown
 }

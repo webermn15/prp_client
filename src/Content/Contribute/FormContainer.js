@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SubmitPrForm from './SubmitPrForm';
+import { SubmitPrForm } from './Form';
 
 const mapStateToProps = state => {
 	const { gamesInfo } = state;

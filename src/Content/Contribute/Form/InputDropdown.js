@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer, FieldTextWrapper, InputWrapper, InputDropInput, InputDropContainer, InputDropSelection } from './formstyles';
-import { Button } from '../../style';
-import { formatPropAsKey } from '../../utils';
+import { Button } from '../../../style';
+import { formatPropAsKey } from '../../../utils';
 
 export const InputDropInput = styled.input`
 	background-color: ${({theme}) => theme.palette.offwhite};

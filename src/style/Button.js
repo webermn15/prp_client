@@ -26,6 +26,16 @@ const Button = styled.button`
 		background-color: ${({theme}) => theme.palette.accent[2]};
 		transform: scale(0.99);
 	}
+
+	&.secondary-button {
+		background-color: ${({theme}) => theme.palette.offwhite};
+		color: ${({theme}) => theme.palette.primary[0]};
+		border: 2px solid ${({theme}) => theme.palette.primary[0]};
+	}
+	&.secondary-button:focus,
+	&.secondary-button:hover {
+		background-color: ${({theme}) => theme.palette.grayscale[5]};
+	}
 `
 
 export default Button;

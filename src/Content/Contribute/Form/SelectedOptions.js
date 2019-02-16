@@ -46,7 +46,7 @@ const OptionAction = styled.button`
 	margin: 0;
 	border: none;
 	background: none;
-	border-radius: 0.3rem;
+	border-radius: 0 0.3rem 0.3rem 0;
 	transition: all 0.2s ease-in-out;
 
 	&:focus,
@@ -57,14 +57,23 @@ const OptionAction = styled.button`
 	}
 `
 
-const SelectedOptions = ({labels, handleClick}) => {
+const SelectedOptions = ({formData, handleClick}) => {
+	const { formProgress, game, region, date, title } = formData;
+	const dateString = date.toDateString().split(' ').slice(1).join(' ');
+	let labelss;
+	if (formProgress === 'second') {
+		labelss = [{variable: 'game', label: game.label, form: 'first'}, {variable: 'region', label: region.label, form: 'first'}];
+	}
+	else if (formProgress === 'third') {
+		labelss = [{variable: 'game', label: game.label, form: 'first'}, {variable: 'region', label: region.label, form: 'first'}, {variable: 'date', label: dateString, form: 'second'}, {variable: 'title', label: title, form: 'second'}];
+	}
 	return(
 		<OptionsContainer>
-			{labels.map(({label, variable}, i) => {
+			{labelss.map(({label, variable, form}, i) => {
 				return(
 					<OptionLabel key={i}>
 						<OptionName>{label}</OptionName>
-						<OptionAction onClick={() => handleClick(variable)}><span>X</span></OptionAction>
+						<OptionAction onClick={() => handleClick(variable, form)}><span>X</span></OptionAction>
 					</OptionLabel>
 				)
 			})}
@@ -75,6 +84,6 @@ const SelectedOptions = ({labels, handleClick}) => {
 export default SelectedOptions;
 
 SelectedOptions.propTypes = {
-	labels: PropTypes.array,
+	formData: PropTypes.object,
 	handleClick: PropTypes.func
 }

@@ -5,8 +5,8 @@ import { InputWrapper, FormLabel, StyledTextInput } from './formstyles';
 const TextInput = ({name, value, placeholder, handleChange}) => {
 	return(
 		<InputWrapper>
-			<FormLabel name={name}>Enter {name}:</FormLabel>
-			<StyledTextInput type="text" placeholder={placeholder} value={value} onChange={e => handleChange(e)}/>
+			<FormLabel htmlFor={name}>Enter {name}:</FormLabel>
+			<StyledTextInput name={name} type="text" placeholder={placeholder} value={value} onChange={e => handleChange(e)}/>
 		</InputWrapper>
 	)
 }

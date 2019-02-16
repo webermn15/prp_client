@@ -13,13 +13,13 @@ const AsideNavAnchor = styled(Link)`
 	padding: 0.7rem 0.2rem;
 	margin: 0;
 	border: none;
-	border-bottom: 1px solid ${({theme}) => theme.palette.primary[2]};
+	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
 	background-color: ${({theme}) => theme.palette.offwhite};
 	color: ${({theme}) => theme.palette.primary[1]};
 
 	&:hover,
 	&:active {
-		background-color: ${({theme}) => theme.palette.primary[3]};
+		background-color: ${({theme}) => theme.palette.primary[4]};
 	}
 `
 

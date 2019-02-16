@@ -20,7 +20,7 @@ class AsideNav extends Component {
 			<Aside>
 				<div style={{margin: '2rem auto', height: '4rem', width: '4rem'}}>
 					<NavLink to='/' >
-						<StyledSvgLogo className='svg-icon'/>
+						<StyledSvgLogo className='svg-logo'/>
 					</NavLink>
 				</div>
 				<nav style={{width: '90%', margin: '0 auto'}}>

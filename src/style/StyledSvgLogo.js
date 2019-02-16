@@ -17,13 +17,13 @@ SvgLogo.propTypes = {
 }
 
 const StyledSvgLogo = styled(SvgLogo)`
-	&.svg-icon {
+	&.svg-logo {
 		fill: ${({theme}) => theme.palette.primary[1]};
 		transform-origin: 50% 50%;
 		transition: 0.2s fill ease-in-out;
 		animation: 0.2s ${rotateHalfReverse} ease-in;
-
 	}
+	
 	${NavLink}:hover &,
 	${NavLink}:focus & {
 		fill: ${({theme}) => theme.palette.accent[0]};

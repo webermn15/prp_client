@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '../../style';
-import { FormContainer, FieldContainer, WarningText } from './formstyles'
+import { FormContainer, FieldContainer, WarningText, FormButton, FormHeader } from './formstyles'
+import { WarningIcon } from '../../../style';
 
 import FormField from './FormField';
 import SelectedOptions from './SelectedOptions';
@@ -9,6 +9,8 @@ import DateField from './DateField';
 import TextInput from './TextInput';
 import FileInput from './FileInput';
 import DetailMarkdown from './DetailMarkdown';
+import RankField from './RankField';
+import PreviewModal from './PreviewModal';
 
 const regions = [
 	{
@@ -44,13 +46,27 @@ class SubmitPrForm extends Component {
 			date: new Date,
 			title: '',
 			detail: '',
-			ranks: [],
-			warning: null
+			ranks: [
+				{
+					tag: '',
+					characters: []
+				},
+				{
+					tag: '',
+					characters: []
+				},
+				{
+					tag: '',
+					characters: []
+				}
+			],
+			warning: null,
+			showModal: false
 		}
 	}
 
 	handleGameChange = game => {
-		this.setState({game, warning: null});
+		this.setState({game, region: null, warning: null});
 	}
 
 	handleRegionChange = region => {
@@ -69,8 +85,30 @@ class SubmitPrForm extends Component {
 		this.setState({detail});
 	}
 
-	handleClear = fieldName => {
-		this.setState({[fieldName]: null, formProgress: 'first'});
+	handleRankTagChange = (e, i) => {
+		const { ranks } = this.state;
+		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, tag: e.target.value} : rank) )});
+	}
+
+	handleClear = (fieldName, form) => {
+		let cleared = null;
+		if (fieldName === 'title') {
+			cleared = ''
+		}
+		else if (fieldName === 'date') {
+			cleared = new Date
+		}
+		this.setState({[fieldName]: cleared, formProgress: form});
+	}
+
+	showPreview = () => {
+		const focusable = document.querySelectorAll('a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select');
+		for (let ele of focusable) {
+			if (!ele.classList.contains('preview')) {
+				ele.setAttribute('tabindex', -1);
+			}
+		}
+		this.setState({showModal: true})
 	}
 
 	submitFirst = e => {
@@ -95,14 +133,15 @@ class SubmitPrForm extends Component {
 		}
 	}
 
+	submitThird = e => {
+		e.preventDefault();
+		console.log(this.state);
+	}
+
 	render() {
-		const { game, region, date, title, detail, formProgress, warning } = this.state;
+		const { game, region, date, title, detail, ranks, formProgress, warning, showModal } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
-		let firstLabels;
-		if (game && region) {
-			firstLabels = [{variable: 'game', label: game.label}, {variable: 'region', label: region.label}];
-		}
 		console.log(this.state);
 		return(
 			<FormContainer>
@@ -126,36 +165,61 @@ class SubmitPrForm extends Component {
 									isDisabled={game ? false : true}
 									fieldText="Or add a new region if it is not listed."
 								/>
-								<Button 
-									style={{margin: '1rem 0', float: 'right'}}
+								<FormButton 
 									onClick={e => this.submitFirst(e)}
 								>
 									Create New Ranking
-								</Button>
-								{warning ? (<WarningText>{warning}</WarningText>) : null}
+								</FormButton>
+								{warning ? (<WarningText><WarningIcon className="svg-icon" /><span>{warning}</span></WarningText>) : null}
 							</div>
 						case 'second':
 							return <div>
-								<SelectedOptions handleClick={this.handleClear} labels={firstLabels}/>
-								<FieldContainer style={{justifyContent: 'space-around', flexWrap: 'wrap'}}>
+								<SelectedOptions formData={this.state} handleClick={this.handleClear} />
+								<FieldContainer style={{justifyContent: 'space-between', flexWrap: 'wrap'}}>
 									<DateField date={date} handleChange={this.handleDateChange}/>
 									<TextInput name="title" placeholder="Enter ranking title..." value={title} handleChange={this.handleTitleChange} />
 									<FileInput />
 								</FieldContainer>
 								<DetailMarkdown value={detail} handleChange={this.handleDetailChange} />
-								<Button
-									style={{margin: '1rem 0', float: 'right'}}
+								<FormButton
 									onClick={e => this.submitSecond(e)}
 								>
 									Preview and Add Ranks
-								</Button>
-								{warning ? (<WarningText>{warning}</WarningText>) : null}
+								</FormButton>
+								{warning ? (<WarningText><WarningIcon className="svg-icon" /><span>{warning}</span></WarningText>) : null}
 							</div>
 						case 'third':
 							return <div>
-								<FieldContainer>
-									dab, third component; dab.
+								{showModal ? (<PreviewModal preview={this.state} handleClick={() => this.setState({showModal: false})} />) : null}
+								<SelectedOptions formData={this.state} handleClick={this.handleClear} />
+								<FieldContainer style={{flexDirection: 'column', paddingTop: '0'}}>
+									<div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #142543', padding: '0 1rem'}}>
+										<FormHeader>
+											Set Player Ranks
+										</FormHeader>
+										<FormButton
+											className="secondary-button"
+											onClick={() => this.showPreview()}
+										>
+											Preview
+										</FormButton>
+									</div>
+									{ranks.map((rank, i) => {
+										return(
+											<RankField
+												key={i}
+												rankNum={i + 1}
+												value={rank.tag}
+												handleChange={e => this.handleRankTagChange(e, i)}
+											/>
+										)
+									})}
 								</FieldContainer>
+								<FormButton
+									onClick={e => this.submitThird(e)}
+								>
+									Preview and Submit
+								</FormButton>
 							</div>
 						default:
 							null

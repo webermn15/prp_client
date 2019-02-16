@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 20px;
-	background-color: ${({theme}) => theme.palette.background_base};
+	background-color: ${({theme}) => theme.palette.primary[3]};
 `
 
 class Header extends Component {

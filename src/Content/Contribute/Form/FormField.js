@@ -5,7 +5,7 @@ import { FieldContainer, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect 
 const FormField = ({name, value, handleChange, options, isDisabled, fieldText}) => {
 	return(
 		<FieldContainer>
-			<InputWrapper style={{minWidth: '14rem'}}>
+			<InputWrapper style={{minWidth: '16rem'}}>
 				<FormLabel htmlFor={name}>Select {name}:</FormLabel>
 				<ReactSelect
 					value={value}
@@ -18,7 +18,7 @@ const FormField = ({name, value, handleChange, options, isDisabled, fieldText}) 
 				/>
 			</InputWrapper>
 			<FieldTextWrapper>
-				{fieldText}
+				<span>{fieldText}</span>
 			</FieldTextWrapper>
 		</FieldContainer>
 	)

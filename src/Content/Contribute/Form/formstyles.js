@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 import Select from 'react-select';
+import { Button } from '../../../style';
+
+export const FormButton = styled(Button)`
+	margin: 1rem 0;
+	float: right;
+`
 
 export const ReactSelect = styled(Select)`
 	color: ${({theme}) => theme.palette.offblack};
@@ -27,14 +33,23 @@ export const FormContainer = styled.div`
 	flex-direction: column;
 	justify-content: flex-start;
 	padding: 0 1rem;
-	margin: 0 1rem;
 	background-color: ${({theme}) => theme.palette.primary[0]};
 	border-radius: 0.3rem;
+
+	&.third {
+		background-color: ${({theme}) => theme.palette.offwhite};
+	}
 `
 
 export const FormLabel = styled.label`
 	padding: 0 0.2rem 0.2rem 0.2rem;
 	font-size: 0.8rem;
+`
+
+export const FormHeader = styled.div`
+	font-size: 2rem;
+	font-weight: 700;
+	text-shadow: 1px 1px 3px ${({theme}) => theme.palette.primary[0]};
 `
 
 export const FieldContainer = styled.div`
@@ -75,14 +90,22 @@ export const StyledTextInput = styled.input`
 export const FieldTextWrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: center;
 	flex-grow: 1;
+	text-align: center;
 	margin: 0 1rem;
 `
 
 export const WarningText = styled.div`
-	text-align: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 	color: ${({theme}) => theme.palette.focused};
 	margin: 1rem 0;
 	padding: 0.5rem;
+
+	& > span {
+		padding: 0 0.4rem;
+	}
 `

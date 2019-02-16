@@ -32,8 +32,9 @@ const StyledQuill = styled(ReactQuill)`
 const DetailMarkdown = ({detail, handleChange}) => {
 	return(
 		<FieldContainer style={{flexDirection: 'column'}}>
-			<FormLabel style={{paddingLeft: '1.2rem'}} name="detail">Ranking details:</FormLabel>
-			<StyledQuill 
+			<FormLabel style={{paddingLeft: '1.2rem'}} name="detail">Ranking description & details: (not required)</FormLabel>
+			<StyledQuill
+				placeholder="Enter description..."
 				defaultValue={detail}
 				onChange={handleChange}
 			/>

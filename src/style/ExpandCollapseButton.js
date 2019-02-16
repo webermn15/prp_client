@@ -13,18 +13,18 @@ const ExpandCollapseButton = styled.button`
 	flex-direction: row;
 	justify-content: space-between;
 	border: none;
-	border-top: 1px solid ${({theme}) => theme.palette.primary[2]};
-	border-bottom: 1px solid ${({theme}) => theme.palette.primary[2]};
+	border-top: 1px solid ${({theme}) => theme.palette.primary[0]};
+	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
 	background-color: ${({theme}) => theme.palette.offwhite};
 	color: ${({theme}) => theme.palette.primary[1]};
 
 	&:hover,
 	&:active {
-		background-color: ${({theme}) => theme.palette.primary[3]};
+		background-color: ${({theme}) => theme.palette.primary[4]};
 	}
 
 	&.expanded {
-		background-color: ${({theme}) => theme.palette.primary[3]};
+		background-color: ${({theme}) => theme.palette.primary[4]};
 	}
 `
 

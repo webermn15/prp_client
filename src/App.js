@@ -26,7 +26,8 @@ const Main = styled.main`
 	width: 1024px;
 	overflow: auto;
 	background-color: ${({theme}) => theme.palette.offwhite};
-	border-radius: 0.6rem;
+	border-top: 0.3rem solid ${({theme}) => theme.palette.primary[0]};
+	border-radius: 0.6rem 0.6rem 0 0;
 `
 
 class App extends Component {
