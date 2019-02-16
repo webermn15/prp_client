@@ -6,35 +6,13 @@ import FormFirst from './FormFirst';
 import FormSecond from './FormSecond';
 import FormThird from './FormThird';
 
-const regions = [
-	{
-		value: 1,
-		label: 'Chicago',
-		region_alias: 'chicago'
-	},
-	{
-		value: 2,
-		label: 'Southern California',
-		region_alias: 'socal'
-	},
-	{
-		value: 3,
-		label: 'New England',
-		region_alias: 'new-england'
-	},
-	{
-		value: 4,
-		label: 'South Florida',
-		region_alias: 'sfl'
-	}
-]
-
 class FormMaster extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
 			formProgress: 'first',
+			regions: [],
 			game: null,
 			region: null,
 			date: new Date,
@@ -62,8 +40,32 @@ class FormMaster extends Component {
 		}
 	}
 
+	requestRegions = async query => {
+		try {
+			const response = await fetch(`${process.env.API_URL}/api/regions/game`, {
+				method: 'POST',
+				body: JSON.stringify(query),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			if (!response.ok) {
+				console.log('error requesting regions for game: ', response);
+			}
+			else {
+				this.setState({...body});
+			}
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
+
 	handleGameChange = game => {
+		const jsonQuery = {'gameAlias': game.value}
 		this.setState({game, region: null, warning: null});
+		this.requestRegions(jsonQuery);
 	}
 
 	handleRegionChange = region => {
@@ -146,7 +148,7 @@ class FormMaster extends Component {
 	}
 
 	render() {
-		const { game, region, date, title, detail, ranks, formProgress, warning, showModal } = this.state;
+		const { regions, game, region, date, title, detail, ranks, formProgress, warning, showModal } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
 		console.log(this.state);
