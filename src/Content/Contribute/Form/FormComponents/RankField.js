@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { StyledTextInput } from './formstyles';
-import { SvgButtonContainer, ArrowUp, ArrowDown } from '../../../style';
+import { StyledTextInput } from '../formstyles';
+import { SvgButtonContainer, ArrowUp, ArrowDown } from '../../../../style';
 
 const RankContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
+	align-items: center;
 	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
-	padding: 1rem;
+	padding: 0.2rem 1rem;
 `
 
 const RankIndicator = styled.div`
@@ -27,7 +28,7 @@ const RankIndicator = styled.div`
 	}
 `
 
-const RankField = ({rankNum, value, handleChange}) => {
+const RankField = ({rankNum, tagValue, handlePrefixChange, prefixValue, handleTagChange}) => {
 	return(
 		<RankContainer>
 			<div>
@@ -38,11 +39,19 @@ const RankField = ({rankNum, value, handleChange}) => {
 				<span>{`# ${rankNum}`}</span>
 			</RankIndicator>
 			<StyledTextInput
+				style={{maxWidth: '8rem', fontSize: '0.8rem'}}
+				type="text"
+				name="prefix"
+				value={prefixValue}
+				placeholder="Sponsor prefix..."
+				onChange={handlePrefixChange}
+			/>
+			<StyledTextInput
 				type="text"
 				name="tag"
-				value={value}
+				value={tagValue}
 				placeholder="Enter tag..."
-				onChange={handleChange}
+				onChange={handleTagChange}
 			/>
 		</RankContainer>
 	)
@@ -52,6 +61,8 @@ export default RankField;
 
 RankField.propTypes = {
 	rankNum: PropTypes.number,
-	value: PropTypes.string,
-	handleChange: PropTypes.func
+	tagValue: PropTypes.string,
+	handleTagChange: PropTypes.func,
+	prefixValue: PropTypes.string,
+	handlePrefixChange: PropTypes.func
 }

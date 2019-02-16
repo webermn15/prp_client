@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FieldContainer, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect } from './formstyles';
+import { FieldContainer, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect } from '../formstyles';
 
 const FormField = ({name, value, handleChange, options, isDisabled, fieldText}) => {
 	return(

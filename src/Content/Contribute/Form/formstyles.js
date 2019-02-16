@@ -41,9 +41,13 @@ export const FormContainer = styled.div`
 	}
 `
 
-export const FormLabel = styled.label`
-	padding: 0 0.2rem 0.2rem 0.2rem;
-	font-size: 0.8rem;
+export const FormHeaderContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
+	padding: 0 1rem;
 `
 
 export const FormHeader = styled.div`
@@ -61,6 +65,11 @@ export const FieldContainer = styled.div`
 	padding: 1rem 0;
 	margin-top: 1rem;
 	border-radius: 0.3rem;
+`
+
+export const FormLabel = styled.label`
+	padding: 0 0.2rem 0.2rem 0.2rem;
+	font-size: 0.8rem;
 `
 
 export const InputWrapper = styled.div`

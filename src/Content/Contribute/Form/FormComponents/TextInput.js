@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InputWrapper, FormLabel, StyledTextInput } from './formstyles';
+import { InputWrapper, FormLabel, StyledTextInput } from '../formstyles';
 
 const TextInput = ({name, value, placeholder, handleChange}) => {
 	return(

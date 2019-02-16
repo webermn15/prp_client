@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { SubmitPrForm } from './Form';
+import { FormMaster } from './Form';
 
 const mapStateToProps = state => {
 	const { gamesInfo } = state;
@@ -10,6 +10,6 @@ const mapStateToProps = state => {
 
 const FormContainer = connect(
 	mapStateToProps
-)(SubmitPrForm)
+)(FormMaster)
 
 export default FormContainer;

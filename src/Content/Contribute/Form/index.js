@@ -1,5 +1,5 @@
-import SubmitPrForm from './SubmitPrForm';
+import FormMaster from './FormMaster';
 
 export {
-	SubmitPrForm
+	FormMaster
 }

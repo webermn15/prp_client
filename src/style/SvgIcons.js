@@ -10,7 +10,7 @@ const SvgArrow = ({className}) => {
 	)
 }
 
-const SvgCancel = ({className}) => {
+const SvgRemove = ({className}) => {
 	return(
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
 			<path className={className} d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/><path d="M0 0h24v24H0z" fill="none"/>
@@ -43,13 +43,14 @@ export const SvgButtonContainer = styled.button`
 	background: none;
 	border: none;
 	margin: 0;
-	padding: 2px;
+	padding: 1px;
 	border-radius: 2rem;
+	transition: all 0.1s ease-in-out;
 
 	&:focus,
 	&:hover {
 		outline: none;
-		box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
+		background-color: ${({theme}) => theme.palette.offwhite};
 	}
 `
 
@@ -59,13 +60,34 @@ export const WarningIcon = styled(SvgWarningSymbol)`
 	}
 `
 
+export const AddIcon = styled(SvgAdd)`
+	&.svg-icon {
+		fill: ${({theme}) => theme.palette.offwhite};
+	}
+	${SvgButtonContainer}:hover &,
+	${SvgButtonContainer}:focus & {
+		fill: ${({theme}) => theme.palette.positive};
+	}
+`
+
+export const RemoveIcon = styled(SvgRemove)`
+	&.svg-icon {
+		fill: ${({theme}) => theme.palette.offwhite};
+	}
+	${SvgButtonContainer}:hover &,
+	${SvgButtonContainer}:focus & {
+		fill: ${({theme}) => theme.palette.negative};
+	}
+`
+
 export const ArrowUp = styled(SvgArrow)`
 	&.svg-icon {
 		fill: ${({theme}) => theme.palette.offwhite};
 		transform-origin: 50% 50%;
 		transform: rotate(180deg);
 	}
-	${SvgButtonContainer}:hover & {
+	${SvgButtonContainer}:hover &,
+	${SvgButtonContainer}:focus & {
 		fill: ${({theme}) => theme.palette.positive};
 	}
 `
@@ -74,7 +96,8 @@ export const ArrowDown = styled(SvgArrow)`
 	&.svg-icon {
 		fill: ${({theme}) => theme.palette.offwhite};
 	}
-	${SvgButtonContainer}:hover & {
+	${SvgButtonContainer}:hover &,
+	${SvgButtonContainer}:focus & {
 		fill: ${({theme}) => theme.palette.negative};
 	}
 `
@@ -83,7 +106,7 @@ SvgArrow.propTypes = {
 	className: PropTypes.string
 }
 
-SvgCancel.propTypes = {
+SvgRemove.propTypes = {
 	className: PropTypes.string
 }
 

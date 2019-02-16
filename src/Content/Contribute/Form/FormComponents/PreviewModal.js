@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { ModalOverlay, ModalContent, Button, HeaderText, SubHeaderText, SubSubHeaderText } from '../../../style';
-import defaultSsbmHeader from '../../../../dist/static/ssbmfodheader.jpg';
+import { ModalOverlay, ModalContent, Button, HeaderText, SubHeaderText, SubSubHeaderText } from '../../../../style';
+import defaultSsbmHeader from '../../../../../dist/static/ssbmfodheader.jpg';
+
+import PreviewRankingTable from './PreviewRankingTable';
 
 const PreviewHeader = styled.div`
 	position: relative;
@@ -60,7 +62,7 @@ class PreviewModal extends Component {
 	}
 	render() {
 		const { preview, handleClick } = this.props;
-		const { game, region, title, detail } = preview;
+		const { game, region, title, detail, ranks } = preview;
 		return(
 			<ModalOverlay>
 				<ModalContent>
@@ -75,6 +77,7 @@ class PreviewModal extends Component {
 						<PreviewDescription
 							dangerouslySetInnerHTML={{__html: detail.length > 0 ? detail : null}} 
 						/>
+						<PreviewRankingTable rankings={ranks} />
 					</div>
 					<Button
 						style={{float: 'right'}}

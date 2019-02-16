@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { InputWrapper, FormLabel } from './formstyles';
+import { InputWrapper, FormLabel } from '../formstyles';
 
 const FileInput = () => {
 	return(

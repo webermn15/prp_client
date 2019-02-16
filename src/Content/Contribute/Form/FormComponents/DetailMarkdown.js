@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import ReactQuill from 'react-quill';
-import { FieldContainer, FormLabel } from './formstyles';
+import { FieldContainer, FormLabel } from '../formstyles';
 
 import 'react-quill/dist/quill.snow.css';
 

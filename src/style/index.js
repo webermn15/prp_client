@@ -25,7 +25,7 @@ import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
 
 // miscellaneous- icons, modals, etc
 import StyledSvgLogo from './StyledSvgLogo';
-import { SvgButtonContainer, WarningIcon, ArrowUp, ArrowDown } from './SvgIcons';
+import { SvgButtonContainer, WarningIcon, AddIcon, RemoveIcon, ArrowUp, ArrowDown } from './SvgIcons';
 import { ModalOverlay, ModalContent } from './Modal';
 
 // define theme variables
@@ -116,6 +116,8 @@ export {
 	ModalContent,
 	SvgButtonContainer,
 	WarningIcon,
+	AddIcon,
+	RemoveIcon,
 	ArrowUp,
 	ArrowDown
 }
