@@ -4,7 +4,7 @@ import { FieldContainer, FormHeaderContainer, FormHeader, FormButton } from './f
 
 import { PreviewModal, SelectedOptions, RankField } from './FormComponents';
 
-const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, handleRankTagChange, handleRankPrefixChange, submitThird}) => {
+const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, handleRankTagChange, handleRankPrefixChange, handleCharacterSelect, submitThird}) => {
 	return(
 		<div>
 			{showModal ? (<PreviewModal preview={formData} handleClick={closePreviewModal} />) : null}
@@ -25,11 +25,12 @@ const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, ha
 					return(
 						<RankField
 							key={i}
-							rankNum={i + 1}
-							tagValue={rank.player_tag}
+							ind={i}
+							playerData={rank}
+							characters={characters}
 							handleTagChange={e => handleRankTagChange(e, i)}
-							prefixValue={rank.sponsor_prefix}
 							handlePrefixChange={e => handleRankPrefixChange(e, i)}
+							handleCharacterSelect={e => handleCharacterSelect(e, i)}
 						/>
 					)
 				})}
@@ -52,7 +53,9 @@ FormThird.propTypes = {
 	showModal: PropTypes.bool,
 	handleClear: PropTypes.func,
 	ranks: PropTypes.array,
+	characters: PropTypes.array,
 	handleRankTagChange: PropTypes.func,
 	handleRankPrefixChange: PropTypes.func,
+	handleCharacterSelect: PropTypes.func,
 	submitThird: PropTypes.func
 }

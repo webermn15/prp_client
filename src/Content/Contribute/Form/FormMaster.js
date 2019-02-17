@@ -22,19 +22,20 @@ class FormMaster extends Component {
 				{
 					sponsor_prefix: '',
 					player_tag: '',
-					characters: []
+					played_characters: ''
 				},
 				{
 					sponsor_prefix: '',
 					player_tag: '',
-					characters: []
+					played_characters: ''
 				},
 				{
 					sponsor_prefix: '',
 					player_tag: '',
-					characters: []
+					played_characters: ''
 				}
 			],
+			characters: [],
 			warning: null,
 			showModal: false
 		}
@@ -43,6 +44,28 @@ class FormMaster extends Component {
 	requestRegions = async query => {
 		try {
 			const response = await fetch(`${process.env.API_URL}/api/regions/game`, {
+				method: 'POST',
+				body: JSON.stringify(query),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			if (!response.ok) {
+				console.log('error requesting regions for game: ', response);
+			}
+			else {
+				this.setState({...body});
+			}
+		}
+		catch (e) {
+			console.log(e);
+		}
+	}
+
+	requestGameCharacters = async query => {
+		try {
+			const response = await fetch(`${process.env.API_URL}/api/games/characters`, {
 				method: 'POST',
 				body: JSON.stringify(query),
 				headers: {
@@ -94,6 +117,11 @@ class FormMaster extends Component {
 		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, sponsor_prefix: e.target.value} : rank) )});
 	}
 
+	handleCharacterSelect = (played_characters, i) => {
+		const { ranks } = this.state;
+		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, played_characters} : rank) )});
+	}
+
 	handleClear = (fieldName, form) => {
 		let cleared = null;
 		if (fieldName === 'title') {
@@ -123,6 +151,8 @@ class FormMaster extends Component {
 	submitFirst = e => {
 		e.preventDefault();
 		const { game, region } = this.state;
+		const jsonQuery = {'gameAlias': game.value}
+		this.requestGameCharacters(jsonQuery);
 		if (!game || !region) {
 			this.setState({warning: 'You must select both game and region.'});
 		}
@@ -148,7 +178,7 @@ class FormMaster extends Component {
 	}
 
 	render() {
-		const { regions, game, region, date, title, detail, ranks, formProgress, warning, showModal } = this.state;
+		const { regions, game, region, date, title, detail, ranks, characters, formProgress, warning, showModal } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
 		console.log(this.state);
@@ -192,9 +222,11 @@ class FormMaster extends Component {
 									showPreviewModal={this.showPreview}
 									showModal={showModal}
 									handleClear={this.handleClear}
+									characters={characters}
 									ranks={ranks}
 									handleRankTagChange={this.handleRankTagChange}
 									handleRankPrefixChange={this.handleRankPrefixChange}
+									handleCharacterSelect={this.handleCharacterSelect}
 									submitThird={this.submitThird}
 								/>
 							)

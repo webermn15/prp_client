@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { StyledTextInput } from '../formstyles';
-import { SvgButtonContainer, ArrowUp, ArrowDown } from '../../../../style';
+import { StyledTextInput, ReactSelect, InputWrapper } from '../formstyles';
 
 const RankContainer = styled.div`
 	display: flex;
@@ -10,7 +9,7 @@ const RankContainer = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
-	padding: 0.2rem 1rem;
+	padding: 0.6rem 1rem;
 `
 
 const RankIndicator = styled.div`
@@ -22,37 +21,41 @@ const RankIndicator = styled.div`
 	text-align: center;
 	color: ${({theme}) => theme.palette.offwhite};
 	text-shadow: 1px 1px 3px ${({theme}) => theme.palette.primary[0]};
-
-	& > span {
-		padding: 0 0.6rem;
-	}
 `
 
-const RankField = ({rankNum, tagValue, handlePrefixChange, prefixValue, handleTagChange}) => {
+const RankField = ({ind, characters, playerData, handlePrefixChange, handleTagChange, handleCharacterSelect}) => {
+	const { player_tag, sponsor_prefix, played_characters } = playerData;
 	return(
 		<RankContainer>
-			<div>
-				<SvgButtonContainer><ArrowUp className="svg-icon"/></SvgButtonContainer>
-				<SvgButtonContainer><ArrowDown className="svg-icon"/></SvgButtonContainer>
-			</div>
 			<RankIndicator>
-				<span>{`# ${rankNum}`}</span>
+				<span>{`# ${ind + 1}`}</span>
 			</RankIndicator>
 			<StyledTextInput
-				style={{maxWidth: '6rem', fontSize: '0.8rem'}}
+				style={{maxWidth: '6rem'}}
 				type="text"
 				name="prefix"
-				value={prefixValue}
+				value={sponsor_prefix}
 				placeholder="Sponsor..."
 				onChange={handlePrefixChange}
 			/>
 			<StyledTextInput
 				type="text"
 				name="tag"
-				value={tagValue}
+				value={player_tag}
 				placeholder="Enter tag..."
 				onChange={handleTagChange}
 			/>
+			<InputWrapper style={{minWidth: '10rem'}}>
+				<ReactSelect
+					value={played_characters}
+					name="characters"
+					onChange={handleCharacterSelect}
+					isDisabled={false}
+					options={characters}
+					className="form-select-container"
+					classNamePrefix="form-select"
+				/>
+			</InputWrapper>
 		</RankContainer>
 	)
 }
@@ -60,9 +63,10 @@ const RankField = ({rankNum, tagValue, handlePrefixChange, prefixValue, handleTa
 export default RankField;
 
 RankField.propTypes = {
-	rankNum: PropTypes.number,
-	tagValue: PropTypes.string,
+	ind: PropTypes.number,
+	playerData: PropTypes.object,
+	characters: PropTypes.array,
 	handleTagChange: PropTypes.func,
-	prefixValue: PropTypes.string,
-	handlePrefixChange: PropTypes.func
+	handlePrefixChange: PropTypes.func,
+	handleCharacterSelect: PropTypes.func
 }
