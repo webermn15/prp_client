@@ -29,7 +29,7 @@ const StyledQuill = styled(ReactQuill)`
 	}
 `
 
-const DetailMarkdown = ({detail, handleChange}) => {
+const DetailMarkdown = ({detail, handleChange, modules}) => {
 	return(
 		<FieldContainer style={{flexDirection: 'column'}}>
 			<FormLabel style={{paddingLeft: '1.2rem'}} name="detail">Ranking description & details: (not required)</FormLabel>
@@ -37,6 +37,7 @@ const DetailMarkdown = ({detail, handleChange}) => {
 				placeholder="Enter description..."
 				defaultValue={detail}
 				onChange={handleChange}
+				modules={modules}
 			/>
 		</FieldContainer>
 	)
@@ -46,5 +47,6 @@ export default DetailMarkdown;
 
 DetailMarkdown.propTypes = {
 	detail: PropTypes.string,
-	handleChange: PropTypes.func
+	handleChange: PropTypes.func,
+	modules: PropTypes.object
 }

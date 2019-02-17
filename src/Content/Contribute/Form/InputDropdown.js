@@ -1,3 +1,5 @@
+//deprecated
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer, FieldTextWrapper, InputWrapper, InputDropInput, InputDropContainer, InputDropSelection } from './formstyles';

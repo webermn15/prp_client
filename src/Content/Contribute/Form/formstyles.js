@@ -67,6 +67,14 @@ export const FieldContainer = styled.div`
 	border-radius: 0.3rem;
 `
 
+export const FieldContent = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 1rem;
+`
+
 export const FormLabel = styled.label`
 	padding: 0 0.2rem 0.2rem 0.2rem;
 	font-size: 0.8rem;

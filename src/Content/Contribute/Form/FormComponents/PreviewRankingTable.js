@@ -27,7 +27,7 @@ const PreviewRankingTable = ({rankings}) => {
 							<TableCell>
 								{i + 1}
 							</TableCell>
-							<TableCell style={{textAlign: 'left'}}>
+							<TableCell style={{textAlign: 'left', fontWeight: '700'}}>
 								<span>{`${!!rank.sponsor_prefix === true ? rank.sponsor_prefix + ' |' : ''} ${rank.player_tag}`}</span>
 							</TableCell>
 							<TableCell style={{padding: '0 2rem', textAlign: 'center'}}>

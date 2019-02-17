@@ -39,11 +39,11 @@ const RankField = ({rankNum, tagValue, handlePrefixChange, prefixValue, handleTa
 				<span>{`# ${rankNum}`}</span>
 			</RankIndicator>
 			<StyledTextInput
-				style={{maxWidth: '8rem', fontSize: '0.8rem'}}
+				style={{maxWidth: '6rem', fontSize: '0.8rem'}}
 				type="text"
 				name="prefix"
 				value={prefixValue}
-				placeholder="Sponsor prefix..."
+				placeholder="Sponsor..."
 				onChange={handlePrefixChange}
 			/>
 			<StyledTextInput

@@ -1,10 +1,13 @@
+// deprecated
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect } from '../formstyles';
 
-const FormField = ({name, value, handleChange, options, isDisabled, fieldText}) => {
+const FormField = ({name, value, handleChange, options, isDisabled, fieldText, children}) => {
 	return(
 		<FieldContainer>
+			{children}
 			<InputWrapper style={{minWidth: '16rem'}}>
 				<FormLabel htmlFor={name}>Select {name}:</FormLabel>
 				<ReactSelect
@@ -32,5 +35,6 @@ FormField.propTypes = {
 	handleChange: PropTypes.func,
 	options: PropTypes.array,
 	isDisabled: PropTypes.bool,
-	fieldText: PropTypes.string
+	fieldText: PropTypes.string,
+	children: PropTypes.node
 }
