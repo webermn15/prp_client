@@ -1,3 +1,3 @@
-const icons = require.context('../../dist/static/ssbmicons', false, /\.(png)$/);
+const icons = require.context('../../dist/static/icons', false, /\.(png)$/);
 
 export default icons;
