@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const OptionsContainer = styled.div`
-	height: 2.5rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-start;
+	flex-wrap: wrap;
 	color: ${({theme}) => theme.palette.offwhite};
-	margin-top: 1rem;
+	margin-bottom: 1rem;
 	border-radius: 0.3rem;
 `
 
@@ -21,7 +21,7 @@ const OptionLabel = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	background-color: ${({theme}) => theme.palette.primary[1]};
-	margin: 0;
+	margin-top: 1rem;
 	margin-right: 1rem;
 	border-radius: 0.3rem;
 
@@ -32,7 +32,7 @@ const OptionLabel = styled.div`
 
 const OptionName = styled.div`
 	cursor: default;
-	padding: 0.4rem 0.5rem;
+	padding: 0.7rem 0.9rem;
 	border-right: 1px solid ${({theme}) => theme.palette.primary[0]};
 `
 
@@ -42,7 +42,7 @@ const OptionAction = styled.button`
 	text-align: center;
 	text-decoration: none;
 	color: ${({theme}) => theme.palette.offwhite};
-	padding: 0.5rem;
+	padding: 0.7rem;
 	margin: 0;
 	border: none;
 	background: none;

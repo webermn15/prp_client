@@ -12,13 +12,43 @@ class FormMaster extends Component {
 
 		this.state = {
 			formProgress: 'first',
-			regions: [],
 			game: null,
 			region: null,
 			date: new Date,
 			title: '',
 			detail: '',
+			regions: [],
+			regionLevel: null,
+			regionLevels: [
+				{
+					value: 'international',
+					label: 'International'
+				},
+				{
+					value: 'national',
+					label: 'National'
+				},
+				{
+					value: 'regional',
+					label: 'Regional'
+				},
+				{
+					value: 'local',
+					label: 'Local'
+				}
+			],
+			characters: [],
 			ranks: [
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				},
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				},
 				{
 					sponsor_prefix: '',
 					player_tag: '',
@@ -35,7 +65,6 @@ class FormMaster extends Component {
 					played_characters: ''
 				}
 			],
-			characters: [],
 			warning: null,
 			showModal: false
 		}
@@ -85,14 +114,73 @@ class FormMaster extends Component {
 		}
 	}
 
+	requestMatchingPlayers = async inputValue => {
+		const { game } = this.state
+		const jsonQuery = {'gameAlias': game.value, 'match': inputValue.toLowerCase()}
+		try {
+			const response = await fetch(`${process.env.API_URL}/api/players/match`, {
+				method: 'POST',
+				body: JSON.stringify(jsonQuery),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			if (!response.ok) {
+				console.log('error requesting regions for game: ', response);
+				return []
+			}
+			else {
+				const { matchedPlayers } = body;
+				return matchedPlayers;
+			}
+		}
+		catch (e) {
+			console.log(e);
+			return []
+		}
+	}
+
 	handleGameChange = game => {
 		const jsonQuery = {'gameAlias': game.value}
-		this.setState({game, region: null, warning: null});
+		const ranks = [
+			{
+				sponsor_prefix: '',
+				player_tag: '',
+				played_characters: ''
+			},
+			{
+				sponsor_prefix: '',
+				player_tag: '',
+				played_characters: ''
+			},
+			{
+				sponsor_prefix: '',
+				player_tag: '',
+				played_characters: ''
+			},
+			{
+				sponsor_prefix: '',
+				player_tag: '',
+				played_characters: ''
+			},
+			{
+				sponsor_prefix: '',
+				player_tag: '',
+				played_characters: ''
+			}
+		]
+		this.setState({game, region: null, warning: null, ranks: ranks});
 		this.requestRegions(jsonQuery);
 	}
 
 	handleRegionChange = region => {
 		this.setState({region, warning: null});
+	}
+
+	handleNewRegion = regionLevel => {
+		const { region } = this.state;
+		this.setState({regionLevel, region: Object.assign({}, region, {...region, level: regionLevel.value})});
 	}
 
 	handleDateChange = date => {
@@ -107,12 +195,13 @@ class FormMaster extends Component {
 		this.setState({detail});
 	}
 
-	handleRankTagChange = (e, i) => {
+	handleRankTagChange = (player_tag, i) => {
 		const { ranks } = this.state;
-		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, player_tag: e.target.value} : rank) )});
+		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, player_tag} : rank) )});
 	}
 
 	handleRankPrefixChange = (e, i) => {
+		// deprecated
 		const { ranks } = this.state;
 		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, sponsor_prefix: e.target.value} : rank) )});
 	}
@@ -122,19 +211,66 @@ class FormMaster extends Component {
 		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, played_characters} : rank) )});
 	}
 
+	handleAddRankField = e => {
+		e.currentTarget.blur();
+		const newRank = { sponsor_prefix: '', player_tag: '', played_characters: '' }
+		const { ranks } = this.state;
+		const newRanks = ranks.slice();
+		newRanks.push(newRank);
+		this.setState({ranks: newRanks});
+	}
+
+	handleRemoveRankField = e => {
+		e.currentTarget.blur();
+		const { ranks } = this.state;
+		const newRanks = ranks.slice();
+		newRanks.pop();
+		this.setState({ranks: newRanks});
+	}
+
 	handleClear = (fieldName, form) => {
+		let { ranks } = this.state;
 		let cleared = null;
-		if (fieldName === 'title') {
+		if (fieldName === 'game') {
+			ranks = [
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				},
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				},
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				},
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				},
+				{
+					sponsor_prefix: '',
+					player_tag: '',
+					played_characters: ''
+				}
+			]
+		}
+		else if (fieldName === 'title') {
 			cleared = ''
 		}
 		else if (fieldName === 'date') {
 			cleared = new Date
 		}
-		this.setState({[fieldName]: cleared, formProgress: form});
+		this.setState({[fieldName]: cleared, formProgress: form, ranks: ranks});
 	}
 
 	showPreview = e => {
-		e.target.blur()
+		e.target.blur();
 		const focusable = document.querySelectorAll('a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select');
 		for (let ele of focusable) {
 			if (!ele.classList.contains('preview')) {
@@ -178,7 +314,7 @@ class FormMaster extends Component {
 	}
 
 	render() {
-		const { regions, game, region, date, title, detail, ranks, characters, formProgress, warning, showModal } = this.state;
+		const { regions, game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
 		console.log(this.state);
@@ -195,6 +331,9 @@ class FormMaster extends Component {
 									region={region}
 									handleRegionChange={this.handleRegionChange}
 									regionOptions={regions}
+									regionLevel={regionLevel}
+									regionLevels={regionLevels}
+									handleNewRegion={this.handleNewRegion}
 									warning={warning}
 									submitFirst={this.submitFirst}
 								/>
@@ -224,9 +363,11 @@ class FormMaster extends Component {
 									handleClear={this.handleClear}
 									characters={characters}
 									ranks={ranks}
+									matchPlayers={this.requestMatchingPlayers}
 									handleRankTagChange={this.handleRankTagChange}
-									handleRankPrefixChange={this.handleRankPrefixChange}
 									handleCharacterSelect={this.handleCharacterSelect}
+									handleAddRankField={this.handleAddRankField}
+									handleRemoveRankField={this.handleRemoveRankField}
 									submitThird={this.submitThird}
 								/>
 							)

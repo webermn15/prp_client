@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import Select from 'react-select';
+import CreatableSelect from 'react-select/lib/Creatable';
+import AsyncCreatableSelect from 'react-select/lib/AsyncCreatable';
 import { Button } from '../../../style';
 
 export const FormButton = styled(Button)`
@@ -28,11 +30,59 @@ export const ReactSelect = styled(Select)`
 	}
 `
 
+export const ReactCreatableSelect = styled(CreatableSelect)`
+	color: ${({theme}) => theme.palette.offblack};
+
+	& div.form-select__control {
+		border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	}
+	& div.form-select__control--is-focused {
+		box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
+		outline: 2px solid ${({theme}) => theme.palette.focused};
+		outline-offset: 1px;
+	}
+	& div.form-select__control--is-disabled {
+		border: 1px solid ${({theme}) => theme.palette.grayscale[2]};
+		background-color: ${({theme}) => theme.palette.grayscale[4]};
+	}
+
+	& div.form-select__menu {
+		border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	}
+`
+
+export const ReactAsyncSelect = styled(AsyncCreatableSelect)`
+	color: ${({theme}) => theme.palette.offblack};
+
+	& div.form-select__control {
+		cursor: text;
+		border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	}
+	& div.form-select__control--is-focused {
+		box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
+		outline: 2px solid ${({theme}) => theme.palette.focused};
+		outline-offset: 1px;
+	}
+	& div.form-select__control--is-disabled {
+		border: 1px solid ${({theme}) => theme.palette.grayscale[2]};
+		background-color: ${({theme}) => theme.palette.grayscale[4]};
+	}
+
+	& div.form-select__menu {
+		border: 1px solid ${({theme}) => theme.palette.primary[0]};
+	}
+
+	& div.form-select__indicators {
+		display: none;
+	}
+`
+
 export const FormContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	padding: 0 1rem;
+	margin-bottom: 5rem;
 	background-color: ${({theme}) => theme.palette.primary[0]};
 	border-radius: 0.3rem;
 

@@ -28,16 +28,16 @@ const PreviewRankingTable = ({rankings}) => {
 								{i + 1}
 							</TableCell>
 							<TableCell style={{textAlign: 'left', fontWeight: '700'}}>
-								<span>{`${!!rank.sponsor_prefix === true ? rank.sponsor_prefix + ' |' : ''} ${rank.player_tag}`}</span>
+								<span>{`${!!rank.sponsor_prefix === true ? rank.sponsor_prefix + ' |' : ''} ${rank.player_tag && rank.player_tag.label}`}</span>
 							</TableCell>
 							<TableCell style={{padding: '0 2rem', textAlign: 'center'}}>
 								{!!rank.previous_rank === true ? (rank.previous_rank - rank.rank) : '---'}
 							</TableCell>
 							<TableCellLast>
-								{rank.characters && rank.characters.map((char, i) => {
+								{rank.played_characters && rank.played_characters.map((char, i) => {
 									return(
-										<IconWrapper key={rank.rank + i}>
-											<img style={{maxHeight: '100%', maxWidth: '100%'}} src={icons(`./neutral${char.image}`)} />
+										<IconWrapper key={i}>
+											<img style={{maxHeight: '100%', maxWidth: '100%'}} src={icons(`./neutral${char.character_image}`)} />
 										</IconWrapper>
 									)
 								})}

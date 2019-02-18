@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormButton, WarningText, FormHeaderContainer, FormHeader, FieldContainer, FieldContent, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect } from './formstyles';
+import { FormButton, WarningText, FormHeaderContainer, FormHeader, FieldContainer, FieldContent, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect, ReactCreatableSelect } from './formstyles';
 import { WarningIcon } from '../../../style';
 
-const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionChange, regionOptions, warning, submitFirst}) => {
+const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionChange, regionOptions, regionLevels, regionLevel, handleNewRegion, warning, submitFirst}) => {
 	return(
 		<div>
 			<FieldContainer style={{flexDirection: 'column'}}>
@@ -14,7 +14,7 @@ const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionCh
 				</FormHeaderContainer>
 				<FieldContent>
 					<InputWrapper style={{minWidth: '16rem'}}>
-						<FormLabel htmlFor="game">Select Game:</FormLabel>
+						<FormLabel htmlFor="game">Select game:</FormLabel>
 						<ReactSelect
 							value={game}
 							name="game"
@@ -32,8 +32,8 @@ const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionCh
 			</FieldContainer>
 			<FieldContainer>
 				<InputWrapper style={{minWidth: '16rem'}}>
-					<FormLabel htmlFor="region">Select Region:</FormLabel>
-					<ReactSelect
+					<FormLabel htmlFor="region">Select or create region:</FormLabel>
+					<ReactCreatableSelect
 						value={region}
 						name="region"
 						onChange={handleRegionChange}
@@ -44,9 +44,27 @@ const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionCh
 					/>
 				</InputWrapper>
 				<FieldTextWrapper>
-					<span>Game not listed? Join the Discord and request it! Always looking to add new titles.</span>
+					<span>Ensure your region is not already listed in our records before adding a new one!</span>
 				</FieldTextWrapper>
 			</FieldContainer>
+			{region && region.hasOwnProperty('__isNew__') && 
+				<FieldContainer>
+					<InputWrapper style={{minWidth: '12rem'}}>
+						<FormLabel htmlFor="level">New region size:</FormLabel>
+						<ReactSelect
+							value={regionLevel}
+							name="level"
+							onChange={handleNewRegion}
+							options={regionLevels}
+							className="form-select-container"
+							classNamePrefix="form-select"
+						/>
+					</InputWrapper>
+					<FieldTextWrapper>
+						<span>You can edit and add new region information once your submission has been approved.</span>
+					</FieldTextWrapper>
+				</FieldContainer>
+			}
 			<FormButton 
 				onClick={e => submitFirst(e)}
 			>
@@ -66,6 +84,9 @@ FormFirst.propTypes = {
 	region: PropTypes.object,
 	handleRegionChange: PropTypes.func,
 	regionOptions: PropTypes.array,
+	regionLevel: PropTypes.object,
+	regionLevels: PropTypes.array,
+	handleNewRegion: PropTypes.func,
 	warning: PropTypes.string,
 	submitFirst: PropTypes.func
 }

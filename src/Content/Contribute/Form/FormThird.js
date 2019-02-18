@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FieldContainer, FormHeaderContainer, FormHeader, FormButton } from './formstyles';
+import { SvgButtonContainer, AddIcon } from '../../../style';
 
 import { PreviewModal, SelectedOptions, RankField } from './FormComponents';
 
-const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, handleRankTagChange, handleRankPrefixChange, handleCharacterSelect, submitThird}) => {
+const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, matchPlayers, handleRankTagChange, handleCharacterSelect, handleAddRankField, handleRemoveRankField, submitThird}) => {
 	return(
 		<div>
 			{showModal ? (<PreviewModal preview={formData} handleClick={closePreviewModal} />) : null}
@@ -28,12 +29,22 @@ const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, ha
 							ind={i}
 							playerData={rank}
 							characters={characters}
+							matchPlayers={matchPlayers}
 							handleTagChange={e => handleRankTagChange(e, i)}
-							handlePrefixChange={e => handleRankPrefixChange(e, i)}
 							handleCharacterSelect={e => handleCharacterSelect(e, i)}
+							handleRemoveRankField={e => handleRemoveRankField(e)}
 						/>
 					)
 				})}
+				<div 
+					style={{margin: '0 auto', marginTop: '1rem'}}
+				>
+					<SvgButtonContainer
+						onClick={e=> handleAddRankField(e)}
+					>
+						<AddIcon className="svg-icon" />
+					</SvgButtonContainer>
+				</div>
 			</FieldContainer>
 			<FormButton
 				onClick={e => submitThird(e)}
@@ -54,8 +65,10 @@ FormThird.propTypes = {
 	handleClear: PropTypes.func,
 	ranks: PropTypes.array,
 	characters: PropTypes.array,
+	matchPlayers: PropTypes.func,
 	handleRankTagChange: PropTypes.func,
-	handleRankPrefixChange: PropTypes.func,
 	handleCharacterSelect: PropTypes.func,
+	handleAddRankField: PropTypes.func,
+	handleRemoveRankField: PropTypes.func,
 	submitThird: PropTypes.func
 }

@@ -21,7 +21,7 @@ const SvgRemove = ({className}) => {
 const SvgAdd = ({className}) => {
 	return(
 		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-			<path className={className} d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+			<path d="M0 0h24v24H0z" fill="none"/><path className={className} d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
 		</svg>
 	)
 }
@@ -50,7 +50,8 @@ export const SvgButtonContainer = styled.button`
 	&:focus,
 	&:hover {
 		outline: none;
-		background-color: ${({theme}) => theme.palette.offwhite};
+		background-color: ${({theme}) =>  theme.palette.primary[0]};
+		box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
 	}
 `
 
