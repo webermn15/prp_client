@@ -32,7 +32,7 @@ const OptionLabel = styled.div`
 
 const OptionName = styled.div`
 	cursor: default;
-	padding: 0.7rem 0.9rem;
+	padding: 0.5rem 0.9rem;
 	border-right: 1px solid ${({theme}) => theme.palette.primary[0]};
 `
 

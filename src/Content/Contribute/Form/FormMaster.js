@@ -66,7 +66,8 @@ class FormMaster extends Component {
 				}
 			],
 			warning: null,
-			showModal: false
+			showModal: false,
+			submitting:false
 		}
 	}
 
@@ -138,6 +139,31 @@ class FormMaster extends Component {
 		catch (e) {
 			console.log(e);
 			return []
+		}
+	}
+
+	insertNewRankingData = async () => {
+		const { game, region, date, title, description, ranks } = this.state;
+		const jsonQuery = {game, region, date, title, description, ranks};
+		console.log(jsonQuery);
+		try {
+			const response = await fetch(`${process.env.API_URL}/api/rankings/new`, {
+				method: 'POST',
+				body: JSON.stringify(jsonQuery),
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+			const body = await response.json();
+			if (!response.ok) {
+				console.log('error requesting regions for game: ', response);
+			}
+			else {
+				this.setState({...body});
+			}
+		}
+		catch (e) {
+			console.log(e);
 		}
 	}
 
@@ -324,7 +350,11 @@ class FormMaster extends Component {
 		e.preventDefault();
 		const isValidated = this.validateRanks();
 		if (!isValidated) {
-			this.setState({warning: '5 players minimum required'})
+			this.setState({warning: 'At least 5 completed players required'})
+		}
+		else if (isValidated) {
+			this.setState({submitting: true});
+			this.insertNewRankingData();
 		}
 	}
 

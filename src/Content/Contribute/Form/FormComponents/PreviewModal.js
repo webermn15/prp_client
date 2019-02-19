@@ -52,13 +52,14 @@ const PreviewButtonContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	margin-top: 5rem;
+	margin-top: 4rem;
 `
 
 const PreviewWarningText = styled(WarningText)`
-	color: ${({theme}) => theme.palette.primary[0]};
+	background-color: ${({theme}) => theme.palette.primary[0]};
 	margin: 0 auto;
-	padding: 0;
+	padding: 0 1rem;
+	border-radius: 0.6rem;
 `
 
 class PreviewModal extends Component {
@@ -81,36 +82,38 @@ class PreviewModal extends Component {
 			<ModalOverlay>
 				<ModalContent>
 					<div>
-						<PreviewHeader url={defaultSsbmHeader}>
-							<div>
-								<HeaderText>{region.label}</HeaderText>
-								<SubHeaderText>{title}</SubHeaderText>
-								<SubSubHeaderText>{game.value.toUpperCase()}</SubSubHeaderText>
-							</div>
-						</PreviewHeader>
-						<PreviewDescription
-							dangerouslySetInnerHTML={{__html: detail.length > 0 ? detail : null}} 
-						/>
-						<PreviewRankingTable rankings={ranks} />
-					</div>
-					<PreviewButtonContainer>
-						{warning ? (<PreviewWarningText><WarningIcon className="svg-icon" /><span>{warning}</span></PreviewWarningText>) : null}
 						<div>
-							<Button
-								className="preview secondary-button"
-								onClick={handleClose}
-							>
-								Close Preview
-							</Button>
-							<Button
-								style={{marginLeft: '1rem'}}
-								className="preview"
-								onClick={handleSubmit}
-							>
-								Submit
-							</Button>
+							<PreviewHeader url={defaultSsbmHeader}>
+								<div>
+									<HeaderText>{region.label}</HeaderText>
+									<SubHeaderText>{title}</SubHeaderText>
+									<SubSubHeaderText>{game.value.toUpperCase()}</SubSubHeaderText>
+								</div>
+							</PreviewHeader>
+							<PreviewDescription
+								dangerouslySetInnerHTML={{__html: detail.length > 0 ? detail : null}} 
+							/>
+							<PreviewRankingTable rankings={ranks} />
 						</div>
-					</PreviewButtonContainer>
+						<PreviewButtonContainer>
+							{warning ? (<PreviewWarningText><WarningIcon className="svg-icon" /><span>{warning}</span></PreviewWarningText>) : null}
+							<div>
+								<Button
+									className="preview secondary-button"
+									onClick={handleClose}
+								>
+									Close Preview
+								</Button>
+								<Button
+									style={{marginLeft: '1rem'}}
+									className="preview"
+									onClick={handleSubmit}
+								>
+									Submit
+								</Button>
+							</div>
+						</PreviewButtonContainer>
+					</div>
 				</ModalContent>
 			</ModalOverlay>
 		)
