@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { ModalOverlay, ModalContent, Button, HeaderText, SubHeaderText, SubSubHeaderText } from '../../../../style';
+import { ModalOverlay, ModalContent, Button, HeaderText, SubHeaderText, SubSubHeaderText, WarningIcon } from '../../../../style';
+import { WarningText } from '../formstyles';
 import defaultSsbmHeader from '../../../../../dist/static/ssbmfodheader.jpg';
 
 import PreviewRankingTable from './PreviewRankingTable';
@@ -47,6 +48,19 @@ const PreviewDescription = styled.div`
 	}
 `
 
+const PreviewButtonContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	margin-top: 5rem;
+`
+
+const PreviewWarningText = styled(WarningText)`
+	color: ${({theme}) => theme.palette.primary[0]};
+	margin: 0 auto;
+	padding: 0;
+`
+
 class PreviewModal extends Component {
 	constructor(props) {
 		super(props)
@@ -61,7 +75,7 @@ class PreviewModal extends Component {
 		}
 	}
 	render() {
-		const { preview, handleClick } = this.props;
+		const { preview, handleClose, handleSubmit, warning } = this.props;
 		const { game, region, title, detail, ranks } = preview;
 		return(
 			<ModalOverlay>
@@ -79,13 +93,24 @@ class PreviewModal extends Component {
 						/>
 						<PreviewRankingTable rankings={ranks} />
 					</div>
-					<Button
-						style={{float: 'right'}}
-						className="preview"
-						onClick={handleClick}
-					>
-						Close Preview
-					</Button>
+					<PreviewButtonContainer>
+						{warning ? (<PreviewWarningText><WarningIcon className="svg-icon" /><span>{warning}</span></PreviewWarningText>) : null}
+						<div>
+							<Button
+								className="preview secondary-button"
+								onClick={handleClose}
+							>
+								Close Preview
+							</Button>
+							<Button
+								style={{marginLeft: '1rem'}}
+								className="preview"
+								onClick={handleSubmit}
+							>
+								Submit
+							</Button>
+						</div>
+					</PreviewButtonContainer>
 				</ModalContent>
 			</ModalOverlay>
 		)
@@ -95,6 +120,8 @@ class PreviewModal extends Component {
 export default PreviewModal;
 
 PreviewModal.propTypes = {
-	handleClick: PropTypes.func,
-	preview: PropTypes.object
+	handleClose: PropTypes.func,
+	handleSubmit: PropTypes.func,
+	preview: PropTypes.object,
+	warning: PropTypes.string
 }

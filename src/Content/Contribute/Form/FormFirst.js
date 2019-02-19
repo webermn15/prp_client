@@ -8,7 +8,7 @@ const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionCh
 		<div>
 			<FieldContainer style={{flexDirection: 'column'}}>
 				<FormHeaderContainer>
-					<FormHeader style={{paddingBottom: '1rem'}}>
+					<FormHeader>
 						Set Game and Region
 					</FormHeader>
 				</FormHeaderContainer>

@@ -5,8 +5,8 @@ import { NavLink, TableRow, TableCell, TableCellLast } from '../../../../style';
 import { icons } from '../../../../utils';
 
 const IconWrapper = styled.div`
-	height: 1rem;
-	width: 1rem;
+	height: 2rem;
+	width: 2rem;
 `
 
 const RankingTable = ({rankings, regionAlias}) => {
@@ -33,7 +33,7 @@ const RankingTable = ({rankings, regionAlias}) => {
 								</NavLink>
 							</TableCell>
 							<TableCell style={{padding: '0 2rem', textAlign: 'center'}}>
-								{!!rank.previous_rank === true ? (rank.previous_rank - rank.rank) : '---'}
+								{!!rank.previous_rank === true ? (rank.previous_rank - rank.rank) : (<span style={{fontSize: '0.6rem'}}>NEW</span>)}
 							</TableCell>
 							<TableCellLast>
 								{rank.characters.map((char, i) => {

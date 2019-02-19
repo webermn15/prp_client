@@ -5,8 +5,8 @@ import { TableRow, TableCell, TableCellLast } from '../../../../style';
 import { icons } from '../../../../utils';
 
 const IconWrapper = styled.div`
-	height: 1rem;
-	width: 1rem;
+	height: 1.4rem;
+	width: 1.4rem;
 `
 
 const PreviewRankingTable = ({rankings}) => {
@@ -31,7 +31,7 @@ const PreviewRankingTable = ({rankings}) => {
 								<span>{`${!!rank.sponsor_prefix === true ? rank.sponsor_prefix + ' |' : ''} ${rank.player_tag && rank.player_tag.label}`}</span>
 							</TableCell>
 							<TableCell style={{padding: '0 2rem', textAlign: 'center'}}>
-								{!!rank.previous_rank === true ? (rank.previous_rank - rank.rank) : '---'}
+								{!!rank.previous_rank === true ? (rank.previous_rank - rank.rank) : (<span style={{fontSize: '0.6rem'}}>NEW</span>)}
 							</TableCell>
 							<TableCellLast>
 								{rank.played_characters && rank.played_characters.map((char, i) => {

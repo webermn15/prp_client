@@ -5,22 +5,16 @@ import { SvgButtonContainer, AddIcon } from '../../../style';
 
 import { PreviewModal, SelectedOptions, RankField } from './FormComponents';
 
-const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, matchPlayers, handleRankTagChange, handleCharacterSelect, handleAddRankField, handleRemoveRankField, submitThird}) => {
+const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, matchPlayers, handleRankTagChange, handleCharacterSelect, handleAddRankField, handleRemoveRankField, warning, submitThird}) => {
 	return(
 		<div>
-			{showModal ? (<PreviewModal preview={formData} handleClick={closePreviewModal} />) : null}
+			{showModal ? (<PreviewModal preview={formData} handleClose={closePreviewModal} handleSubmit={submitThird} warning={warning}/>) : null}
 			<SelectedOptions formData={formData} handleClick={handleClear} />
-			<FieldContainer style={{flexDirection: 'column', paddingTop: '0'}}>
+			<FieldContainer style={{flexDirection: 'column'}}>
 				<FormHeaderContainer>
 					<FormHeader>
 						Set Player Ranks
 					</FormHeader>
-					<FormButton
-						className="secondary-button"
-						onClick={showPreviewModal}
-					>
-						Preview
-					</FormButton>
 				</FormHeaderContainer>
 				{ranks.map((rank, i) => {
 					return(
@@ -47,7 +41,7 @@ const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, ha
 				</div>
 			</FieldContainer>
 			<FormButton
-				onClick={e => submitThird(e)}
+				onClick={showPreviewModal}
 			>
 				Preview and Submit
 			</FormButton>
@@ -70,5 +64,6 @@ FormThird.propTypes = {
 	handleCharacterSelect: PropTypes.func,
 	handleAddRankField: PropTypes.func,
 	handleRemoveRankField: PropTypes.func,
+	warning: PropTypes.string,
 	submitThird: PropTypes.func
 }

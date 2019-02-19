@@ -8,10 +8,10 @@ const Button = styled.button`
 	text-decoration: none;
 	padding: 0.7rem 1.4rem;
 	margin: 0;
+	display: inline-block;
 	background-color: ${({theme}) => theme.palette.accent[0]};
 	color: ${({theme}) => theme.palette.offwhite};
-	display: inline-block;
-	border: none;
+	border: 2px solid ${({theme}) => theme.palette.accent[0]};
 	border-radius: 0.6rem;
 	transition: all 0.2s ease-in-out;
 
@@ -28,13 +28,13 @@ const Button = styled.button`
 	}
 
 	&.secondary-button {
-		background-color: ${({theme}) => theme.palette.offwhite};
+		background-color: ${({theme}) => theme.palette.primary[4]};
 		color: ${({theme}) => theme.palette.primary[0]};
 		border: 2px solid ${({theme}) => theme.palette.primary[0]};
 	}
 	&.secondary-button:focus,
 	&.secondary-button:hover {
-		background-color: ${({theme}) => theme.palette.grayscale[5]};
+		background-color: ${({theme}) => theme.palette.primary[3]};
 	}
 `
 

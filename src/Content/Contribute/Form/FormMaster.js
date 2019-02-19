@@ -197,7 +197,7 @@ class FormMaster extends Component {
 
 	handleRankTagChange = (player_tag, i) => {
 		const { ranks } = this.state;
-		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, player_tag} : rank) )});
+		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, player_tag} : rank) ), warning: null});
 	}
 
 	handleRankPrefixChange = (e, i) => {
@@ -208,11 +208,12 @@ class FormMaster extends Component {
 
 	handleCharacterSelect = (played_characters, i) => {
 		const { ranks } = this.state;
-		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, played_characters} : rank) )});
+		this.setState({ranks: ranks.map((rank, ind) => (i === ind ? {...rank, played_characters} : rank) ), warning: null});
 	}
 
 	handleAddRankField = e => {
 		e.currentTarget.blur();
+		e.currentTarget.scrollIntoView({ behavior: 'smooth' });
 		const newRank = { sponsor_prefix: '', player_tag: '', played_characters: '' }
 		const { ranks } = this.state;
 		const newRanks = ranks.slice();
@@ -284,6 +285,17 @@ class FormMaster extends Component {
 		this.setState({showModal: false});
 	}
 
+	validateRanks = () => {
+		const { ranks } = this.state;
+		for (let rank of ranks) {
+			const { played_characters, player_tag } = rank;
+			if (!played_characters || !player_tag || played_characters.length === 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	submitFirst = e => {
 		e.preventDefault();
 		const { game, region } = this.state;
@@ -310,7 +322,10 @@ class FormMaster extends Component {
 
 	submitThird = e => {
 		e.preventDefault();
-		console.log(this.state);
+		const isValidated = this.validateRanks();
+		if (!isValidated) {
+			this.setState({warning: '5 players minimum required'})
+		}
 	}
 
 	render() {
@@ -368,6 +383,7 @@ class FormMaster extends Component {
 									handleCharacterSelect={this.handleCharacterSelect}
 									handleAddRankField={this.handleAddRankField}
 									handleRemoveRankField={this.handleRemoveRankField}
+									warning={warning}
 									submitThird={this.submitThird}
 								/>
 							)

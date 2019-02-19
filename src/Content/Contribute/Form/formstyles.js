@@ -104,6 +104,7 @@ export const FormHeader = styled.div`
 	font-size: 2rem;
 	font-weight: 700;
 	text-shadow: 1px 1px 3px ${({theme}) => theme.palette.primary[0]};
+	padding-bottom: 1rem;
 `
 
 export const FieldContainer = styled.div`

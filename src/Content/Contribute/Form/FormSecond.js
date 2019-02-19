@@ -30,7 +30,7 @@ class FormSecond extends Component {
 				<SelectedOptions formData={formData} handleClick={handleClear} />
 				<FieldContainer style={{flexDirection: 'column'}}>
 					<FormHeaderContainer>
-						<FormHeader style={{paddingBottom: '1rem'}}>
+						<FormHeader>
 							Ranking Metadata
 						</FormHeader>
 					</FormHeaderContainer>
@@ -44,7 +44,7 @@ class FormSecond extends Component {
 				<FormButton
 					onClick={e => submitSecond(e)}
 				>
-					Preview and Add Ranks
+					Add Ranks
 				</FormButton>
 				{warning ? (<WarningText><WarningIcon className="svg-icon" /><span>{warning}</span></WarningText>) : null}
 			</div>

@@ -14,26 +14,37 @@ const RankContainer = styled.div`
 	padding: 0.6rem 1rem;
 `
 
-const RankIndicator = styled.div`
+const RankBeforeElement = styled.div`
+	position: absolute;
+	left: 1rem;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 	font-weight: 700;
 	text-align: center;
 	color: ${({theme}) => theme.palette.offwhite};
 	text-shadow: 1px 1px 3px ${({theme}) => theme.palette.primary[0]};
 `
 
+const NewIndicatorBeforeElement = styled(RankBeforeElement)`
+	left: 4rem;
+	font-weight: 400;
+	font-size: 0.8rem;
+	color: ${({theme}) => theme.palette.focused};
+`
+
 const RankField = ({ind, playerData, characters, matchPlayers, handleTagChange, handleCharacterSelect, handleRemoveRankField}) => {
 	const { player_tag, played_characters } = playerData;
 	return(
 		<RankContainer>
-			<RankIndicator
-				style={{position: 'absolute', left: '1rem'}}
-			>
+			<RankBeforeElement>
 				<span>{`# ${ind + 1}`}</span>
-			</RankIndicator>
+			</RankBeforeElement>
+			{player_tag.hasOwnProperty('__isNew__') && 
+			(<NewIndicatorBeforeElement>
+				<span>{`NEW`}</span>
+			</NewIndicatorBeforeElement>)}
 			<InputWrapper style={{minWidth: '15rem', maxWidth: '15rem'}}>
 				<ReactAsyncSelect
 					value={player_tag}
