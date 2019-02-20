@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { FormMaster } from './Form';
 
 const mapStateToProps = state => {
@@ -8,8 +9,8 @@ const mapStateToProps = state => {
 	}
 }
 
-const FormContainer = connect(
+const FormContainer = withRouter(connect(
 	mapStateToProps
-)(FormMaster)
+)(FormMaster))
 
 export default FormContainer;

@@ -5,10 +5,10 @@ import { SvgButtonContainer, AddIcon } from '../../../style';
 
 import { PreviewModal, SelectedOptions, RankField } from './FormComponents';
 
-const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, matchPlayers, handleRankTagChange, handleCharacterSelect, handleAddRankField, handleRemoveRankField, warning, submitThird}) => {
+const FormThird = ({formData, closePreviewModal, showPreviewModal, showModal, handleClear, ranks, characters, matchPlayers, handleRankTagChange, handleCharacterSelect, handleAddRankField, handleRemoveRankField, warning, submitting, success, submitThird}) => {
 	return(
 		<div>
-			{showModal ? (<PreviewModal preview={formData} handleClose={closePreviewModal} handleSubmit={submitThird} warning={warning}/>) : null}
+			{showModal ? (<PreviewModal preview={formData} handleClose={closePreviewModal} handleSubmit={submitThird} warning={warning} submitting={submitting} success={success} />) : null}
 			<SelectedOptions formData={formData} handleClick={handleClear} />
 			<FieldContainer style={{flexDirection: 'column'}}>
 				<FormHeaderContainer>
@@ -65,5 +65,7 @@ FormThird.propTypes = {
 	handleAddRankField: PropTypes.func,
 	handleRemoveRankField: PropTypes.func,
 	warning: PropTypes.string,
+	submitting: PropTypes.bool,
+	success: PropTypes.bool,
 	submitThird: PropTypes.func
 }

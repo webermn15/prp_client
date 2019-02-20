@@ -67,7 +67,8 @@ class FormMaster extends Component {
 			],
 			warning: null,
 			showModal: false,
-			submitting:false
+			submitting: false,
+			successfulSubmit: false
 		}
 	}
 
@@ -143,8 +144,9 @@ class FormMaster extends Component {
 	}
 
 	insertNewRankingData = async () => {
-		const { game, region, date, title, description, ranks } = this.state;
-		const jsonQuery = {game, region, date, title, description, ranks};
+		const { history } = this.props;
+		const { game, region, date, title, detail, ranks } = this.state;
+		const jsonQuery = {game, region, date, title, detail, ranks};
 		console.log(jsonQuery);
 		try {
 			const response = await fetch(`${process.env.API_URL}/api/rankings/new`, {
@@ -157,9 +159,14 @@ class FormMaster extends Component {
 			const body = await response.json();
 			if (!response.ok) {
 				console.log('error requesting regions for game: ', response);
+				this.setState({submitting: false, warning: 'Error submitting ranking.'});
 			}
 			else {
-				this.setState({...body});
+				console.log('return value from api: ', body);
+				this.setState({successfulSubmit: true});
+				setTimeout(() => {
+					history.push('/');
+				}, 3000)
 			}
 		}
 		catch (e) {
@@ -359,10 +366,10 @@ class FormMaster extends Component {
 	}
 
 	render() {
-		const { regions, game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal } = this.state;
+		const { regions, game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal, submitting, successfulSubmit } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
-		console.log(this.state);
+		console.log(this.props);
 		return(
 			<FormContainer>
 				{(() => {
@@ -414,6 +421,8 @@ class FormMaster extends Component {
 									handleAddRankField={this.handleAddRankField}
 									handleRemoveRankField={this.handleRemoveRankField}
 									warning={warning}
+									submitting={submitting}
+									success={successfulSubmit}
 									submitThird={this.submitThird}
 								/>
 							)
@@ -430,5 +439,6 @@ class FormMaster extends Component {
 export default FormMaster;
 
 FormMaster.propTypes = {
-	gamesInfo: PropTypes.array
+	gamesInfo: PropTypes.array,
+	history: PropTypes.object
 }

@@ -6,6 +6,7 @@ import FileInput from './FileInput';
 import DetailMarkdown from './DetailMarkdown';
 import RankField from './RankField';
 import PreviewModal from './PreviewModal';
+import Submitting from './Submitting';
 
 export {
 	FormField,
@@ -15,5 +16,6 @@ export {
 	FileInput,
 	DetailMarkdown,
 	RankField,
-	PreviewModal
+	PreviewModal,
+	Submitting
 }

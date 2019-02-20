@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ModalOverlay, ModalContent, Button, HeaderText, SubHeaderText, SubSubHeaderText, WarningIcon } from '../../../../style';
 import { WarningText } from '../formstyles';
+
 import defaultSsbmHeader from '../../../../../dist/static/ssbmfodheader.jpg';
 
 import PreviewRankingTable from './PreviewRankingTable';
+import Submitting from './Submitting';
 
 const PreviewHeader = styled.div`
 	position: relative;
@@ -76,12 +78,18 @@ class PreviewModal extends Component {
 		}
 	}
 	render() {
-		const { preview, handleClose, handleSubmit, warning } = this.props;
+		const { preview, handleClose, handleSubmit, warning, submitting, success } = this.props;
 		const { game, region, title, detail, ranks } = preview;
 		return(
 			<ModalOverlay>
 				<ModalContent>
-					<div>
+					{submitting ? 
+					success ?
+						(<Submitting><SubHeaderText>Ranking successfully submitted!</SubHeaderText><p>Redirecting...</p></Submitting>)
+						:
+						(<Submitting><SubHeaderText>Submitting ranking...</SubHeaderText></Submitting>)
+					:
+					(<div>
 						<div>
 							<PreviewHeader url={defaultSsbmHeader}>
 								<div>
@@ -113,7 +121,8 @@ class PreviewModal extends Component {
 								</Button>
 							</div>
 						</PreviewButtonContainer>
-					</div>
+					</div>)
+					}
 				</ModalContent>
 			</ModalOverlay>
 		)
@@ -126,5 +135,7 @@ PreviewModal.propTypes = {
 	handleClose: PropTypes.func,
 	handleSubmit: PropTypes.func,
 	preview: PropTypes.object,
-	warning: PropTypes.string
+	warning: PropTypes.string,
+	submitting: PropTypes.bool,
+	success: PropTypes.bool
 }

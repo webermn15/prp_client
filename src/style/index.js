@@ -27,6 +27,7 @@ import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
 import StyledSvgLogo from './StyledSvgLogo';
 import { SvgButtonContainer, WarningIcon, AddIcon, RemoveIcon, ArrowUp, ArrowDown } from './SvgIcons';
 import { ModalOverlay, ModalContent } from './Modal';
+import LoadingSvg from './LoadingIcon';
 
 // define theme variables
 const theme = {
@@ -114,6 +115,7 @@ export {
 	StyledSvgLogo,
 	ModalOverlay,
 	ModalContent,
+	LoadingSvg,
 	SvgButtonContainer,
 	WarningIcon,
 	AddIcon,

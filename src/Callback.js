@@ -1,6 +1,6 @@
 import React from 'react';
-import loading from '../dist/static/loading.svg';
+import { LoadingSvg } from './style';
 
-const Callback = () => <div><img src={loading} /></div>
+const Callback = () => <div><LoadingSvg /></div>
 
 export default Callback;
