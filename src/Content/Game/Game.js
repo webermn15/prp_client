@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { ContentMain } from '../../style';
+import { ContentWrapper, ContentMain } from '../../style';
 
 import GameRoot from './GameRoot';
 import GameCrumbs from './GameCrumbs';
 import { RegionContainer } from './Region';
-
-const GameWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
-	height: 100%;
-`
 
 class Game extends Component {
 	constructor(props) {
@@ -31,7 +23,7 @@ class Game extends Component {
 		const { gameData, match } = this.props;
 		const gameAlias = match.params.game;
 		return(
-			<GameWrapper>
+			<ContentWrapper>
 				<Switch>
 					<Route path={`${match.url}/:region/:id`} render={(props) => <GameCrumbs {...props} gameAlias={gameAlias} />} />
 					<Route path={`${match.url}/:region`} render={(props) => <GameCrumbs {...props} gameAlias={gameAlias} />} />
@@ -43,7 +35,7 @@ class Game extends Component {
 						<Route path={`${match.url}`} render={(props) => <GameRoot {...props} url={match.url} gameAlias={gameAlias} gameData={gameData} />} />
 					</Switch>
 				</ContentMain>
-			</GameWrapper>
+			</ContentWrapper>
 		)
 	}
 }

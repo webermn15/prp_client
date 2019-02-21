@@ -18,6 +18,7 @@ import HeaderText from './HeaderText';
 import SubHeaderText from './SubHeaderText';
 import SubSubHeaderText from './SubSubHeaderText';
 
+import ContentWrapper from './ContentWrapper';
 import ContentMain from './ContentMain';
 import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
@@ -104,6 +105,7 @@ export {
 	HeaderText,
 	SubHeaderText,
 	SubSubHeaderText,
+	ContentWrapper,
 	ContentMain,
 	ContentHeader,
 	ContentBody,

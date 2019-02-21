@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
-import { ContentMain } from '../../style';
+import { ContentWrapper, ContentMain } from '../../style';
 
 import PlayerRoot from './PlayerRoot';
 import PlayerContainer from './PlayerContainer';
@@ -9,14 +9,14 @@ import PlayerContainer from './PlayerContainer';
 const Players = (props) => {
 	const { match } = props;
 	return(
-		<div>
+		<ContentWrapper style={{paddingTop: '1rem'}}>
 			<ContentMain>
 				<Switch>
 					<Route path={`${match.url}/:id`} render={(props) => <PlayerContainer {...props} />} />
 					<Route path={`${match.url}`} render={(props) => <PlayerRoot {...props} url={match.url} />} />
 				</Switch>
 			</ContentMain>
-		</div>
+		</ContentWrapper>
 	)
 }
 

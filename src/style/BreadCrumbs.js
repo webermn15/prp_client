@@ -6,6 +6,7 @@ const BreadCrumbs = styled.nav`
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: center;
+	flex-shrink: 0;
 `
 
 export default BreadCrumbs;

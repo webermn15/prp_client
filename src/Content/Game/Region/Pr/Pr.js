@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { ContentHeader, ContentBody, HeaderText, SubHeaderText, SubSubHeaderText, SectionMain } from '../../../../style';
 
 import RankingTable from './RankingTable';
+
+const RankingDescription = styled.div`
+	& h1,
+	& h2,
+	& h3,
+	& h4 {
+		margin: 0.5rem 0;
+	}
+	& p {
+		margin: 0.3rem 0;
+	}
+`
 
 class Pr extends Component {
 	constructor(props) {
@@ -26,6 +39,9 @@ class Pr extends Component {
 					</div>
 				</ContentHeader>
 				<ContentBody>
+					<RankingDescription 
+						dangerouslySetInnerHTML={{__html: rankings[regionAlias] && rankings[regionAlias].detail.length > 0 ? rankings[regionAlias].detail : null}}
+					/>
 					<RankingTable
 						rankings={rankings}
 						regionAlias={regionAlias}
