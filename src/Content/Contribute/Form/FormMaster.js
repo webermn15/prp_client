@@ -156,13 +156,11 @@ class FormMaster extends Component {
 					'Content-Type': 'application/json'
 				}
 			});
-			const body = await response.json();
 			if (!response.ok) {
 				console.log('error requesting regions for game: ', response);
 				this.setState({submitting: false, warning: 'Error submitting ranking.'});
 			}
 			else {
-				console.log('return value from api: ', body);
 				this.setState({successfulSubmit: true});
 				setTimeout(() => {
 					history.push('/');
@@ -368,8 +366,7 @@ class FormMaster extends Component {
 	render() {
 		const { regions, game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal, submitting, successfulSubmit } = this.state;
 		const { gamesInfo } = this.props;
-		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}))
-		console.log(this.props);
+		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}));
 		return(
 			<FormContainer>
 				{(() => {

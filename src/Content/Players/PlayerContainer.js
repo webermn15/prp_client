@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { requestNewPlayerData } from '../../modules/players';
 
-import Players from './Players';
+import Player from './Player';
 
 const mapStateToProps = state => {
 	const { players } = state;
@@ -20,6 +20,6 @@ const mapDispatchToProps = dispatch => {
 const PlayerContainer = withRouter(connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(Players))
+)(Player))
 
 export default PlayerContainer;

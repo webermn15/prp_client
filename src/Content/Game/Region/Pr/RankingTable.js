@@ -5,6 +5,9 @@ import { NavLink, TableRow, TableCell, TableCellLast } from '../../../../style';
 import { icons } from '../../../../utils';
 
 const IconWrapper = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 	height: 2rem;
 	width: 2rem;
 `

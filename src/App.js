@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { HeaderContainer } from './Header';
 import { AsideContainer } from './Aside';
-import { HomeContainer, GameContainer, PlayerContainer, Contribute } from './Content';
+import { HomeContainer, GameContainer, Players, Contribute } from './Content';
 import Callback from './Callback';
 
 const auth = new Auth();
@@ -70,8 +70,8 @@ class App extends Component {
 						<Route path="/contribute" render={props => {
 							return <Contribute {...props} />
 						}} />
-						<Route path="/players/:id" render={props => {
-							return <PlayerContainer {...props} />
+						<Route path="/players/" render={props => {
+							return <Players {...props} />
 						}} />
 						<Route path="/:game" render={props => {
 							return <GameContainer {...props} />

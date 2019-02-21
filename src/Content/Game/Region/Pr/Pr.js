@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SectionMain, SubSubHeaderText} from '../../../../style';
+import { ContentHeader, ContentBody, HeaderText, SubHeaderText, SubSubHeaderText, SectionMain } from '../../../../style';
 
 import RankingTable from './RankingTable';
 
@@ -15,14 +15,22 @@ class Pr extends Component {
 		onLoadGetRankings(jsonQuery);
 	}
 	render() {
-		const { rankings, regionAlias } = this.props;
+		const { rankings, gameAlias, regionAlias, regionData } = this.props;
 		return(
 			<SectionMain>
-				<SubSubHeaderText style={{textAlign: 'center'}}>{rankings[regionAlias] && rankings[regionAlias].title}</SubSubHeaderText>
-				<RankingTable
-					rankings={rankings}
-					regionAlias={regionAlias}
-				/>
+				<ContentHeader>
+					<div>
+						<HeaderText>{regionData[regionAlias] && regionData[regionAlias].region_name}</HeaderText>
+						<SubHeaderText>{rankings[regionAlias] && rankings[regionAlias].title}</SubHeaderText>
+						<SubSubHeaderText>{gameAlias.toUpperCase()}</SubSubHeaderText>
+					</div>
+				</ContentHeader>
+				<ContentBody>
+					<RankingTable
+						rankings={rankings}
+						regionAlias={regionAlias}
+					/>
+				</ContentBody>
 			</SectionMain>
 		)
 	}
@@ -33,6 +41,8 @@ export default Pr;
 Pr.propTypes = {
 	onLoadGetRankings: PropTypes.func.isRequired,
 	match: PropTypes.object.isRequired,
+	regionData: PropTypes.object.isRequired,
 	regionAlias: PropTypes.string.isRequired,
+	gameAlias: PropTypes.string.isRequired,
 	rankings: PropTypes.object
 }

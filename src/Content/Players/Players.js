@@ -1,46 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { ContentMain, NavLink, HeaderText, SubHeaderText, UnorderedList, ListItem } from '../../style';
+import { Switch, Route } from 'react-router-dom';
+import { ContentMain } from '../../style';
 
-class Players extends Component {
-	constructor(props) {
-		super(props)
-	}
+import PlayerRoot from './PlayerRoot';
+import PlayerContainer from './PlayerContainer';
 
-	componentDidMount() {
-		const { onLoadGetPlayerData, match } = this.props;
-		const playerId = match.params.id;
-		const jsonQuery = {'playerId': playerId}
-		onLoadGetPlayerData(jsonQuery);
-	}
-
-	render() {
-		const { match, players } = this.props;
-		const playerId = match.params.id;
-		return(
+const Players = (props) => {
+	const { match } = props;
+	return(
+		<div>
 			<ContentMain>
-				<HeaderText>{players[playerId] && players[playerId].player_tag}</HeaderText>
-				<SubHeaderText>Rankings appeared on:</SubHeaderText>
-				<UnorderedList>
-					{players[playerId] && players[playerId].rankings.map(ranking => {
-						return(
-							<ListItem key={ranking.ranking_id}>
-								<NavLink to={`/${ranking.ranking_game}/${ranking.region_alias}/${ranking.ranking_id}`}>
-									<span>{`${ranking.region_name} | ${ranking.ranking_title}`}</span>
-								</NavLink>
-							</ListItem>
-						)
-					})}
-				</UnorderedList>
+				<Switch>
+					<Route path={`${match.url}/:id`} render={(props) => <PlayerContainer {...props} />} />
+					<Route path={`${match.url}`} render={(props) => <PlayerRoot {...props} url={match.url} />} />
+				</Switch>
 			</ContentMain>
-		)
-	}
+		</div>
+	)
 }
 
 export default Players;
 
 Players.propTypes = {
-	onLoadGetPlayerData: PropTypes.func.isRequired,
-	match: PropTypes.object.isRequired,
-	players: PropTypes.object
+	match: PropTypes.object.isRequired
 }

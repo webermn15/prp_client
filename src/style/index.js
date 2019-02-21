@@ -17,8 +17,12 @@ import ExpandCollapseContent from './ExpandCollapseContent';
 import HeaderText from './HeaderText';
 import SubHeaderText from './SubHeaderText';
 import SubSubHeaderText from './SubSubHeaderText';
+
 import ContentMain from './ContentMain';
+import ContentHeader from './ContentHeader';
+import ContentBody from './ContentBody';
 import SectionMain from './SectionMain';
+
 import UnorderedList from './UnorderedList';
 import ListItem from './ListItem';
 import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
@@ -101,6 +105,8 @@ export {
 	SubHeaderText,
 	SubSubHeaderText,
 	ContentMain,
+	ContentHeader,
+	ContentBody,
 	SectionMain,
 	Aside,
 	AsideNavAnchor,

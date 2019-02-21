@@ -1,11 +1,11 @@
 import HomeContainer from './HomeContainer';
 import { GameContainer } from './Game';
-import { PlayerContainer } from './Players';
+import { Players } from './Players';
 import { Contribute } from './Contribute';
 
 export {
 	HomeContainer,
 	GameContainer,
-	PlayerContainer,
+	Players,
 	Contribute
 }

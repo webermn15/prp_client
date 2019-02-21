@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { HeaderText, ContentMain } from '../../style';
+import { ContentMain } from '../../style';
 
 import GameRoot from './GameRoot';
 import GameCrumbs from './GameCrumbs';
@@ -38,8 +38,6 @@ class Game extends Component {
 					<Route path={`${match.url}`} render={(props) => <GameCrumbs {...props} gameAlias={gameAlias}/>} />
 				</Switch>
 				<ContentMain>
-					<HeaderText>{gameAlias.toUpperCase()}</HeaderText>
-					<h6 style={{margin: "0.4rem"}}>Last updated: {gameData[gameAlias] && gameData[gameAlias].lastUpdated}</h6>
 					<Switch>
 						<Route path={`${match.url}/:region`} render={(props) => <RegionContainer {...props} gameAlias={gameAlias} />} />
 						<Route path={`${match.url}`} render={(props) => <GameRoot {...props} url={match.url} gameAlias={gameAlias} gameData={gameData} />} />
