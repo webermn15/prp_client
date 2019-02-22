@@ -25,8 +25,6 @@ class Game extends Component {
 	}
 
 	static getDerivedStateFromProps(props, state) {
-		console.log('getderived lifecycle, newProps game: ', props.match.params.game);
-		console.log('getderived lifecycle, oldState game: ', state.gameAlias);
 		const { match } = props;
 		if (match.params.game !== state.gameAlias && state.gameAlias.length > 0) {
 			const { getRankingsForGame } = props;
@@ -43,7 +41,6 @@ class Game extends Component {
 	render() {
 		const { gameData, match } = this.props;
 		const gameAlias = match.params.game;
-		console.log('how many times is this being rendered?');
 		return(
 			<ContentWrapper>
 				<Switch>

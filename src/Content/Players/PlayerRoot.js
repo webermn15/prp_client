@@ -54,7 +54,6 @@ class PlayerRoot extends Component {
 
 	render() {
 		const { query, players, queried } = this.state;
-		console.log(this.state);
 		return(
 			<div>
 				<ContentHeader>
