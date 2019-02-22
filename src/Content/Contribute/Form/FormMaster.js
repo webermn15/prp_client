@@ -156,6 +156,7 @@ class FormMaster extends Component {
 					'Content-Type': 'application/json'
 				}
 			});
+			console.log('response in insertNewRankingData: ', response)
 			if (!response.ok) {
 				console.log('error requesting regions for game: ', response);
 				this.setState({submitting: false, warning: 'Error submitting ranking.'});

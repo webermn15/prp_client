@@ -11,7 +11,7 @@ module.exports = (env) => merge(common, {
 		})
 	],
 	devServer: {
-		contentBase: path.resolve(__dirname, 'dist/static'),
+		contentBase: path.resolve(__dirname, 'dist/build'),
 		hot: true,
     historyApiFallback: true,
 		proxy: {

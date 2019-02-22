@@ -22,7 +22,7 @@ class Auth {
 	logout = () => {
 		this.auth0.logout({
 			clientID: clientId,
-			returnTo: 'http://localhost:8080/'
+			returnTo: process.env.NODE_ENV === 'production' ? 'https://powerrankproject.herokuapp.com' : 'http://localhost:8080/'
 		})
 	}
 
