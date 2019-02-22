@@ -120,7 +120,7 @@ class FormMaster extends Component {
 		const { game } = this.state
 		const jsonQuery = {'gameAlias': game.value, 'match': inputValue.toLowerCase()}
 		try {
-			const response = await fetch(`${process.env.API_URL}/api/players/match`, {
+			const response = await fetch(`${process.env.API_URL}/api/players/game/match`, {
 				method: 'POST',
 				body: JSON.stringify(jsonQuery),
 				headers: {

@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ContentHeader, ContentBody, NavLink, HeaderText, SubHeaderText, UnorderedList, ListItem } from '../../style';
 
-import ssbmYoshisHeader from '../../../dist/static/ssbmyoshisheader.jpg'
+import ssbmYoshisHeader from '../../../dist/static/ssbmyoshisheader.jpg';
+import ssbuSmashvilleHeader from '../../../dist/static/ssbusmashvilleheader.jpg';
 
 export const RankingTitle = styled.span`
 	font-size: 1.6rem;
@@ -15,7 +16,7 @@ export const RegionTitle = styled.span`
 const GameRoot = ({gameData, gameAlias, url}) => {
 	return(
 		<div>
-			<ContentHeader url={ssbmYoshisHeader}>
+			<ContentHeader url={gameAlias === 'ssbm' ? ssbmYoshisHeader : ssbuSmashvilleHeader}>
 				<div>
 					<HeaderText style={{fontSize: '4rem'}}>{gameData[gameAlias] && gameData[gameAlias].gameName}</HeaderText>
 				</div>
