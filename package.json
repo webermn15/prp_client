@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "webpack-dev-server --env.API_URL=http://localhost:3000 --hot --config webpack.dev.js",
-    "build": "webpack --env.API_URL=http://localhost:3000 --config webpack.prod.js",
+    "build": "webpack --env.API_URL=https://prproj-api.herokuapp.com --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
