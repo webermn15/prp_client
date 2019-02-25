@@ -42,7 +42,7 @@ const RankingTable = ({rankings, regionAlias}) => {
 								{rank.characters.map((char, i) => {
 									return(
 										<IconWrapper key={rank.rank + i}>
-											<img style={{maxHeight: '100%', maxWidth: '100%'}} src={`/${icons(`./${char.image}`)}`} />
+											<img style={{maxHeight: '100%', maxWidth: '100%'}} src={icons(`./${char.image}`)} />
 										</IconWrapper>
 									)
 								})}
