@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BreadCrumbs, StyledActiveNavLink } from '../../style';
 
 const GameCrumbs = (props) => {
-	const { gameAlias, match } = props;
+	const { gameAlias, regionData, match } = props;
 	return(
 		<BreadCrumbs>
 			<StyledActiveNavLink
@@ -16,7 +16,7 @@ const GameCrumbs = (props) => {
 				exact
 				to={`/${gameAlias}/${match.params.region}`}
 			>
-				{match.params.region.charAt(0).toUpperCase() + match.params.region.slice(1)}
+				{regionData[match.params.region] && regionData[match.params.region].region_name}
 			</StyledActiveNavLink>}
 			{match.params.id && <StyledActiveNavLink
 				exact
@@ -31,6 +31,7 @@ const GameCrumbs = (props) => {
 export default GameCrumbs;
 
 GameCrumbs.propTypes = {
+	regionData: PropTypes.object,
 	gameAlias: PropTypes.string,
 	match: PropTypes.object
 }

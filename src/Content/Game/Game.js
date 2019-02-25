@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ContentWrapper, ContentMain } from '../../style';
 
 import GameRoot from './GameRoot';
-import GameCrumbs from './GameCrumbs';
+import CrumbsContainer from './CrumbsContainer';
 import { RegionContainer } from './Region';
 
 class Game extends Component {
@@ -44,9 +44,9 @@ class Game extends Component {
 		return(
 			<ContentWrapper>
 				<Switch>
-					<Route path={`${match.url}/:region/:id`} render={(props) => <GameCrumbs {...props} gameAlias={gameAlias} />} />
-					<Route path={`${match.url}/:region`} render={(props) => <GameCrumbs {...props} gameAlias={gameAlias} />} />
-					<Route path={`${match.url}`} render={(props) => <GameCrumbs {...props} gameAlias={gameAlias}/>} />
+					<Route path={`${match.url}/:region/:id`} render={(props) => <CrumbsContainer {...props} gameAlias={gameAlias} />} />
+					<Route path={`${match.url}/:region`} render={(props) => <CrumbsContainer {...props} gameAlias={gameAlias} />} />
+					<Route path={`${match.url}`} render={(props) => <CrumbsContainer {...props} gameAlias={gameAlias}/>} />
 				</Switch>
 				<ContentMain>
 					<Switch>

@@ -8,6 +8,7 @@ import { HeaderContainer } from './Header';
 import { AsideContainer } from './Aside';
 import { HomeContainer, GameContainer, Players, Contribute } from './Content';
 import Callback from './Callback';
+import Catch from './Catch';
 
 const auth = new Auth();
 
@@ -76,6 +77,7 @@ class App extends Component {
 						<Route path="/:game" render={props => {
 							return <GameContainer {...props} />
 						}} />
+						<Route component={Catch} />
 					</Switch>
 				</Main>
 			</AppRoot>

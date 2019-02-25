@@ -37,7 +37,7 @@ const PreviewRankingTable = ({rankings}) => {
 								{rank.played_characters && rank.played_characters.map((char, i) => {
 									return(
 										<IconWrapper key={i}>
-											<img style={{maxHeight: '100%', maxWidth: '100%'}} src={icons(`./${char.character_image}`)} />
+											<img style={{maxHeight: '100%', maxWidth: '100%'}} src={`/${icons(`./${char.character_image}`)}`} />
 										</IconWrapper>
 									)
 								})}
