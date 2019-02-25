@@ -1,0 +1,6 @@
+{
+	"root": "dist/build",
+	"routes": {
+	"/**": "index.html"
+	}
+}
