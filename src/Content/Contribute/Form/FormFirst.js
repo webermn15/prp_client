@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormButton, WarningText, FormHeaderContainer, FormHeader, FieldContainer, FieldContent, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect, ReactCreatableSelect } from './formstyles';
+import { FormButton, WarningText, FormHeaderContainer, FormHeader, FieldContainer, FieldContent, FormLabel, InputWrapper, FieldTextWrapper, ReactSelect, ReactAsyncSelect } from './formstyles';
 import { WarningIcon } from '../../../style';
 
 const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionChange, regionOptions, regionLevels, regionLevel, handleNewRegion, warning, submitFirst}) => {
@@ -33,12 +33,14 @@ const FormFirst = ({game, handleGameChange, gamesOptions, region, handleRegionCh
 			<FieldContainer>
 				<InputWrapper style={{minWidth: '16rem'}}>
 					<FormLabel htmlFor="region">Select or create region:</FormLabel>
-					<ReactCreatableSelect
+					<ReactAsyncSelect
 						value={region}
 						name="region"
 						onChange={handleRegionChange}
-						isDisabled={game ? false : true}
-						options={regionOptions}
+						loadOptions={regionOptions}
+						noOptionsMessage={() => null}
+						arrowRenderer={() => null}
+						placeholder="Create or select region..."
 						className="form-select-container"
 						classNamePrefix="form-select"
 					/>
@@ -83,7 +85,7 @@ FormFirst.propTypes = {
 	gamesOptions: PropTypes.array,
 	region: PropTypes.object,
 	handleRegionChange: PropTypes.func,
-	regionOptions: PropTypes.array,
+	regionOptions: PropTypes.func,
 	regionLevel: PropTypes.object,
 	regionLevels: PropTypes.array,
 	handleNewRegion: PropTypes.func,

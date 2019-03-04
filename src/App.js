@@ -74,7 +74,7 @@ class App extends Component {
 						<Route path="/players/" render={props => {
 							return <Players {...props} />
 						}} />
-						<Route path="/:game" render={props => {
+						<Route path="/:game(ssbm|ssbu)" render={props => {
 							return <GameContainer {...props} />
 						}} />
 						<Route component={Catch} />

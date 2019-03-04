@@ -1,9 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-
 process.env.PWD = process.cwd();
-console.log('PWD process: ', process.env.PWD);
 
 const port = process.env.PORT || 3001;
 

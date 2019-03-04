@@ -9,7 +9,6 @@ const LOGOUT_USER = 'LOGOUT_USER';
 // action creators
 export const authUserSuccess = credentials => {
 	const { accessToken, idToken, expiresIn, idTokenPayload } = credentials;
-	console.log('authUserSuccess action creator, credentials: ', credentials);
 	return {
 		type: AUTH_SUCCESS,
 		accessToken,
@@ -20,7 +19,7 @@ export const authUserSuccess = credentials => {
 }
 
 export const authUserFail = err => {
-	console.log('authUserFail action creator: ', err)
+	console.log(err);
 	return {
 		type: AUTH_FAIL
 	}

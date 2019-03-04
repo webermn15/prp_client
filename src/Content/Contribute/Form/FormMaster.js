@@ -72,11 +72,12 @@ class FormMaster extends Component {
 		}
 	}
 
-	requestRegions = async query => {
+	requestMatchingRegions = async inputValue => {
+		const jsonQuery = {'match': inputValue.toLowerCase()}
 		try {
-			const response = await fetch(`${process.env.API_URL}/api/regions/game`, {
+			const response = await fetch(`${process.env.API_URL}/api/regions/match`, {
 				method: 'POST',
-				body: JSON.stringify(query),
+				body: JSON.stringify(jsonQuery),
 				headers: {
 					'Content-Type': 'application/json'
 				}
@@ -86,11 +87,13 @@ class FormMaster extends Component {
 				console.log('error requesting regions for game: ', response);
 			}
 			else {
-				this.setState({...body});
+				const { regions } = body;
+				return regions;
 			}
 		}
 		catch (e) {
 			console.log(e);
+			return []
 		}
 	}
 
@@ -174,7 +177,6 @@ class FormMaster extends Component {
 	}
 
 	handleGameChange = game => {
-		const jsonQuery = {'gameAlias': game.value}
 		const ranks = [
 			{
 				sponsor_prefix: '',
@@ -202,8 +204,7 @@ class FormMaster extends Component {
 				played_characters: ''
 			}
 		]
-		this.setState({game, region: null, warning: null, ranks: ranks});
-		this.requestRegions(jsonQuery);
+		this.setState({game, warning: null, ranks: ranks});
 	}
 
 	handleRegionChange = region => {
@@ -330,11 +331,14 @@ class FormMaster extends Component {
 
 	submitFirst = e => {
 		e.preventDefault();
-		const { game, region } = this.state;
+		const { game, region, regionLevel } = this.state;
 		const jsonQuery = {'gameAlias': game.value}
 		this.requestGameCharacters(jsonQuery);
 		if (!game || !region) {
 			this.setState({warning: 'You must select both game and region.'});
+		}
+		else if (region.hasOwnProperty('__isNew__') && !regionLevel) {
+			this.setState({warning: 'Select a region size.'})
 		}
 		else {
 			this.setState({formProgress: 'second', warning: null})
@@ -365,7 +369,7 @@ class FormMaster extends Component {
 	}
 
 	render() {
-		const { regions, game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal, submitting, successfulSubmit } = this.state;
+		const { game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal, submitting, successfulSubmit } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}));
 		return(
@@ -380,7 +384,7 @@ class FormMaster extends Component {
 									gamesOptions={gamesOptions}
 									region={region}
 									handleRegionChange={this.handleRegionChange}
-									regionOptions={regions}
+									regionOptions={this.requestMatchingRegions}
 									regionLevel={regionLevel}
 									regionLevels={regionLevels}
 									handleNewRegion={this.handleNewRegion}

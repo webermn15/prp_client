@@ -4,6 +4,7 @@ import { ContentBody, ContentHeader, HeaderText, Button } from '../../style';
 import { FieldContainer, FormHeaderContainer, FormHeader, InputWrapper, FormLabel, StyledTextInput } from '../Contribute/Form/formstyles';
 
 import PlayerSearchResults from './PlayerSearchResults';
+import AlphabeticBrowse from './AlphabeticBrowse';
 
 const StyledForm = styled.form`
 	display: flex;
@@ -62,6 +63,7 @@ class PlayerRoot extends Component {
 					</div>
 				</ContentHeader>
 				<ContentBody>
+					<AlphabeticBrowse {...this.props}/>
 					<FieldContainer style={{flexDirection: 'column'}}>
 						<FormHeaderContainer>
 							<FormHeader>
