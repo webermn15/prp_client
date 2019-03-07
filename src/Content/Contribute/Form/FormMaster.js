@@ -120,10 +120,11 @@ class FormMaster extends Component {
 	}
 
 	requestMatchingPlayers = async inputValue => {
-		const { game } = this.state
-		const jsonQuery = {'gameAlias': game.value, 'match': inputValue.toLowerCase()}
+		// const { game } = this.state
+		// const jsonQuery = {'gameAlias': game.value, 'match': inputValue.toLowerCase()}
+		const jsonQuery = {'match': inputValue.toLowerCase()}
 		try {
-			const response = await fetch(`${process.env.API_URL}/api/players/game/match`, {
+			const response = await fetch(`${process.env.API_URL}/api/players/match`, {
 				method: 'POST',
 				body: JSON.stringify(jsonQuery),
 				headers: {
@@ -137,6 +138,7 @@ class FormMaster extends Component {
 			}
 			else {
 				const { matchedPlayers } = body;
+				console.log(matchedPlayers);
 				return matchedPlayers;
 			}
 		}
@@ -300,7 +302,7 @@ class FormMaster extends Component {
 		else if (fieldName === 'date') {
 			cleared = new Date
 		}
-		this.setState({[fieldName]: cleared, formProgress: form, ranks: ranks});
+		this.setState({[fieldName]: cleared, formProgress: form, ranks: ranks, warning: null});
 	}
 
 	showPreview = e => {
@@ -315,7 +317,7 @@ class FormMaster extends Component {
 	}
 
 	closePreview = () => {
-		this.setState({showModal: false});
+		this.setState({showModal: false, warning: null});
 	}
 
 	validateRanks = () => {
@@ -372,6 +374,7 @@ class FormMaster extends Component {
 		const { game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal, submitting, successfulSubmit } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}));
+		console.log(this.state);
 		return(
 			<FormContainer>
 				{(() => {

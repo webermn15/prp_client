@@ -7,6 +7,7 @@ import DetailMarkdown from './DetailMarkdown';
 import RankField from './RankField';
 import PreviewModal from './PreviewModal';
 import Submitting from './Submitting';
+import PlayerOption from './PlayerOption';
 
 export {
 	FormField,
@@ -17,5 +18,6 @@ export {
 	DetailMarkdown,
 	RankField,
 	PreviewModal,
-	Submitting
+	Submitting,
+	PlayerOption
 }

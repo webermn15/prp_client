@@ -12,7 +12,7 @@ const Players = (props) => {
 		<ContentWrapper style={{paddingTop: '1rem'}}>
 			<ContentMain>
 				<Switch>
-					<Route path={`${match.url}/:id(1-0)`} render={(props) => <PlayerContainer {...props} />} />
+					<Route path={`${match.url}/:id([0-9])`} render={(props) => <PlayerContainer {...props} />} />
 					<Route path={`${match.url}`} render={(props) => <PlayerRoot {...props} url={match.url} />} />
 				</Switch>
 			</ContentMain>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ReactSelect, ReactAsyncSelect, InputWrapper } from '../formstyles';
 import { SvgButtonContainer, RemoveIcon } from '../../../../style';
+import PlayerOption from './PlayerOption';
 
 const RankContainer = styled.div`
 	position: relative;
@@ -47,6 +48,7 @@ const RankField = ({ind, playerData, characters, matchPlayers, handleTagChange, 
 			</NewIndicatorBeforeElement>)}
 			<InputWrapper style={{minWidth: '15rem', maxWidth: '15rem'}}>
 				<ReactAsyncSelect
+					components={{Option: PlayerOption}}
 					value={player_tag}
 					name="tag"
 					onChange={handleTagChange}

@@ -8,6 +8,7 @@ import BreadCrumbs from './BreadCrumbs';
 import Button from './Button';
 
 // sidebar content and navigation
+import AlphabeticBrowse from './AlphabeticBrowse';
 import Aside from './Aside';
 import AsideNavAnchor from './AsideNavAnchor';
 import ExpandCollapseButton from './ExpandCollapseButton';
@@ -24,9 +25,12 @@ import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
 import SectionMain from './SectionMain';
 
+import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
+
+// lists and items
 import UnorderedList from './UnorderedList';
 import ListItem from './ListItem';
-import { TableRow, TableCell, TableCellFirst, TableCellLast } from './Table';
+import RankingCard from './RankingCard';
 
 // miscellaneous- icons, modals, etc
 import StyledSvgLogo from './StyledSvgLogo';
@@ -110,10 +114,12 @@ export {
 	ContentHeader,
 	ContentBody,
 	SectionMain,
+	AlphabeticBrowse,
 	Aside,
 	AsideNavAnchor,
 	UnorderedList,
 	ListItem,
+	RankingCard,
 	TableRow,
 	TableCell,
 	TableCellFirst,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ContentHeader, ContentBody, HeaderText, NavLink, UnorderedList, ListItem, SubSubHeaderText } from '../../../style';
 import { RankingTitle } from '../GameRoot';
 
-const RegionRoot = ({ regionAlias, regionData, url }) => {
+const RegionRoot = ({regionAlias, regionData, url}) => {
 	return(
 		<div>
 			<ContentHeader>
