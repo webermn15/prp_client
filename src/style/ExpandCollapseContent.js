@@ -5,6 +5,7 @@ const ExpandCollapseContent = styled.div`
 	display: none;
 	text-align: left;
 	margin: 0 auto;
+	background-color: ${({theme}) => theme.palette.offwhite};
 	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
 `
 

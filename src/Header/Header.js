@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { NavLink, Button } from '../style';
+import { Button } from '../style';
+
+// import SiteLogo from '../../dist/static/prplogo.png';
 
 const StyledHeader = styled.header`
 	flex-shrink: 0;
@@ -32,9 +34,6 @@ class Header extends Component {
 		const { authenticated } = this.props.userInfo;
 		return(
 			<StyledHeader>
-				<NavLink style={{fontSize: '1rem'}} to="/">
-					Home
-				</NavLink>
 				{
 					!authenticated && (
 						<Button

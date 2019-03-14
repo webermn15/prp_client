@@ -138,7 +138,6 @@ class FormMaster extends Component {
 			}
 			else {
 				const { matchedPlayers } = body;
-				console.log(matchedPlayers);
 				return matchedPlayers;
 			}
 		}
@@ -374,7 +373,6 @@ class FormMaster extends Component {
 		const { game, region, date, title, detail, ranks, characters, regionLevels, regionLevel, formProgress, warning, showModal, submitting, successfulSubmit } = this.state;
 		const { gamesInfo } = this.props;
 		const gamesOptions = gamesInfo.map(game => ({value: game.game_alias, label: game.game_name}));
-		console.log(this.state);
 		return(
 			<FormContainer>
 				{(() => {

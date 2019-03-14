@@ -1,7 +1,40 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { NavLink, Aside, AsideNavAnchor, ExpandCollapseButton, ExpandCollapseContent, StyledSvgLogo } from '../style';
+import { NavLink, Button, Aside, AsideNavAnchor, ExpandCollapseButton, ExpandCollapseContent } from '../style';
 
+import SiteLogo from './SiteLogo';
+
+const NavigationContainer = styled.nav`
+	width: 90%;
+	margin: 0 auto;
+	padding: 0.6rem;
+	border-radius: 0.6rem;
+	background-color: ${({theme}) => theme.palette.primary[1]}
+`
+
+const SearchForm = styled.form`
+	background-color: ${({theme}) => theme.palette.offwhite};
+	border-radius: 0.3rem;
+	margin-bottom: 0.6rem;
+`
+
+const StyledSearchInput = styled.input`
+  padding: 0.6rem;
+  margin: 0.3rem 0;
+  border-radius: 0.3rem;
+  border: 1px solid ${({theme}) => theme.palette.primary[0]};
+
+  &:focus {
+    box-shadow: 0 0 0 2px ${({theme}) => theme.palette.focused};
+    outline: none;
+  }
+`
+
+const SearchButton = styled(Button)`
+	border: none;
+	margin-bottom: 0.3rem;
+`
 
 class AsideNav extends Component {
 	constructor(props) {
@@ -18,12 +51,12 @@ class AsideNav extends Component {
 	render() {
 		return(
 			<Aside>
-				<div style={{margin: '2rem auto', height: '4rem', width: '4rem'}}>
-					<NavLink to='/' >
-						<StyledSvgLogo className='svg-logo'/>
-					</NavLink>
-				</div>
-				<nav style={{width: '90%', margin: '0 auto'}}>
+				<SiteLogo/>
+				<NavigationContainer>
+					<SearchForm>
+						<StyledSearchInput name="search" placeholder="Search..." />
+						<SearchButton>Search</SearchButton>
+					</SearchForm>
 					<ExpandCollapseButton
 						style={{fontWeight: '700'}}
 						className={this.state.expand ? 'expanded' : null}
@@ -57,6 +90,7 @@ class AsideNav extends Component {
 						</ul>
 					</ExpandCollapseContent>
 					<AsideNavAnchor
+						style={{margin: '0.6rem 0'}}
 						to="/players"
 					>
 						<span>Players</span>
@@ -66,7 +100,7 @@ class AsideNav extends Component {
 					>
 						<span>Contribute</span>
 					</AsideNavAnchor>
-				</nav>
+				</NavigationContainer>
 			</Aside>
 		)
 	}

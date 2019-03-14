@@ -14,8 +14,9 @@ const AsideNavAnchor = styled(Link)`
 	margin: 0;
 	border: none;
 	border-bottom: 1px solid ${({theme}) => theme.palette.primary[0]};
-	background-color: ${({theme}) => theme.palette.offwhite};
-	color: ${({theme}) => theme.palette.primary[1]};
+	border-radius: 0.3rem;
+	background-color: ${({theme}) => theme.palette.primary[1]};
+	color: ${({theme}) => theme.palette.offwhite};
 
 	&:hover,
 	&:active {
